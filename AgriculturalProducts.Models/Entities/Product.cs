@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+
+namespace AgriculturalProducts.Models
+{
+    public class Product : BaseEntity
+    {
+        public string Code { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public int View { get; set; }
+        [Required]
+        public int Status { get; set; }
+        [Required]
+        public decimal Cost { get; set; }
+        //Khối lượng
+        [Required]
+        public decimal Mass { get; set; }
+        [Required]
+        public string ShortDescription { get; set; }
+        [Required]
+        public string FullDescription { get; set; }
+        [Required]
+        public int Quantity { get; set; }
+        [Required]
+        public Guid CategoryId { get; set; }
+        public Categery Categery { get; set; }
+        [Required]
+        public Guid ProviderId { get; set; }
+        public Provider Provider { get; set; }
+        [Required]
+        public Guid TypeTypeId { get; set; }
+        public ProductType Type { get; set; }
+        [Required]
+        public Guid SaleId { get; set; }
+        public Sale Sale { get; set; }
+        [Required]
+        public Guid UnitId { get; set; }
+        public Unit Unit { get; set; }
+    }
+}
