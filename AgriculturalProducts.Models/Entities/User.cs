@@ -9,6 +9,16 @@ namespace AgriculturalProducts.Models
 {
     public class User : BaseEntity
     {
+        private string id;
+
+        public User(string firstName, string lastName, string id, string userName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            this.id = id;
+            UserName = userName;
+        }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string IdentityId { get; set; }

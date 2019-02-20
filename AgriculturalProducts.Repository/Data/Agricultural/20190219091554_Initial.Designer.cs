@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AgriculturalProducts.Repository.Data.Agricultural
 {
-    [DbContext(typeof(AgriculturalProductsContext))]
+    [DbContext(typeof(ApplicationContext))]
     [Migration("20190219091554_Initial")]
     partial class Initial
     {

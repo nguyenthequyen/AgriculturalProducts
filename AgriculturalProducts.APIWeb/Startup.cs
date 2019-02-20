@@ -36,7 +36,7 @@ namespace AgriculturalProducts.APIWeb
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AgriculturalProducts.Repository")));
-            services.AddDbContext<AgriculturalProductsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AgriculturalProducts.Repository")));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AgriculturalProducts.Repository")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

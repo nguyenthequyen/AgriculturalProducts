@@ -6,9 +6,9 @@ using System.Text;
 
 namespace AgriculturalProducts.Repository
 {
-    public class AgriculturalProductsContext : DbContext
+    public class ApplicationContext : DbContext
     {
-        public AgriculturalProductsContext(DbContextOptions<AgriculturalProductsContext> options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
 
         }

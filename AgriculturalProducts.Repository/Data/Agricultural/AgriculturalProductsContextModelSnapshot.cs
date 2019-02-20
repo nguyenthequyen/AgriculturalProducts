@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AgriculturalProducts.Repository.Data.Agricultural
 {
-    [DbContext(typeof(AgriculturalProductsContext))]
+    [DbContext(typeof(ApplicationContext))]
     partial class AgriculturalProductsContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
