@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AgriculturalProducts.APIWeb.Helpers;
 using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 using Microsoft.AspNetCore.Builder;
@@ -39,11 +40,7 @@ namespace AgriculturalProducts.APIWeb
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("AgriculturalProducts.Repository")));
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("AgriculturalProducts.Repository")));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProviderRepository, ProviderRepository>();
-            services.AddScoped<IProviderService, ProviderService>();
+            services.RegisterServiceAndRespository();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

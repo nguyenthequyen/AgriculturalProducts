@@ -1,7 +1,8 @@
 ﻿using AgriculturalProducts.Models;
+using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 
-namespace AgriculturalProducts.Repository
+namespace AgriculturalProducts.Services
 {
     public class ProductService : BaseService<Product>, IProductService
     {
