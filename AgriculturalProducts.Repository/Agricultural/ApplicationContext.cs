@@ -22,5 +22,10 @@ namespace AgriculturalProducts.Repository
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            throw new UnintentianalCodeFirstException();
+        }
     }
 }
