@@ -8,10 +8,10 @@ namespace AgriculturalProducts.Repository
 {
     public class ApplicationContext : DbContext
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
-        {
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+           : base(options)
+        { }
 
-        }
         public DbSet<Categery> Categeries { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -22,10 +22,5 @@ namespace AgriculturalProducts.Repository
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            throw new UnintentianalCodeFirstException();
-        }
     }
 }

@@ -10,7 +10,7 @@ using Web.Api.Infrastructure.Identity;
 namespace AgriculturalProducts.Repository.Data.Identity
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20190219091546_Initial")]
+    [Migration("20190221164143_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

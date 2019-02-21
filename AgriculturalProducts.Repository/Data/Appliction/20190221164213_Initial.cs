@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AgriculturalProducts.Repository.Data.Agricultural
+namespace AgriculturalProducts.Repository.Data.Appliction
 {
     public partial class Initial : Migration
     {

@@ -4,14 +4,16 @@ using AgriculturalProducts.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AgriculturalProducts.Repository.Data.Agricultural
+namespace AgriculturalProducts.Repository.Data.Appliction
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class AgriculturalProductsContextModelSnapshot : ModelSnapshot
+    [Migration("20190221164213_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -4,36 +4,35 @@ using System.Linq;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
+using AgriculturalProducts.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace AgriculturalProducts.API.Controllers
+namespace AgriculturalProducts.APIWeb.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class ProviderController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IProviderService _providerService;
         private readonly ILogger _logger;
         private readonly ApplicationContext _applicationContext;
-        public AccountController(
-            IProductService productService,
+        public ProviderController(
+            IProviderService providerService,
             ApplicationContext applicationContext,
-            ILogger<AccountController> logger)
+            ILogger<ProviderController> logger)
         {
             _applicationContext = applicationContext;
             _logger = logger;
-            _productService = productService;
+            _providerService = providerService;
         }
         [HttpPost]
-        [Route("insert-product")]
-        public async Task<IActionResult> InsertProduct(Provider product)
+        [Route("insert-provider")]
+        public async Task<IActionResult> InsertProduct(Provider provider)
         {
-            _applicationContext.Add(product);
-            _applicationContext.SaveChanges();
-            //_productService.InsertProduct(product);
-            _logger.LogInformation("TestLog");
+            _providerService.Add(provider);
+            _logger.LogInformation("Test Log");
             return Ok();
         }
     }
