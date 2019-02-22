@@ -17,20 +17,16 @@ namespace AgriculturalProducts.APIWeb
         private static string _environmentName;
         public static void Main(string[] args)
         {
-          
+
             CreateWebHostBuilder(args).UseSerilog().Build().Run();
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("appsettings.json")
                         .AddJsonFile($"appsettings.{_environmentName}.json", optional: true, reloadOnChange: true)
                         .Build();
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel
-                .Information()
-                .MinimumLevel.Override("SerilogDemo", LogEventLevel.Information)
-                .ReadFrom.Configuration(configuration)
-                .WriteTo.File(@"Logs\log.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+            var log = new LoggerConfiguration()
+                        .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                        .CreateLogger();
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

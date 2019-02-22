@@ -10,12 +10,12 @@ namespace AgriculturalProducts.Services
     public class BaseService<TEntity> : IBaseService<TEntity>
         where TEntity : BaseEntity, new()
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IBaseRepository<TEntity> _reponsitory;
+        private readonly IUnitOfWork _unitOfWork;
         public BaseService(IUnitOfWork unitOfWork, IBaseRepository<TEntity> reponsitory)
         {
-            _unitOfWork = unitOfWork;
             _reponsitory = reponsitory;
+            _unitOfWork = unitOfWork;
         }
         public void Add(TEntity entity)
         {

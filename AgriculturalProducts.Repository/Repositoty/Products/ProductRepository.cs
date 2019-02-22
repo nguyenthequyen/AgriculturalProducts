@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Repository
 {
@@ -13,9 +14,29 @@ namespace AgriculturalProducts.Repository
             _applicationContext = applicationContext;
         }
 
+        public void DeleteProduct(Product provider)
+        {
+            Delete(provider);
+        }
+
+        public async Task<Product> FindProductById(Guid id)
+        {
+            return await GetFirstOrDefault(id);
+        }
+
+        public IEnumerable<Product> GetAllProduct()
+        {
+            return GetAllRecords();
+        }
+
         public void InsertProduct(Product product)
         {
-             _applicationContext.Products.Add(product);
+            Add(product);
+        }
+
+        public void UpdateProduct(Product provider)
+        {
+            Update(provider);
         }
     }
 }

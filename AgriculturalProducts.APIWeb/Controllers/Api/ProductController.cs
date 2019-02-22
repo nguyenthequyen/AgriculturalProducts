@@ -13,54 +13,54 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProviderController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly IProviderService _providerService;
+        private readonly IProductService _productService;
         private readonly ILogger _logger;
         private readonly ApplicationContext _applicationContext;
-        public ProviderController(
-            IProviderService providerService,
+        public ProductController(
+            IProductService productService,
             ApplicationContext applicationContext,
             ILogger<ProviderController> logger)
         {
             _applicationContext = applicationContext;
             _logger = logger;
-            _providerService = providerService;
+            _productService = productService;
         }
         [HttpPost]
-        [Route("insert-provider")]
-        public async Task<IActionResult> InsertProduct(Provider provider)
+        [Route("insert-product")]
+        public async Task<IActionResult> InsertProduct(Product provider)
         {
-            _providerService.InsertProvider(provider);
+            _productService.Add(provider);
             _logger.LogInformation("Test Log");
             return Ok();
         }
         [HttpPost]
-        [Route("update-provider")]
-        public async Task<IActionResult> UpdateProvider(Provider provider)
+        [Route("update-product")]
+        public async Task<IActionResult> UpdateProvider(Product provider)
         {
-            _providerService.UpdateProvider(provider);
+            _productService.Update(provider);
             return Ok();
         }
         [HttpPost]
-        [Route("get-provider")]
+        [Route("delete-product")]
+        public async Task<IActionResult> DeleteProvider(Product provider)
+        {
+            _productService.Delete(provider);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("get-product")]
         public async Task<IActionResult> GetAllProvider()
         {
-            var provider = _providerService.GetAllProvider();
+            var provider = _productService.GetAllRecords();
             return Ok();
         }
         [HttpPost]
-        [Route("delete-provider")]
-        public async Task<IActionResult> DeleteProvider(Provider provider)
-        {
-            _providerService.DeleteProvider(provider);
-            return Ok();
-        }
-        [HttpPost]
-        [Route("find-provider")]
+        [Route("find-product")]
         public async Task<IActionResult> FindProductById(Guid id)
         {
-            await _providerService.FindProviderById(id);
+            await _productService.GetFirstOrDefault(id);
             return Ok();
         }
     }

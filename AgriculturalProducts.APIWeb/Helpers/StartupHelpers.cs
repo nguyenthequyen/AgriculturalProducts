@@ -1,6 +1,11 @@
 ﻿using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
+using AutoMapper.Configuration;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +22,15 @@ namespace AgriculturalProducts.APIWeb.Helpers
             //Repository
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
+            services.AddScoped<IRolesRepository, RolesRepository>();
+            services.AddScoped<IUnitRepository, UnitRepository>();
             //Services
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProviderService, ProviderService>();
+            services.AddScoped<IProductTypeService, ProductTypeService>();
+            services.AddScoped<IRolesService, RolesService>();
+            services.AddScoped<IUnitService, UnitService>();
         }
     }
 }

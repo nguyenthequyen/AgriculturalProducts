@@ -14,12 +14,12 @@ namespace AgriculturalProducts.Repository
         {
             _applicationContext = applicationContext;
         }
-        public void Add(TEntity entity)
+        public virtual void Add(TEntity entity)
         {
             _applicationContext.Set<TEntity>().Add(entity);
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
             _applicationContext.Set<TEntity>().Remove(entity);
         }
@@ -34,7 +34,7 @@ namespace AgriculturalProducts.Repository
             return await _applicationContext.Set<TEntity>().FindAsync(recordId);
         }
 
-        public void Save()
+        public virtual  void Save()
         {
             _applicationContext.SaveChanges();
         }
