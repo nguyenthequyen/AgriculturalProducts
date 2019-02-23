@@ -8,7 +8,7 @@ using AgriculturalProducts.Web.Admin.Models;
 
 namespace AgriculturalProducts.Web.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
         public IActionResult Index()
         {
@@ -26,14 +26,6 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         public IActionResult Product()
-        {
-            return View();
-        }
-        public IActionResult Provider()
-        {
-            return View();
-        }
-        public IActionResult CategoryType()
         {
             return View();
         }

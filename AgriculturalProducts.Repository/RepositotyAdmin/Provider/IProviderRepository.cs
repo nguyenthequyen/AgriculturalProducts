@@ -13,5 +13,6 @@ namespace AgriculturalProducts.Repository
         IEnumerable<Provider> GetAllProvider();
         void DeleteProvider(Provider provider);
         Task<Provider> FindProductById(Guid id);
+        int ProductStatistics();
     }
 }

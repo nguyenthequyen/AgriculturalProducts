@@ -14,6 +14,6 @@ namespace AgriculturalProducts.Services
         IEnumerable<Provider> GetAllProvider();
         void DeleteProvider(Provider provider);
         Task<Provider> FindProviderById(Guid id);
-
+        int ProviderStatistics();
     }
 }

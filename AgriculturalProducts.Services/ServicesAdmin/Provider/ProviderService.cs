@@ -40,6 +40,11 @@ namespace AgriculturalProducts.Services
             Add(provider);
         }
 
+        public int ProviderStatistics()
+        {
+            return _providerRepository.ProductStatistics();
+        }
+
         public void UpdateProvider(Provider provider)
         {
             provider.ModifyDate = DateTime.Now;

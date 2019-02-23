@@ -1,6 +1,7 @@
 ﻿using AgriculturalProducts.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,11 @@ namespace AgriculturalProducts.Repository
         public void InsertProduct(Provider provider)
         {
             Add(provider);
+        }
+
+        public int ProductStatistics()
+        {
+            return _applicationContext.Providers.Count();
         }
 
         public void UpdateProvider(Provider provider)

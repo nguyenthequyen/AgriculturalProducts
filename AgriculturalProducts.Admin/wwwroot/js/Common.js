@@ -1,5 +1,6 @@
 ﻿var PRODUCT_STATISTICS = "/api/homeadmin/product-statistics";
 var INSERT_PRODUCT = "/api/productadmin/insert-product";
+var PROVIDER_STATISTICS = "api/homeadmin/provider-statistics";
 
 var renderAPI = {
     postAPI: function (url, async, method, data, callbackSuccess, callbackError) {
@@ -8,6 +9,7 @@ var renderAPI = {
             url: url,
             dataType: 'json',
             data: data,
+            async: async,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Beare" + localStorage.getItem("access_token"));
             },
