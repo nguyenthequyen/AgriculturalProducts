@@ -1,0 +1,123 @@
+﻿<div class="modal fade bd-product-manager-modal-lg" tabindex="-1" role="dialog" aria-labelledby="product-manager" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productManager">Thêm sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal m-t-20" id="insertProduct" action="index.html">
+                    <div class="row p-b-30">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Tên sản phẩm</i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg product-name" placeholder="Tên sản phẩm" aria-label="ProductName" aria-describedby="basic-addon1" required="">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Mã sản phẩm</i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg product-code" placeholder="Mã sản phẩm" aria-label="ProductCode" aria-describedby="basic-addon1" required="">
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Số lượng</i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg product-quanlity" placeholder="Số lượng" aria-label="ProductQuanlity" aria-describedby="basic-addon1" required="">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Đơn giá</i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg product-cost" placeholder="Đơn giá" aria-label="ProductCost" aria-describedby="basic-addon1" required="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Tình trạng</i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg product-status" placeholder="Tình trạng" aria-label="ProductStatus" aria-describedby="basic-addon1" required="">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Khối lượng</i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg product-mass" placeholder="Khối lượng" aria-label="ProductMass" aria-describedby="basic-addon1" required="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Danh mục sản phẩm</i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg product-category" placeholder="Danh mục sản phẩm" aria-label="ProductCategory" aria-describedby="basic-addon1" required="">
+                                        <input type="text" class="form-control form-control-lg product-category-id" hidden placeholder="Danh mục sản phẩm" aria-label="ProductCategoryId" aria-describedby="basic-addon1" required="">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Loại sản phẩm</i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg product-type" placeholder="Loại sản phẩm" aria-label="ProductType" aria-describedby="basic-addon1" required="">
+                                        <input type="text" class="form-control form-control-lg product-type-id" hidden placeholder="Loại sản phẩm" aria-label="ProductTypeId" aria-describedby="basic-addon1" required="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Nhà cung cấp</i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg provider" placeholder="Nhà cung cấp" aria-label="Provider" aria-describedby="basic-addon1" required="">
+                                        <input type="text" class="form-control form-control-lg provider-id" hidden placeholder="Nhà cung cấp" aria-label="ProviderId" aria-describedby="basic-addon1" required="">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Khuyến mãi</i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg product-sale" placeholder="Khuyến mãi" aria-label="ProductSale" aria-describedby="basic-addon1" required="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row border-top border-secondary">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <div class="p-t-20">
+                                    <button class="btn btn-info" id="to-recover" data-dismiss="modal" type="button"><i class="fa fa-lock m-r-5"></i>Hủy bỏ</button>
+                                    <button class="btn btn-success float-right" type="submit">Thêm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

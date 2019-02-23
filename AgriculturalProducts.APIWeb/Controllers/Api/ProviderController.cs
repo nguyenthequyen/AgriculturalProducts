@@ -27,41 +27,6 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
             _logger = logger;
             _providerService = providerService;
         }
-        [HttpPost]
-        [Route("insert-provider")]
-        public async Task<IActionResult> InsertProduct(Provider provider)
-        {
-            _providerService.InsertProvider(provider);
-            _logger.LogInformation("Test Log");
-            return Ok();
-        }
-        [HttpPost]
-        [Route("update-provider")]
-        public async Task<IActionResult> UpdateProvider(Provider provider)
-        {
-            _providerService.UpdateProvider(provider);
-            return Ok();
-        }
-        [HttpPost]
-        [Route("get-provider")]
-        public async Task<IActionResult> GetAllProvider()
-        {
-            var provider = _providerService.GetAllProvider();
-            return Ok();
-        }
-        [HttpPost]
-        [Route("delete-provider")]
-        public async Task<IActionResult> DeleteProvider(Provider provider)
-        {
-            _providerService.DeleteProvider(provider);
-            return Ok();
-        }
-        [HttpPost]
-        [Route("find-provider")]
-        public async Task<IActionResult> FindProductById(Guid id)
-        {
-            await _providerService.FindProviderById(id);
-            return Ok();
-        }
+        
     }
 }

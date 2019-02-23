@@ -28,14 +28,6 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
             _productService = productService;
         }
         [HttpPost]
-        [Route("insert-product")]
-        public async Task<IActionResult> InsertProduct(Product provider)
-        {
-            _productService.Add(provider);
-            _logger.LogInformation("Test Log");
-            return Ok();
-        }
-        [HttpPost]
         [Route("update-product")]
         public async Task<IActionResult> UpdateProvider(Product provider)
         {
