@@ -29,7 +29,7 @@ namespace AgriculturalProducts.API.Controllers
         }
         [HttpPost]
         [Route("insert-product")]
-        public async Task<IActionResult> InsertProduct(Product product)
+        public async Task<IActionResult> InsertProduct(List<Product> product)
         {
             _productService.InsertProduct(product);
             return Ok();

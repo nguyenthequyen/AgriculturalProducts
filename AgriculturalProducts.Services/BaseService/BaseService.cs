@@ -20,13 +20,11 @@ namespace AgriculturalProducts.Services
         public void Add(TEntity entity)
         {
             _reponsitory.Add(entity);
-            _unitOfWork.Commit();
         }
 
         public void Delete(TEntity entity)
         {
             _reponsitory.Delete(entity);
-            _unitOfWork.Commit();
         }
 
         public IEnumerable<TEntity> GetAllRecords()
@@ -42,7 +40,6 @@ namespace AgriculturalProducts.Services
         public void Update(TEntity entity)
         {
             _reponsitory.Update(entity);
-            _unitOfWork.Commit();
         }
     }
 }

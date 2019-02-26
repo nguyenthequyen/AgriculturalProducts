@@ -15,6 +15,10 @@ namespace AgriculturalProducts.Models
         [Required]
         public string Address { get; set; }
         [Required]
+        public string Code { get; set; }
+        [Required]
+        public DateTime DateTimeRegister { get; set; }
+        public DateTime DateTimeStop { get; set; }
         public string Status { get; set; }
     }
 }

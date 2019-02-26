@@ -13,5 +13,6 @@ namespace AgriculturalProducts.Repository
         IEnumerable<ProductType> GetAllProductType();
         void DeleteProductType(ProductType productType);
         Task<ProductType> FindProductById(Guid id);
+        int ProductTypeStatistics();
     }
 }

@@ -17,32 +17,49 @@ namespace AgriculturalProducts.Web.Admin.Controllers
     {
         private readonly IProductService _productService;
         private readonly ApplicationContext _applicationContext;
-        public HomeAdminController(IProductService productService
-            ,ApplicationContext applicationContext)
+        private readonly IProductTypeService _productTypeService;
+        private readonly IProviderService _providerService;
+        private readonly ICategoryService _categoryService;
+        public HomeAdminController(
+            IProductService productService,
+            IProductTypeService productTypeService,
+            IProviderService providerService,
+            ICategoryService categoryService,
+        ApplicationContext applicationContext)
         {
             _productService = productService;
+            _productTypeService = productTypeService;
+            _providerService = providerService;
+            _categoryService = categoryService;
             _applicationContext = applicationContext;
         }
         [HttpPost]
         [Route("product-statistics")]
         public async Task<IActionResult> ProductStatistics()
         {
-            var productStatistics = _applicationContext.Products.Count();
+            var productStatistics = _productService.ProductStatistics();
             return Ok(new Result() { Code = 200, Data = productStatistics, Error = null });
         }
         [HttpPost]
         [Route("provider-statistics")]
         public async Task<IActionResult> ProviderStatistics()
         {
-            var providerStatistics = _applicationContext.Providers.Count();
+            var providerStatistics = _providerService.ProviderStatistics();
             return Ok(new Result() { Code = 200, Data = providerStatistics, Error = null });
         }
         [HttpPost]
-        [Route("insert-product")]
-        public async Task<IActionResult> InsertProduct(Product product)
+        [Route("product-type-statistics")]
+        public async Task<IActionResult> ProductTypeStatistics()
         {
-            _productService.InsertProduct(product);
-            return Ok();
+            var productTypeStatistics = _productTypeService.ProductTypeStatistics();
+            return Ok(new Result() { Code = 200, Data = productTypeStatistics, Error = null });
+        }
+        [HttpPost]
+        [Route("category-statistics")]
+        public async Task<IActionResult> CategoryStatistics()
+        {
+            var categoryStatistics = _categoryService.CategoryStatistics();
+            return Ok(new Result() { Code = 200, Data = categoryStatistics, Error = null });
         }
     }
 }

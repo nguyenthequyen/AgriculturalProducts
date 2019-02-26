@@ -8,8 +8,11 @@ namespace AgriculturalProducts.Models
 {
     public class Rate : BaseEntity
     {
+        [Required]
         public Guid ProductId { get; set; }
+        [Required]
         public Guid UserId { get; set; }
+        [Required]
         public int Quantity { get; set; }
         public Product Product { get; set; }
         public User User { get; set; }

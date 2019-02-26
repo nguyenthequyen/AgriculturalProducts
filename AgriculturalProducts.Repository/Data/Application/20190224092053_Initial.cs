@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AgriculturalProducts.Repository.Data.Appliction
+namespace AgriculturalProducts.Repository.Data.Application
 {
     public partial class Initial : Migration
     {
@@ -14,11 +14,27 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    Code = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categeries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductTypes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Code = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -31,7 +47,10 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     Name = table.Column<string>(nullable: false),
                     Phone = table.Column<string>(nullable: false),
                     Address = table.Column<string>(nullable: false),
-                    Status = table.Column<string>(nullable: false)
+                    Code = table.Column<string>(nullable: false),
+                    DateTimeRegister = table.Column<DateTime>(nullable: false),
+                    DateTimeStop = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,40 +64,11 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sales",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    ModifyDate = table.Column<DateTime>(nullable: false),
-                    IsSale = table.Column<bool>(nullable: false),
-                    Percent = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sales", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Types",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    ModifyDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Types", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,7 +78,8 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    Code = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -137,41 +128,33 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     ShortDescription = table.Column<string>(nullable: false),
                     FullDescription = table.Column<string>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
+                    Sale = table.Column<int>(nullable: false),
                     CategoryId = table.Column<Guid>(nullable: false),
-                    CategeryId = table.Column<Guid>(nullable: true),
                     ProviderId = table.Column<Guid>(nullable: false),
-                    TypeTypeId = table.Column<Guid>(nullable: false),
-                    TypeId = table.Column<Guid>(nullable: true),
-                    SaleId = table.Column<Guid>(nullable: false),
+                    ProductTypeId = table.Column<Guid>(nullable: false),
                     UnitId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Categeries_CategeryId",
-                        column: x => x.CategeryId,
+                        name: "FK_Products_Categeries_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Categeries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_ProductTypes_ProductTypeId",
+                        column: x => x.ProductTypeId,
+                        principalTable: "ProductTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Providers_ProviderId",
                         column: x => x.ProviderId,
                         principalTable: "Providers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Sales_SaleId",
-                        column: x => x.SaleId,
-                        principalTable: "Sales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Types_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "Types",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Products_Units_UnitId",
                         column: x => x.UnitId,
@@ -210,8 +193,8 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Path = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Path = table.Column<string>(nullable: false),
                     ProductId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -259,24 +242,19 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CategeryId",
+                name: "IX_Products_CategoryId",
                 table: "Products",
-                column: "CategeryId");
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductTypeId",
+                table: "Products",
+                column: "ProductTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ProviderId",
                 table: "Products",
                 column: "ProviderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_SaleId",
-                table: "Products",
-                column: "SaleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_TypeId",
-                table: "Products",
-                column: "TypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_UnitId",
@@ -325,13 +303,10 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                 name: "Categeries");
 
             migrationBuilder.DropTable(
+                name: "ProductTypes");
+
+            migrationBuilder.DropTable(
                 name: "Providers");
-
-            migrationBuilder.DropTable(
-                name: "Sales");
-
-            migrationBuilder.DropTable(
-                name: "Types");
 
             migrationBuilder.DropTable(
                 name: "Units");

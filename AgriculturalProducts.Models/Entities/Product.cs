@@ -25,18 +25,16 @@ namespace AgriculturalProducts.Models
         public string FullDescription { get; set; }
         [Required]
         public int Quantity { get; set; }
+        public int Sale { get; set; }
         [Required]
         public Guid CategoryId { get; set; }
-        public Categery Categery { get; set; }
+        public Category Category { get; set; }
         [Required]
         public Guid ProviderId { get; set; }
         public Provider Provider { get; set; }
         [Required]
-        public Guid TypeTypeId { get; set; }
+        public Guid ProductTypeId { get; set; }
         public ProductType Type { get; set; }
-        [Required]
-        public Guid SaleId { get; set; }
-        public Sale Sale { get; set; }
         [Required]
         public Guid UnitId { get; set; }
         public Unit Unit { get; set; }

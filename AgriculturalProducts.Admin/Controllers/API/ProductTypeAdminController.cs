@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace AgriculturalProducts.Web.Admin.Controllers.API
+namespace AgriculturalProducts.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,16 +26,22 @@ namespace AgriculturalProducts.Web.Admin.Controllers.API
         }
         [HttpPost]
         [Route("inssert-product-type")]
-        public async Task<IActionResult> InsertProductType(ProductType productType)
+        public async Task<IActionResult> InsertProductType(List<ProductType> productType)
         {
             _productTypeService.InsertProductType(productType);
             return Ok();
         }
         [HttpPost]
         [Route("update-product-type")]
-        public async Task<IActionResult> UpdateProductType(ProductType provider)
+        public async Task<IActionResult> UpdateProductType(List<Guid> id)
         {
-            _productTypeService.UpdateProductType(provider);
+            List<ProductType> products = new List<ProductType>();
+            foreach (var item in id)
+            {
+                var product = await _productTypeService.FindProductTypeById(item);
+                products.Add(product);
+            }
+            _productTypeService.UpdateProductType(products);
             return Ok();
         }
         [HttpPost]
@@ -47,7 +53,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers.API
         }
         [HttpPost]
         [Route("delete-product-type")]
-        public async Task<IActionResult> DeleteProductType(ProductType provider)
+        public async Task<IActionResult> DeleteProductType(List<ProductType> provider)
         {
             _productTypeService.DeleteProductType(provider);
             return Ok();

@@ -25,9 +25,9 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("insert-product")]
-        public async Task<IActionResult> InsertProduct(Product product)
+        public async Task<IActionResult> InsertProduct(List<Product> product)
         {
-            _productService.Add(product);
+            _productService.InsertProduct(product);
             return Ok();
         }
         [HttpPost]
@@ -38,9 +38,16 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("update-product-type")]
-        public async Task<IActionResult> UpdateProduct(Product provider)
+        public async Task<IActionResult> UpdateProduct(List<Guid> id)
         {
-            _productService.UpdateProduct(provider);
+            List<Product> products = new List<Product>();
+            foreach (var item in id)
+            {
+                var product = await _productService.GetFirstOrDefault(item);
+                products.Add(product);
+
+            }
+            _productService.UpdateProduct(products);
             return Ok();
         }
         [HttpPost]
@@ -52,7 +59,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("delete-product-type")]
-        public async Task<IActionResult> DeleteProduct(Product provider)
+        public async Task<IActionResult> DeleteProduct(List<Product> provider)
         {
             _productService.DeleteProduct(provider);
             return Ok();

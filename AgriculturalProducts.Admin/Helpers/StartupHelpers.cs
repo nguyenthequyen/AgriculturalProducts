@@ -19,12 +19,21 @@ namespace AgriculturalProducts.APIWeb.Helpers
         {
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.RegisterRepository();
+            services.RegisterService();
+        }
+        public static void RegisterRepository(this IServiceCollection services)
+        {
             //Repository
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProviderRepository, ProviderRepository>();
             services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+        }
+        public static void RegisterService(this IServiceCollection services)
+        {
             //Services
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProviderService, ProviderService>();
@@ -32,6 +41,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
     }
 }

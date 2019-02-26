@@ -6,8 +6,11 @@ using System.Text;
 
 namespace AgriculturalProducts.Models
 {
-    public class Categery : BaseEntity
+    public class Category : BaseEntity
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
+        public string Code { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
+using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,7 +27,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("insert-provider")]
-        public async Task<IActionResult> InsertProduct(Provider provider)
+        public async Task<IActionResult> InsertProduct(List<Provider> provider)
         {
             _providerService.InsertProvider(provider);
             _logger.LogInformation("Test Log");
@@ -34,9 +35,15 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("update-provider")]
-        public async Task<IActionResult> UpdateProvider(Provider provider)
+        public async Task<IActionResult> UpdateProvider(List<Guid> id)
         {
-            _providerService.UpdateProvider(provider);
+            List<Provider> providers = new List<Provider>();
+            foreach (var item in id)
+            {
+                var provider = await _providerService.FindProviderById(item);
+                providers.Add(provider);
+            }
+            _providerService.UpdateProvider(providers);
             return Ok();
         }
         [HttpPost]
@@ -48,9 +55,15 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("delete-provider")]
-        public async Task<IActionResult> DeleteProvider(Provider provider)
+        public async Task<IActionResult> DeleteProvider([FromBody] List<Guid> id)
         {
-            _providerService.DeleteProvider(provider);
+            List<Provider> providers = new List<Provider>();
+            foreach (var item in id)
+            {
+                var provider = await _providerService.FindProviderById(item);
+                providers.Add(provider);
+            }
+            _providerService.DeleteProvider(providers);
             return Ok();
         }
         [HttpPost]
@@ -59,6 +72,20 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         {
             await _providerService.FindProviderById(id);
             return Ok();
+        }
+        [HttpPost]
+        [Route("getprovider-paging")]
+        public async Task<IActionResult> GetProviderPageList(PagingParams pagingParams)
+        {
+            var data = _providerService.GetProviderPageList(pagingParams);
+            _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
+            Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
+            var output = new OutPutModel<Provider>
+            {
+                Paging = data.GetHeader(),
+                Items = data.List.ToList(),
+            };
+            return Ok(new Result() { Code = 200, Data = output, Error = null });
         }
     }
 }

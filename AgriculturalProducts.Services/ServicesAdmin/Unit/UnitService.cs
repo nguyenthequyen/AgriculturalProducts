@@ -17,9 +17,13 @@ namespace AgriculturalProducts.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void DeleteUnit(Unit unit)
+        public void DeleteUnit(List<Unit> unit)
         {
-            Delete(unit);
+            foreach (var item in unit)
+            {
+                Delete(item);
+            }
+            _unitOfWork.Commit();
         }
 
         public async Task<Unit> FindUnitById(Guid id)
@@ -32,18 +36,26 @@ namespace AgriculturalProducts.Services
             return GetAllRecords();
         }
 
-        public void InsertUnit(Unit unit)
+        public void InsertUnit(List<Unit> unit)
         {
-            unit.Id = Guid.NewGuid();
-            unit.ModifyDate = DateTime.Now;
-            unit.CreatedDate = DateTime.Now;
-            Add(unit);
+            foreach (var item in unit)
+            {
+                item.Id = Guid.NewGuid();
+                item.ModifyDate = DateTime.Now;
+                item.CreatedDate = DateTime.Now;
+                Add(item);
+            }
+            _unitOfWork.Commit();
         }
 
-        public void UpdateUnit(Unit unit)
+        public void UpdateUnit(List<Unit> unit)
         {
-            unit.ModifyDate = DateTime.Now;
-            Update(unit);
+            foreach (var item in unit)
+            {
+                item.ModifyDate = DateTime.Now;
+                Update(item);
+            }
+            _unitOfWork.Commit();
         }
     }
 }

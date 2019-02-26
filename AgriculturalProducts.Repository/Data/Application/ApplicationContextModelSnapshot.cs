@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AgriculturalProducts.Repository.Data.Appliction
+namespace AgriculturalProducts.Repository.Data.Application
 {
     [DbContext(typeof(ApplicationContext))]
     partial class ApplicationContextModelSnapshot : ModelSnapshot
@@ -19,16 +19,20 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AgriculturalProducts.Models.Categery", b =>
+            modelBuilder.Entity("AgriculturalProducts.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code")
+                        .IsRequired();
 
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("ModifyDate");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -44,9 +48,11 @@ namespace AgriculturalProducts.Repository.Data.Appliction
 
                     b.Property<DateTime>("ModifyDate");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Path");
+                    b.Property<string>("Path")
+                        .IsRequired();
 
                     b.Property<Guid>("ProductId");
 
@@ -61,8 +67,6 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<Guid?>("CategeryId");
 
                     b.Property<Guid>("CategoryId");
 
@@ -82,20 +86,18 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<Guid>("ProductTypeId");
+
                     b.Property<Guid>("ProviderId");
 
                     b.Property<int>("Quantity");
 
-                    b.Property<Guid>("SaleId");
+                    b.Property<int>("Sale");
 
                     b.Property<string>("ShortDescription")
                         .IsRequired();
 
                     b.Property<int>("Status");
-
-                    b.Property<Guid?>("TypeId");
-
-                    b.Property<Guid>("TypeTypeId");
 
                     b.Property<Guid>("UnitId");
 
@@ -103,13 +105,11 @@ namespace AgriculturalProducts.Repository.Data.Appliction
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategeryId");
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ProductTypeId");
 
                     b.HasIndex("ProviderId");
-
-                    b.HasIndex("SaleId");
-
-                    b.HasIndex("TypeId");
 
                     b.HasIndex("UnitId");
 
@@ -121,6 +121,9 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Code")
+                        .IsRequired();
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("ModifyDate");
@@ -130,7 +133,7 @@ namespace AgriculturalProducts.Repository.Data.Appliction
 
                     b.HasKey("Id");
 
-                    b.ToTable("Types");
+                    b.ToTable("ProductTypes");
                 });
 
             modelBuilder.Entity("AgriculturalProducts.Models.Provider", b =>
@@ -141,7 +144,14 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     b.Property<string>("Address")
                         .IsRequired();
 
+                    b.Property<string>("Code")
+                        .IsRequired();
+
                     b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime>("DateTimeRegister");
+
+                    b.Property<DateTime>("DateTimeStop");
 
                     b.Property<DateTime>("ModifyDate");
 
@@ -151,8 +161,7 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     b.Property<string>("Phone")
                         .IsRequired();
 
-                    b.Property<string>("Status")
-                        .IsRequired();
+                    b.Property<string>("Status");
 
                     b.HasKey("Id");
 
@@ -216,29 +225,12 @@ namespace AgriculturalProducts.Repository.Data.Appliction
 
                     b.Property<DateTime>("ModifyDate");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("AgriculturalProducts.Models.Sale", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedDate");
-
-                    b.Property<bool>("IsSale");
-
-                    b.Property<DateTime>("ModifyDate");
-
-                    b.Property<int>("Percent");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("AgriculturalProducts.Models.Unit", b =>
@@ -246,11 +238,15 @@ namespace AgriculturalProducts.Repository.Data.Appliction
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Code")
+                        .IsRequired();
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("ModifyDate");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -297,23 +293,20 @@ namespace AgriculturalProducts.Repository.Data.Appliction
 
             modelBuilder.Entity("AgriculturalProducts.Models.Product", b =>
                 {
-                    b.HasOne("AgriculturalProducts.Models.Categery", "Categery")
+                    b.HasOne("AgriculturalProducts.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategeryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AgriculturalProducts.Models.ProductType", "Type")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AgriculturalProducts.Models.Provider", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AgriculturalProducts.Models.Sale", "Sale")
-                        .WithMany()
-                        .HasForeignKey("SaleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AgriculturalProducts.Models.ProductType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId");
 
                     b.HasOne("AgriculturalProducts.Models.Unit", "Unit")
                         .WithMany()

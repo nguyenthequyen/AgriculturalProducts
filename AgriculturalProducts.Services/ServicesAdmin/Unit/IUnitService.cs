@@ -9,10 +9,10 @@ namespace AgriculturalProducts.Services
 {
     public interface IUnitService : IBaseService<Unit>
     {
-        void InsertUnit(Unit unit);
-        void UpdateUnit(Unit unit);
+        void InsertUnit(List<Unit> unit);
+        void UpdateUnit(List<Unit> unit);
         IEnumerable<Unit> GetAllUnit();
-        void DeleteUnit(Unit unit);
+        void DeleteUnit(List<Unit> unit);
         Task<Unit> FindUnitById(Guid id);
 
     }

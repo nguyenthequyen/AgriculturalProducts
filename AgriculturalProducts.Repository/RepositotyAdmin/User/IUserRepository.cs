@@ -7,6 +7,6 @@ namespace AgriculturalProducts.Repository
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        void InsertProduct(User user);
+        void CreatedUserClient(User user);
     }
 }

@@ -10,7 +10,7 @@ namespace AgriculturalProducts.Repository
     public class ProviderRepository : BaseRepository<Provider>, IProviderRepository
     {
         private readonly ApplicationContext _applicationContext;
-        public ProviderRepository(ApplicationContext applicationContext) : base( applicationContext)
+        public ProviderRepository(ApplicationContext applicationContext) : base(applicationContext)
         {
             _applicationContext = applicationContext;
         }

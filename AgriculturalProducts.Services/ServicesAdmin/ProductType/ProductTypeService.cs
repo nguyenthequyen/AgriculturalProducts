@@ -17,9 +17,13 @@ namespace AgriculturalProducts.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void DeleteProductType(ProductType productType)
+        public void DeleteProductType(List<ProductType> productType)
         {
-            Delete(productType);
+            foreach (var item in productType)
+            {
+                Delete(item);
+            }
+            _unitOfWork.Commit();
         }
 
         public async Task<ProductType> FindProductTypeById(Guid id)
@@ -32,17 +36,30 @@ namespace AgriculturalProducts.Services
             return GetAllRecords();
         }
 
-        public void InsertProductType(ProductType productType)
+        public void InsertProductType(List<ProductType> productType)
         {
-            productType.Id = Guid.NewGuid();
-            productType.ModifyDate = DateTime.Now;
-            productType.CreatedDate = DateTime.Now;
-            Add(productType);
+            foreach (var item in productType)
+            {
+                item.Id = Guid.NewGuid();
+                item.ModifyDate = DateTime.Now;
+                item.CreatedDate = DateTime.Now;
+                Add(item);
+            }
+            _unitOfWork.Commit();
         }
 
-        public void UpdateProductType(ProductType productType)
+        public int ProductTypeStatistics()
         {
-            Update(productType);
+            return _productTypeRepository.ProductTypeStatistics();
+        }
+
+        public void UpdateProductType(List<ProductType> productType)
+        {
+            foreach (var item in productType)
+            {
+                Update(item);
+            }
+            _unitOfWork.Commit();
         }
     }
 }

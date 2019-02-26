@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace AgriculturalProducts.Web.Admin
 {
@@ -15,10 +16,16 @@ namespace AgriculturalProducts.Web.Admin
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
+            var configuration = new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json")
+           .Build();
+            var logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder(args).UseSerilog()
                 .UseStartup<Startup>();
     }
 }

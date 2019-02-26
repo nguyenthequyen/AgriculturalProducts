@@ -2,6 +2,7 @@
 using AgriculturalProducts.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,9 +18,13 @@ namespace AgriculturalProducts.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void DeleteProvider(Provider provider)
+        public void DeleteProvider(List<Provider> provider)
         {
-            Delete(provider);
+            foreach (var item in provider)
+            {
+                _providerRepository.Delete(item);
+            }
+            _unitOfWork.Commit();
         }
 
         public async Task<Provider> FindProviderById(Guid id)
@@ -32,12 +37,34 @@ namespace AgriculturalProducts.Services
             return GetAllRecords();
         }
 
-        public void InsertProvider(Provider provider)
+        public PageList<Provider> GetProviderPageList(PagingParams pagingParams)
         {
-            provider.Id = Guid.NewGuid();
-            provider.ModifyDate = DateTime.Now;
-            provider.CreatedDate = DateTime.Now;
-            Add(provider);
+            if (string.IsNullOrEmpty(pagingParams.SearchString))
+            {
+                var providersdb = _providerRepository.GetAllRecords().OrderByDescending(x => x.ModifyDate);
+                List<Provider> providers = providersdb.ToList();
+                var query = providers.AsQueryable();
+                return new PageList<Provider>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
+            else
+            {
+                var providersdb = _providerRepository.GetAllRecords().Where(x => x.Name.Contains(pagingParams.SearchString)).OrderByDescending(x => x.ModifyDate);
+                List<Provider> providers = providersdb.ToList();
+                var query = providers.AsQueryable();
+                return new PageList<Provider>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
+        }
+
+        public void InsertProvider(List<Provider> provider)
+        {
+            foreach (var item in provider)
+            {
+                item.Id = Guid.NewGuid();
+                item.ModifyDate = DateTime.Now;
+                item.CreatedDate = DateTime.Now;
+                Add(item);
+            }
+            _unitOfWork.Commit();
         }
 
         public int ProviderStatistics()
@@ -45,10 +72,13 @@ namespace AgriculturalProducts.Services
             return _providerRepository.ProductStatistics();
         }
 
-        public void UpdateProvider(Provider provider)
+        public void UpdateProvider(List<Provider> provider)
         {
-            provider.ModifyDate = DateTime.Now;
-            Update(provider);
+            foreach (var item in provider)
+            {
+                item.ModifyDate = DateTime.Now;
+                Update(item);
+            }
         }
     }
 }

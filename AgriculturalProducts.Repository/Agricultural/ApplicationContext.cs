@@ -12,13 +12,12 @@ namespace AgriculturalProducts.Repository
            : base(options)
         { }
 
-        public DbSet<Categery> Categeries { get; set; }
+        public DbSet<Category> Categeries { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Provider> Providers { get; set; }
         public DbSet<Rate> Rates { get; set; }
-        public DbSet<Sale> Sales { get; set; }
-        public DbSet<ProductType> Types { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
