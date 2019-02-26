@@ -14,5 +14,6 @@ namespace AgriculturalProducts.Services
         void DeleteProductType(List<ProductType> productType);
         Task<ProductType> FindProductTypeById(Guid id);
         int ProductTypeStatistics();
+        PageList<ProductType> GetroductTypePageList(PagingParams pagingParams);
     }
 }

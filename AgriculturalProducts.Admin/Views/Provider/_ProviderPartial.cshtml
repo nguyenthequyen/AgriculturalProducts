@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal m-t-20" id="insertProduct" >
+                <div class="form-horizontal m-t-20" id="insertProduct">
                     <div class="row p-b-30">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -45,13 +45,14 @@
                                 <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Ngày đăng ký</i></span>
                             </div>
                             <input type="text" class="form-control form-control-lg provider-datetime-register" placeholder="Ngày đăng ký" aria-label="ProviderDatetimeRegister" aria-describedby="basic-addon1" required="">
+                            <input type="text" class="form-control form-control-lg provider-datetime-register" placeholder="Ngày đăng ký" aria-label="ProviderDatetimeRegister" aria-describedby="basic-addon1" required="">
                         </div>
-                        @*<div class="input-group mb-3">
+                        <div class="input-group mb-3" hidden id="provider-stopdate">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Ngày ngừng cung cấp</i></span>
                             </div>
-                            <input type="text" class="form-control form-control-lg provider-status" placeholder="Ngày ngừng cung cấp" aria-label="ProviderStatus" aria-describedby="basic-addon1" required="">
-                        </div>*@
+                            <input type="text" class="form-control form-control-lg provider-stopdate" placeholder="Ngày ngừng cung cấp" aria-label="ProviderStatus" aria-describedby="basic-addon1" required="">
+                        </div>
                     </div>
                     <div class="row border-top border-secondary">
                         <div class="col-12">
@@ -59,6 +60,7 @@
                                 <div class="p-t-20">
                                     <button class="btn btn-info" id="to-recover" data-dismiss="modal" type="button"><i class="fa fa-lock m-r-5"></i>Hủy bỏ</button>
                                     <button class="btn btn-success float-right btn-add-provider">Thêm</button>
+                                    <button class="btn btn-success float-right btn-edit-provider" hidden>Sửa</button>
                                 </div>
                             </div>
                         </div>

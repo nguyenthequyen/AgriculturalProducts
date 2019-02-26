@@ -1,10 +1,11 @@
 ﻿$(document).ready(function () {
-    $(callAjaxProductAdmin.productStatistics);
+    $('.btn-insert-product'.click(callAjaxProductAdmin.insertProduct));
 });
 
 var callAjaxProductAdmin = Object.create({
     //Thống kê sản phẩm
-    productStatistics: function () {
+    insertProduct: function () {
+        debugger
         var productName = $(".insertProduct").find(".product-name").text();
         var productCode = $(".insertProduct").find(".product-code").text();
         var productQuanlity = $(".insertProduct").find(".product-quanlity").text();

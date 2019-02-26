@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
+using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,8 +29,16 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         [Route("inssert-product-type")]
         public async Task<IActionResult> InsertProductType(List<ProductType> productType)
         {
-            _productTypeService.InsertProductType(productType);
-            return Ok();
+            try
+            {
+                _productTypeService.InsertProductType(productType);
+                return Ok(new Result() { Code = 200, Data = "Thêm loại sản phẩm thành công", Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi thêm loại sản phẩm+ " + ex);
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi thêm loại sản phẩm" });
+            }
         }
         [HttpPost]
         [Route("update-product-type")]
@@ -64,6 +73,27 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         {
             await _productTypeService.FindProductTypeById(id);
             return Ok();
+        }
+        [HttpPost]
+        [Route("get-product-type-paging")]
+        public async Task<IActionResult> GetProductTypePaging(PagingParams pagingParams)
+        {
+            try
+            {
+                var data = _productTypeService.GetroductTypePageList(pagingParams);
+                _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
+                Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
+                var output = new OutPutModel<ProductType>
+                {
+                    Paging = data.GetHeader(),
+                    Items = data.List.ToList(),
+                };
+                return Ok(new Result() { Code = 200, Data = output, Error = null });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
+            }
         }
     }
 }

@@ -14,5 +14,6 @@ namespace AgriculturalProducts.Services
         void DeleteCategory(List<Category> category);
         Task<Category> FindCategoryById(Guid id);
         int CategoryStatistics();
+        PageList<Category> GetCategoryPageList(PagingParams pagingParams);
     }
 }

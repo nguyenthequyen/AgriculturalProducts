@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
@@ -41,10 +42,31 @@ namespace AgriculturalProducts.Services
             return GetAllRecords();
         }
 
+        public PageList<Category> GetCategoryPageList(PagingParams pagingParams)
+        {
+            if (string.IsNullOrEmpty(pagingParams.SearchString))
+            {
+                var providersdb = _categoryRepository.GetAllRecords().OrderByDescending(x => x.ModifyDate);
+                List<Category> providers = providersdb.ToList();
+                var query = providers.AsQueryable();
+                return new PageList<Category>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
+            else
+            {
+                var providersdb = _categoryRepository.GetAllRecords().Where(x => x.Name.Contains(pagingParams.SearchString)).OrderByDescending(x => x.ModifyDate);
+                List<Category> providers = providersdb.ToList();
+                var query = providers.AsQueryable();
+                return new PageList<Category>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
+        }
+
         public void InsertCategory(List<Category> category)
         {
             foreach (var item in category)
             {
+                item.Id = new Guid();
+                item.CreatedDate = DateTime.Now;
+                item.ModifyDate = DateTime.Now;
                 Add(item);
             }
             _unitOfWork.Commit();
@@ -54,6 +76,7 @@ namespace AgriculturalProducts.Services
         {
             foreach (var item in category)
             {
+                item.CreatedDate = DateTime.Now;
                 Update(item);
             }
             _unitOfWork.Commit();

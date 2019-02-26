@@ -13,13 +13,13 @@ namespace AgriculturalProducts.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProdiverAdminController : ControllerBase
+    public class ProviderAdminController : ControllerBase
     {
         private readonly IProviderService _providerService;
         private readonly ILogger _logger;
-        public ProdiverAdminController(
+        public ProviderAdminController(
             IProviderService providerService,
-             ILogger<ProdiverAdminController> logger
+             ILogger<ProviderAdminController> logger
             )
         {
             _providerService = providerService;
@@ -55,12 +55,12 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("delete-provider")]
-        public async Task<IActionResult> DeleteProvider([FromBody] List<Guid> id)
+        public async Task<IActionResult> DeleteProvider([FromBody] List<ProviderId> id)
         {
             List<Provider> providers = new List<Provider>();
             foreach (var item in id)
             {
-                var provider = await _providerService.FindProviderById(item);
+                var provider = await _providerService.FindProviderById(item.Id);
                 providers.Add(provider);
             }
             _providerService.DeleteProvider(providers);

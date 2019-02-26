@@ -2,6 +2,7 @@
 using AgriculturalProducts.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,24 @@ namespace AgriculturalProducts.Services
         public IEnumerable<ProductType> GetAllProductType()
         {
             return GetAllRecords();
+        }
+
+        public PageList<ProductType> GetroductTypePageList(PagingParams pagingParams)
+        {
+            if (string.IsNullOrEmpty(pagingParams.SearchString))
+            {
+                var providersdb = _productTypeRepository.GetAllRecords().OrderByDescending(x => x.ModifyDate);
+                List<ProductType> providers = providersdb.ToList();
+                var query = providers.AsQueryable();
+                return new PageList<ProductType>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
+            else
+            {
+                var providersdb = _productTypeRepository.GetAllRecords().Where(x => x.Name.Contains(pagingParams.SearchString)).OrderByDescending(x => x.ModifyDate);
+                List<ProductType> providers = providersdb.ToList();
+                var query = providers.AsQueryable();
+                return new PageList<ProductType>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
         }
 
         public void InsertProductType(List<ProductType> productType)
