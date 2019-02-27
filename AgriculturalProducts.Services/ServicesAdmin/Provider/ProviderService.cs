@@ -48,7 +48,9 @@ namespace AgriculturalProducts.Services
             }
             else
             {
-                var providersdb = _providerRepository.GetAllRecords().Where(x => x.Name.Contains(pagingParams.SearchString)).OrderByDescending(x => x.ModifyDate);
+                var providersdb = _providerRepository.GetAllRecords()
+                    .Where(x => x.Name.Contains(pagingParams.SearchString))
+                    .OrderByDescending(x => x.ModifyDate);
                 List<Provider> providers = providersdb.ToList();
                 var query = providers.AsQueryable();
                 return new PageList<Provider>(query, pagingParams.PageNumber, pagingParams.PageSize);

@@ -18,7 +18,7 @@ var callAjaxProductType = {
         }
         var productTypies = [];
         productTypies.push(productType);
-        $(renderAPI.postAPI(INSERT_PRODUCT_TYPE, true, 'post', JSON.parse(productTypies), callAjaxProductType.getProductTypePaging, callAjaxProductType.errorInsertProductType))
+        $(renderAPI.postAPI(INSERT_PRODUCT_TYPE, true, 'post', JSON.stringify(productTypies), callAjaxProductType.getProductTypePaging, callAjaxProductType.errorInsertProductType))
     },
     getProductTypePaging: function (result) {
         var pageSize = $('.page-size-produt-type').val();

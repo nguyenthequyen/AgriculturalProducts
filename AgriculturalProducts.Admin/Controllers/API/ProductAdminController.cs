@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
+using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,8 +28,16 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         [Route("insert-product")]
         public async Task<IActionResult> InsertProduct(List<Product> product)
         {
-            _productService.InsertProduct(product);
-            return Ok();
+            try
+            {
+                _productService.InsertProduct(product);
+                return Ok(new Result() { Data = "Thêm sản phẩm thành công", Code = 200, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi thêm sản phẩm: " + ex);
+                return Ok(new Result() { Data = null, Code = ex.GetHashCode(), Error = "Thêm sản phẩm thất bại" });
+            }
         }
         [HttpPost]
         [Route("getproduct-paging")]
@@ -59,10 +68,24 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("delete-product-type")]
-        public async Task<IActionResult> DeleteProduct(List<Product> provider)
+        public async Task<IActionResult> DeleteProduct(List<ProductId> id)
         {
-            _productService.DeleteProduct(provider);
-            return Ok();
+            try
+            {
+                List<Product> products = new List<Product>();
+                foreach (var item in id)
+                {
+                    var provider = await _productService.FindProductById(item.Id);
+                    products.Add(provider);
+                }
+                _productService.DeleteProduct(products);
+                return Ok(new Result() { Code = 200, Data = "Xóa sản phẩm thành công", Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Thêm sản phẩm thất bại: " + ex);
+                return Ok(new Result() { Code = ex.GetHashCode(), Data = "Xóa sản phẩm thành công", Error = null });
+            }
         }
         [HttpPost]
         [Route("find-product-type")]
@@ -70,6 +93,27 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         {
             await _productService.FindProductById(id);
             return Ok();
+        }
+        [HttpPost]
+        [Route("get-product-paging")]
+        public async Task<IActionResult> GetProductPaging(PagingParams pagingParams)
+        {
+            try
+            {
+                var data = _productService.GetProductPageList(pagingParams);
+                _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
+                Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
+                var output = new OutPutModel<Product>
+                {
+                    Paging = data.GetHeader(),
+                    Items = data.List.ToList(),
+                };
+                return Ok(new Result() { Code = 200, Data = output, Error = null });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ var CARTS_STATISTICS = "api/homeadmin/carts-statistics";
 var USERS_STATISTICS = "api/homeadmin/users-statistics";
 //Manager product
 var INSERT_PRODUCT = "api/productadmin/insert-product";
+var GET_PRODUCT_PAGING = "api/productadmin/get-product-paging";
 //Manager Provider
 var INSERT_PROVIDER = "api/ProviderAdmin/insert-provider";
 var GET_PROVIDER_PAGINGATE = "api/ProviderAdmin/getprovider-paging";
