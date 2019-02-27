@@ -34,7 +34,7 @@ namespace AgriculturalProducts.Services
 
         public async Task<Category> FindCategoryById(Guid id)
         {
-            return await FindCategoryById(id);
+            return await _categoryRepository.FindCategoryById(id);
         }
 
         public IEnumerable<Category> GetAllCategory()

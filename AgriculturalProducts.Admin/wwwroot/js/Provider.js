@@ -68,7 +68,7 @@ var callAjaxProvider = {
     },
     editProvider: function () {
         $('.provider tbody tr').removeClass('isWorking');
-        $(callAjaxProvider.isWorking(this));
+        $(renderAPI.isWorking(this));
         var checkIsWorking = $(".provider tbody").find("isWorking");
         if (checkIsWorking) {
             console.log($('.isWorking #provider-id').text());
@@ -78,14 +78,13 @@ var callAjaxProvider = {
     },
     deleteProvider: function () {
         $('.provider tbody tr').removeClass('isWorking');
-        $(callAjaxProvider.isWorking(this));
+        $(renderAPI.isWorking(this));
         var checkIsWorking = $(".provider tbody").find("isWorking");
         if (checkIsWorking) {
             var providerId = $('.isWorking #provider-id').text();
             var data = {
                 id: providerId
             }
-            debugger
             var array = [];
             array.push(data);
             $(renderAPI.postAPI(DELETE_PROVIDER, true, 'post', JSON.stringify(array), callAjaxProvider.getProviderPaggingnate, callAjaxProvider.errorDeleteProvider))
@@ -98,15 +97,12 @@ var callAjaxProvider = {
     },
     viewProvider: function () {
         $('.provider tbody tr').removeClass('isWorking');
-        $(callAjaxProvider.isWorking(this));
+        $(renderAPI.isWorking(this));
         var checkIsWorking = $(".provider tbody").find("isWorking");
         if (checkIsWorking) {
             console.log($('.isWorking #provider-id').text());
         } else {
             console.log("Lỗi provider");
         }
-    },
-    isWorking: function (result) {
-        $(result).parent().parent().addClass("isWorking");
     }
 }

@@ -6,11 +6,11 @@ using System.Text;
 
 namespace AgriculturalProducts.Models
 {
-    public class ProductType: BaseEntity
+    public class ProductType : BaseEntity
     {
-        [Required]
+        [Required(ErrorMessage = "Tên loại sản phẩm không được để trống")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Tên loại sản phẩm không được để trống")]
         public string Code { get; set; }
     }
 }

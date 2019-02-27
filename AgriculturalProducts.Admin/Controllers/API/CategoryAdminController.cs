@@ -61,5 +61,18 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                 return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
             }
         }
+        [HttpPost]
+        [Route("delete-category")]
+        public async Task<IActionResult> GetCategoryPaging(List<CategoryId> id)
+        {
+            List<Category> categories = new List<Category>();
+            foreach (var item in id)
+            {
+                var category = await _categoryService.FindCategoryById(item.Id);
+                categories.Add(category);
+            }
+            _categoryService.DeleteCategory(categories);
+            return Ok();
+        }
     }
 }

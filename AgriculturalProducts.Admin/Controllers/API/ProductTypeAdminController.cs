@@ -62,9 +62,15 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         }
         [HttpPost]
         [Route("delete-product-type")]
-        public async Task<IActionResult> DeleteProductType(List<ProductType> provider)
+        public async Task<IActionResult> DeleteProductType(List<ProductTypeId> id)
         {
-            _productTypeService.DeleteProductType(provider);
+            List<ProductType> productTypes = new List<ProductType>();
+            foreach (var item in id)
+            {
+                var provider = await _productTypeService.FindProductTypeById(item.Id);
+                productTypes.Add(provider);
+            }
+            _productTypeService.DeleteProductType(productTypes);
             return Ok();
         }
         [HttpPost]

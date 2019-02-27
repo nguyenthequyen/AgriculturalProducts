@@ -3,6 +3,9 @@
     $('.btn-add-category').click(callAjaxCategory.insertCategory);
     $('.btn-get-data-category').click(callAjaxCategory.getCategoryPaging);
     $('.btn-search-infor-category').click(callAjaxCategory.getCategoryPaging);
+    $('.category tbody').on('click', '.btn-edit-category', callAjaxCategory.editCategory);
+    $('.category tbody').on('click', '.btn-delete-category', callAjaxCategory.deleteCategory);
+    $('.category tbody').on('click', '.btn-view-category', callAjaxCategory.viewPCategory);
 })
 
 var callAjaxCategory = {
@@ -33,11 +36,12 @@ var callAjaxCategory = {
         $('.total-pages').text(result.data.paging.totalPages);
         $.each(result.data.items, function (index, value) {
             var query = '<tr>' +
+                '<td id="category-id" hidden>' + value.id + '</td>' +
                 '<td>' + value.code + '</td>' +
                 '<td>' + value.name + '</td>' +
                 '<td>' +
-                '<button type="button" class="btn btn-secondary btn-sm btn-edit-category">Sửa</button>' +
-                '<button type="button" class="btn btn-success btn-sm btn-delete-category">Xóa</button>' +
+                '<button type="button" class="btn btn-secondary btn-sm btn-edit-category mr-1">Sửa</button>' +
+                '<button type="button" class="btn btn-success btn-sm btn-delete-category mr-1">Xóa</button>' +
                 '<button type="button" class="btn btn-danger btn-sm btn-view-category">Xem</button>' +
                 '</td>' +
                 '</tr>';
@@ -48,6 +52,33 @@ var callAjaxCategory = {
         console.log("error: " + jqXHR + "exception: " + exception);
     },
     errorGetCategoryPaging: function (jqXHR, exception) {
+        console.log("error: " + jqXHR + "exception: " + exception);
+    },
+    editCategory: function () {
+        $('.category tbody tr').removeClass('isWorking');
+        $(renderAPI.isWorking(this))
+    },
+    deleteCategory: function () {
+        $('.category tbody tr').removeClass('isWorking');
+        $(renderAPI.isWorking(this))
+        var checkIsWorking = $(".category tbody").find("isWorking");
+        if (checkIsWorking) {
+            var categoryId = $('.isWorking #category-id').text();
+            var data = {
+                id: categoryId
+            }
+            var array = [];
+            array.push(data);
+            $(renderAPI.postAPI(DELETE_CATEGORY, true, 'post', JSON.stringify(array), callAjaxCategory.getCategoryPaging, callAjaxCategory.errorDeleteCategory))
+        } else {
+            console.log("Lỗi provider");
+        }
+    },
+    viewPCategory: function () {
+        $('.category tbody tr').removeClass('isWorking');
+        $(renderAPI.isWorking(this))
+    },
+    errorDeleteCategory: function (jqXHR, exception) {
         console.log("error: " + jqXHR + "exception: " + exception);
     }
 }
