@@ -12,7 +12,7 @@ namespace AgriculturalProducts.Models
         public string Name { get; set; }
         [Required]
         public string Path { get; set; }
-        public Guid ProductId { get; set; }
+        public Guid ProdutId { get; set; }
         public Product Product { get; set; }
     }
 }

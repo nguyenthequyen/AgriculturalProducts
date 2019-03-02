@@ -119,7 +119,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     View = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
@@ -195,7 +195,8 @@ namespace AgriculturalProducts.Repository.Data.Application
                     ModifyDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Path = table.Column<string>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: false)
+                    ProdutId = table.Column<Guid>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -205,7 +206,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

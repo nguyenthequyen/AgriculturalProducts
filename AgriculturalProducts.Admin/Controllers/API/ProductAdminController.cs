@@ -98,10 +98,10 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         [Route("get-product-paging")]
         public async Task<IActionResult> GetProductPaging(PagingParams pagingParams)
         {
+            _productService.GetAllProductPaging();
             try
             {
                 var data = _productService.GetProductPageList(pagingParams);
-                _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
                 Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
                 var output = new OutPutModel<Product>
                 {

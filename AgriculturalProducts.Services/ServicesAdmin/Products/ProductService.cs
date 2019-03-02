@@ -37,6 +37,11 @@ namespace AgriculturalProducts.Services
             return GetAllRecords();
         }
 
+        public void GetAllProductPaging()
+        {
+            _productRepository.GetAllProductPaging();
+        }
+
         public PageList<Product> GetProductPageList(PagingParams pagingParams)
         {
             if (string.IsNullOrEmpty(pagingParams.SearchString))

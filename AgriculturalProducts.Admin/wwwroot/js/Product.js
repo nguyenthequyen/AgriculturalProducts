@@ -1,6 +1,10 @@
 ﻿$(document).ready(function () {
     $(callAjaxProductAdmin.getProductPaging);
     $('.btn-insert-product').click(callAjaxProductAdmin.insertProduct);
+    $('.btn-search-product').click(callAjaxProductAdmin.getProductPaging);
+    $('.product tbody').on('click', '.btn-edit-product', callAjaxProductAdmin.editProduct);
+    $('.product tbody').on('click', '.btn-delete-product', callAjaxProductAdmin.deleteProduct);
+    $('.product tbody').on('click', '.btn-view-product', callAjaxProductAdmin.viewProduct);
 });
 
 var callAjaxProductAdmin = {
@@ -24,11 +28,11 @@ var callAjaxProductAdmin = {
             cost: productCost,
             status: productStatus,
             mass: productMass,
-            categoryId: '1BD43901-F349-4DFD-070B-08D69BCA2A1E'/*productCategoryId*/,
-            providerId: '17ebcbaa-fbf5-4124-b277-59d02fe70de8'/*providerId*/,
-            productTypeId: '57DCDEE9-4088-45A5-ABD6-2C7E7F9A13CE'/*productTypeId*/,
+            categoryId: 'B32956D0-162F-4D88-6CEB-08D69D8A8100'/*productCategoryId*/,
+            providerId: 'DE4CF77F-8CDE-4DE7-A020-16BE0C697504'/*providerId*/,
+            productTypeId: 'BCFC249E-3583-4ED0-BD37-3EDC61030DA2'/*productTypeId*/,
             sale: productSale,
-            unitId: '8fc1e9d6-14c2-4f8d-9d73-d6424e213e66',
+            unitId: '8FC1E9D6-14C2-4F8D-9D73-D6424E213E66',
             shortDescription: "abc",
             fullDescription: "âfssf"
         }
@@ -47,14 +51,15 @@ var callAjaxProductAdmin = {
         var pageNumber = $('.page-number-product').val();
         var searchString = $('.search-product').val();
         var pagingParams = {
-            pageNumber: 1,
-            pageSize: 1,
-            searchString: ""
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            searchString: searchString
         }
         debugger
         $(renderAPI.postAPI(GET_PRODUCT_PAGING, true, 'post', JSON.stringify(pagingParams), callAjaxProductAdmin.dataProduct, callAjaxProductAdmin.errorGetProductPagingNate))
     },
     dataProduct: function (result) {
+        debugger
         $('.total-pages-product').text(result.data.paging.totalPages);
         $('.product tbody').html('');
         $.each(result.data.items, function (index, value) {
@@ -67,14 +72,23 @@ var callAjaxProductAdmin = {
                 '<td>' + value.quantity + '</td>' +
                 '<td>' + value.unitId + '</td>' +
                 '<td>' +
-                '<button type="button" class="btn btn-secondary btn-sm">Sửa</button>' +
-                '<button type="button" class="btn btn-success btn-sm">Xóa</button>' +
-                '<button type="button" class="btn btn-danger btn-sm">Xem</button>' +
+                '<button type="button" class="btn btn-secondary btn-sm btn-edit-product">Sửa</button>' +
+                '<button type="button" class="btn btn-success btn-sm btn-delete-product">Xóa</button>' +
+                '<button type="button" class="btn btn-danger btn-sm btn-view-product">Xem</button>' +
                 '</td>' +
                 '</tr>';
             $('.product tbody').append(query);
         });
     },
     errorGetProductPagingNate: function () {
+    },
+    viewProduct: function () {
+
+    },
+    deleteProduct: function () {
+
+    },
+    editProduct: function () {
+
     }
 }

@@ -16,5 +16,6 @@ namespace AgriculturalProducts.Services
         Task<Product> FindProductById(Guid id);
         int ProductStatistics();
         PageList<Product> GetProductPageList(PagingParams pagingParams);
+        void GetAllProductPaging();
     }
 }

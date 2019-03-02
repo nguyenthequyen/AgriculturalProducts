@@ -14,5 +14,6 @@ namespace AgriculturalProducts.Repository
         void DeleteProduct(Product provider);
         Task<Product> FindProductById(Guid id);
         int ProductStatistics();
+        void GetAllProductPaging();
     }
 }

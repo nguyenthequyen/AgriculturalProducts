@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriculturalProducts.Repository.Data.Application
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190224092053_Initial")]
+    [Migration("20190302145650_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,9 @@ namespace AgriculturalProducts.Repository.Data.Application
                     b.Property<string>("Path")
                         .IsRequired();
 
-                    b.Property<Guid>("ProductId");
+                    b.Property<Guid?>("ProductId");
+
+                    b.Property<Guid>("ProdutId");
 
                     b.HasKey("Id");
 
@@ -72,7 +74,8 @@ namespace AgriculturalProducts.Repository.Data.Application
 
                     b.Property<Guid>("CategoryId");
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .IsRequired();
 
                     b.Property<decimal>("Cost");
 
@@ -289,8 +292,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                 {
                     b.HasOne("AgriculturalProducts.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("AgriculturalProducts.Models.Product", b =>

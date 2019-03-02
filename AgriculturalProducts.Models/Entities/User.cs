@@ -17,5 +17,12 @@ namespace AgriculturalProducts.Models
         public string PasswordHash { get; set; }
         public Guid RolesId { get; set; }
         public Roles Roles { get; set; }
+        //public User(string firstName, string lastName, string identityId, string userName)
+        //{
+        //    FirstName = firstName;
+        //    LastName = lastName;
+        //    IdentityId = identityId;
+        //    UserName = userName;
+        //}
     }
 }
