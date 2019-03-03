@@ -102,6 +102,10 @@ namespace AgriculturalProducts.Repository.Data.Application
 
                     b.Property<int>("Status");
 
+                    b.Property<Guid>("StatusProdcutId");
+
+                    b.Property<Guid?>("StatusProductId");
+
                     b.Property<Guid>("UnitId");
 
                     b.Property<int>("View");
@@ -113,6 +117,8 @@ namespace AgriculturalProducts.Repository.Data.Application
                     b.HasIndex("ProductTypeId");
 
                     b.HasIndex("ProviderId");
+
+                    b.HasIndex("StatusProductId");
 
                     b.HasIndex("UnitId");
 
@@ -164,9 +170,11 @@ namespace AgriculturalProducts.Repository.Data.Application
                     b.Property<string>("Phone")
                         .IsRequired();
 
-                    b.Property<string>("Status");
+                    b.Property<Guid>("StatusProviderId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StatusProviderId");
 
                     b.ToTable("Providers");
                 });
@@ -234,6 +242,38 @@ namespace AgriculturalProducts.Repository.Data.Application
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("AgriculturalProducts.Models.StatusProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StatusProduct");
+                });
+
+            modelBuilder.Entity("AgriculturalProducts.Models.StatusProvider", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StatusProvider");
                 });
 
             modelBuilder.Entity("AgriculturalProducts.Models.Unit", b =>
@@ -310,9 +350,21 @@ namespace AgriculturalProducts.Repository.Data.Application
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("AgriculturalProducts.Models.StatusProduct", "StatusProduct")
+                        .WithMany()
+                        .HasForeignKey("StatusProductId");
+
                     b.HasOne("AgriculturalProducts.Models.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AgriculturalProducts.Models.Provider", b =>
+                {
+                    b.HasOne("AgriculturalProducts.Models.StatusProvider", "StatusProvider")
+                        .WithMany()
+                        .HasForeignKey("StatusProviderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

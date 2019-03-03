@@ -2,6 +2,7 @@
 using AgriculturalProducts.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,26 @@ namespace AgriculturalProducts.Services
         public IEnumerable<Unit> GetAllUnit()
         {
             return GetAllRecords();
+        }
+
+        public PageList<Unit> GetUnitPageList(PagingParams pagingParams)
+        {
+            if (string.IsNullOrEmpty(pagingParams.SearchString))
+            {
+                var unitdb = _unitRepository.GetAllRecords().OrderByDescending(x => x.ModifyDate);
+                List<Unit> units = unitdb.ToList();
+                var query = units.AsQueryable();
+                return new PageList<Unit>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
+            else
+            {
+                var unitdb = _unitRepository.GetAllRecords()
+                    .Where(x => x.Name.Contains(pagingParams.SearchString))
+                    .OrderByDescending(x => x.ModifyDate);
+                List<Unit> units = unitdb.ToList();
+                var query = units.AsQueryable();
+                return new PageList<Unit>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
         }
 
         public void InsertUnit(List<Unit> unit)

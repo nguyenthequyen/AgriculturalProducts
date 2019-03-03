@@ -8,7 +8,11 @@ namespace AgriculturalProducts.Admin.Controllers
 {
     public class UsersController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Client()
+        {
+            return View();
+        }
+        public IActionResult Admin()
         {
             return View();
         }

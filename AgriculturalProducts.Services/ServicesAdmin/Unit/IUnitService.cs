@@ -14,6 +14,6 @@ namespace AgriculturalProducts.Services
         IEnumerable<Unit> GetAllUnit();
         void DeleteUnit(List<Unit> unit);
         Task<Unit> FindUnitById(Guid id);
-
+        PageList<Unit> GetUnitPageList(PagingParams pagingParams);
     }
 }

@@ -1,77 +1,597 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <!-- Mirrored from ocsolutions.co.in/html/organic_food/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 03 Mar 2019 08:15:37 GMT -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AgriculturalProducts.APIWeb</title>
-
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
-              crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
-    </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Organic Food and Fruit Html Template</title>
+    <!-- Bootstrap stylesheet -->
+    <link href="~/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- crousel css -->
+    <link href="~/js/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css" />
+    <!--bootstrap select-->
+    <link href="~/js/dist/css/bootstrap-select.css" rel="stylesheet" type="text/css" />
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,600,700,800,900%7CPT+Serif:400,700" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/ele-style.css" rel="stylesheet" type="text/css" />
+    <!-- stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">*@
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AgriculturalProducts.APIWeb</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+<body class="header3">
+    <!--top start here -->
+    <div class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                    <ul class="list-inline pull-left icon icons">
+                        <li>
+                            <a href="contactus.html">Chào mừng bạn đến với Agricultural Products</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="dropdown currency">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon_cog"></i> Cài đặt</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-submenu">
+                                    <a href="#"><i class="icon_globe-2"></i> Ngôn ngữ</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#">English</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tiếng việt</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="list-inline pull-right  icons">
+                        <li class="dropdown login">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon_profile"></i> Tài khoản</a>
+                            <ul class="dropdown-menu">
+                                <li hidden>
+                                    <button type="button" class="fac">Facebook</button>
+                                    <button type="button" class="go">Google+</button>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="icon_profile"></i>Thông tin tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="icon_archive"></i>Quản lý đơn hàng</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="icon_heart"></i>Sản phẩm yêu thích</a>
+                                </li>
+                                <li class="des text-center">Nếu bạn chưa có tài khoản?</li>
+                                <li class="text-center">
+                                    <a href="#">Đăng ký ngay</a>
+                                </li>
+                                <li>
+                                    <button class="btn" type="button" onclick="location.href='login_register.html'">Đăng nhập</button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown cart">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon_cart"></i> Giỏ hàng</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <img src="images/header1/deal-img6.png" class="img-responsive" alt="img" title="img" />
+                                                </td>
+                                                <td class="text-left">
+                                                    <a href="#">Cam canh Nghệ An</a>
+                                                    <p>1 x $ 15.00</p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" title="Remove" class="btn btn-danger btn-xs"><i class="icon_close"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <img src="images/header1/deal-img3.png" class="img-responsive" alt="img" title="img" />
+                                                </td>
+                                                <td class="text-left">
+                                                    <a href="#">Cam bù hương sơn</a>
+                                                    <p>1 x $ 15.00</p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" title="Remove" class="btn btn-danger btn-xs"><i class="icon_close"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <img src="images/header1/deal-img1.png" class="img-responsive" alt="img" title="img" />
+                                                </td>
+                                                <td class="text-left">
+                                                    <a href="#">Cam chanh vũ quang</a>
+                                                    <p>1 x $ 15.00</p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" title="Remove" class="btn btn-danger btn-xs"><i class="icon_close"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left" colspan="3">
+                                                    <h4><i class="icofont icofont-ui-delete"></i> Xóa giỏ hàng <span class="text-right">Tổng tiền - $ 45.00</span></h4>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="buttons">
+                                        <button class="btn-primary" type="button" onclick="location.href='shoppingcart.html'"><i class="icon_cart"></i> Giỏ hàng</button>
+                                        <button class="btn-primary" type="button" onclick="location.href='checkout.html'"><i class="icon_box-checked"></i> Kiểm tra</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="list-inline social">
+                                <li>
+                                    <a href="https://www.facebook.com/" target="_blank">
+                                        <i class="social_facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/" target="_blank">
+                                        <i class="social_twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://in.pinterest.com/" target="_blank">
+                                        <i class="fa fa-pinterest-p"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://plus.google.com/" target="_blank">
+                                        <i class="social_googleplus"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.tumblr.com/" target="_blank">
+                                        <i class="fa fa-tumblr"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/" target="_blank">
+                                        <i class="social_instagram"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </div>
     </div>
-
-    <footer class="border-top footer text-muted">
+    <!--top end here -->
+    <!-- header start here-->
+    <header>
         <div class="container">
-            &copy; 2019 - AgriculturalProducts.APIWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                    <div id="logo">
+                        <a href="index.html">
+                            <img class="img-responsive" src="images/header3/logo.png" alt="logo" title="logo" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                    <!-- menu start here -->
+                    <div id="menu">
+                        <nav class="navbar">
+                            <div class="navbar-header">
+                                <span class="menutext visible-xs">Menu</span>
+                                <button data-target=".navbar-ex1-collapse" data-toggle="collapse" class="btn btn-navbar navbar-toggle" type="button"><i class="fa fa-bars"></i></button>
+                            </div>
+                            <div class="collapse navbar-collapse navbar-ex1-collapse padd0">
+                                <ul class="nav navbar-nav pull-right">
+                                    <li class="dropdown topheader">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trang chủ</a>
+                                        <div class="dropdown-menu">
+                                            <h2><span>Offer Deals : </span> Get flat 25% on Vegetables | Get 16% off organic healthy  foods | Get 28% off in organic meat.</h2>
+                                            <div class="col-sm-4">
+                                                <h4>Vegetables</h4>
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Lorem ipsum</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Sed eget</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Curabitur <span class="new">New</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Nulla ut</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Duis leo <span class="hot">Hot</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Integer diam</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h4>Fruits</h4>
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Lorem ipsum <span class="new">New</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Sed eget</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Curabitur</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Nulla ut <span class="hot">Hot</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Duis leo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Integer diam</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h4>Meats</h4>
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Lorem ipsum</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Sed eget <span class="new">New</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Curabitur</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Nulla ut</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Duis leo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html"><i class="fa fa-circle"></i> Integer diam <span class="hot">Hot</span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="aboutus.html">Thị trường nông sản</a>
+                                    </li>
+                                    <li class="dropdown topheading">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tin tức</a>
+                                        <div class="dropdown-menu">
+                                            <div class="dropdown-inner">
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <a href="shop.html">Shop</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shopdetail.html">Shop Detail</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shoppingcart.html">Shopping cart</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="checkout.html">Checkout</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="confirmation.html">Confirmation</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="login_register.html">Login & Register</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown topheading">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hình ảnh </a>
+                                        <div class="dropdown-menu">
+                                            <div class="dropdown-inner">
+                                                <ul class="list-unstyled">
+                                                    <li class="dropdown-submenu">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Giới thiệu</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a href="index.html">Header 1</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="header2.html">Header 2</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="header3.html">Header 3</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="header4.html">Header 4</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="search.html">Tìm kiếm</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="testimonial.html">Testimonials</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="ourteam.html">Our Team</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="comingsoon.html">Coming soon</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="error-404.html">Error-404</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="faq.html">Faq</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="gallery.html">Giới thiệu</a>
+                                    </li>
+                                    <li class="dropdown topheading">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Liên hệ</a>
+                                        <div class="dropdown-menu">
+                                            <div class="dropdown-inner">
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <a href="blog.html">Blog</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-detail.html">Blog Detail</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- menu end here -->
+                </div>
+                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                    <div id="srch" class="input-group">
+                        <input type="text" name="search" value="Tìm kiếm" placeholder="Tìm kiếm" class="form-control input-lg" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-lg"><i class="icon_search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header end here -->
+    <!-- slider start here -->
+    <div class="slide">
+        <div class="slideshow1 owl-carousel">
+            <div class="item">
+                <img src="images/header3/slider.png" alt="banner" title="banner" class="img-responsive" />
+            </div>
+            <div class="item">
+                <img src="images/header3/slider.png" alt="banner" title="banner" class="img-responsive" />
+            </div>
+            <div class="item">
+                <img src="images/header3/slider.png" alt="banner" title="banner" class="img-responsive" />
+            </div>
+        </div>
+    </div>
+    <!-- slider end here -->
+    <!-- about start here -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                <div class="about text-center">
+                    <h4>Welcome</h4>
+                    <p>Vivamus sem sapien, volutpat in urna ut, laoreet sellicitudin  lectus. Aenean est odio, blandit non diam sed, pulvinar efficitur enim. Maecenas massa ex, volutpat nec massa gravida, posuere volputate ipsum. Quisque tristique finibus dolor ultrices ultricies.</p>
+                    <a href="aboutus.html">Read more<i class="arrow_carrot-2right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about end here -->
+
+    @RenderBody()
+    <!-- footer start here -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                    <div class="inner">
+                        <img src="images/header3/footer-logo.png" class="img-responsive" title="logo" alt="logo">
+                        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam congue quis quam eget efficitur. Vestibulum venenatis tortor ipsum, at venenatis tellus aliquet eu. Orci varius natoque penatibus...</p>
+                        <ul class="list-unstyled contact">
+                            <li>
+                                <a href="contactus.html">
+                                    <i class="fa fa-map-marker"></i> No 60 Lorem Street 6/2 Ludhiana city, India.
+                                </a>
+                            </li>
+                            <li>
+                                <a href="contactus.html">
+                                    <i class="icon_phone"></i> Phone - +123 456 7890
+                                </a>
+                            </li>
+                            <li>
+                                <a href="contactus.html">
+                                    <i class="fa fa-envelope"></i> Email - organicfoods@gmail.com
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-lg-9 col-xs-12">
+                    <div id="newsletter">
+                        <h6>Newsletter</h6>
+                        <p>Enter your address for our mailing list to keep your update</p>
+                        <form class="form-horizontal" name="subscribe">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input value="" name="subscribe_email" id="subscribe_email" placeholder="Email" type="text">
+                                    <button class="btn btn-news" type="submit" value="submit">Subscribe Now</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12 cat">
+                            <h5>Stay Connected</h5>
+                            <hr>
+                            <ul class="list-unstyled social">
+                                <li>
+                                    <a href="https://www.facebook.com/" target="_blank">
+                                        <i class="social_facebook"></i> Facebook
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/" target="_blank">
+                                        <i class="social_twitter"></i> Twitter
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://plus.google.com/" target="_blank">
+                                        <i class="social_googleplus"></i> Google+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.youtube.com/" target="_blank">
+                                        <i class="social_youtube"></i> Youtube
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://in.linkedin.com/" target="_blank">
+                                        <i class="social_linkedin"></i> Linked In
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12 cat">
+                            <h5>Categories</h5>
+                            <hr>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#">Vegetables</a>
+                                </li>
+                                <li>
+                                    <a href="#">Fruits</a>
+                                </li>
+                                <li>
+                                    <a href="#">Meats</a>
+                                </li>
+                                <li>
+                                    <a href="#">Organic Foods</a>
+                                </li>
+                                <li>
+                                    <a href="#">Others</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12 cat">
+                            <h5>my account</h5>
+                            <hr>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="login_register.html">My Account</a>
+                                </li>
+                                <li>
+                                    <a href="#">Discount</a>
+                                </li>
+                                <li>
+                                    <a href="#">Person information</a>
+                                </li>
+                                <li>
+                                    <a href="#">Order History</a>
+                                </li>
+                                <li>
+                                    <a href="#">Wishlist</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                            <h5>portfolio</h5>
+                            <hr>
+                            <ul class="list-inline port">
+                                <li>
+                                    <img src="images/header3/port1.png" class="img-responsive" alt="img" title="img" />
+                                </li>
+                                <li>
+                                    <img src="images/header3/port2.png" class="img-responsive" alt="img" title="img" />
+                                </li>
+                                <li>
+                                    <img src="images/header3/port3.png" class="img-responsive" alt="img" title="img" />
+                                </li>
+                                <li>
+                                    <img src="images/header3/port4.png" class="img-responsive" alt="img" title="img" />
+                                </li>
+                                <li>
+                                    <img src="images/header3/port5.png" class="img-responsive" alt="img" title="img" />
+                                </li>
+                                <li>
+                                    <img src="images/header3/port6.png" class="img-responsive" alt="img" title="img" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="powered">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 text-center">
+                        <p>© Copyright 2017, <span>Organic foods & fruits.</span>  All Rights Reserved.</p>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 text-center">
+                        <ul class="list-inline">
+                            <li>
+                                <img src="images/card1.png" class="img-responsive" alt="card" title="card" />
+                            </li>
+                            <li>
+                                <img src="images/card2.png" class="img-responsive" alt="card" title="card" />
+                            </li>
+                            <li>
+                                <img src="images/card3.png" class="img-responsive" alt="card" title="card" />
+                            </li>
+                            <li>
+                                <img src="images/card4.png" class="img-responsive" alt="card" title="card" />
+                            </li>
+                            <li>
+                                <img src="images/card5.png" class="img-responsive" alt="card" title="card" />
+                            </li>
+                            <li>
+                                <img src="images/card6.png" class="img-responsive" alt="card" title="card" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
-
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
-        </script>
-    </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @RenderSection("Scripts", required: false)
+    <!-- footer end here -->
+    <!-- jquery -->
+    <script src="~/js/jquery.2.1.1.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <!--bootstrap select-->
+    <script src="~/js/dist/js/bootstrap-select.js"></script>
+    <!--internal js-->
+    <script src="~/js/internal.js"></script>
+    <!-- owlcarousel js -->
+    <script src="~/js/owl-carousel/owl.carousel.min.js"></script>
+</body>
+<body>
 </body>
 </html>

@@ -17,7 +17,6 @@ namespace AgriculturalProducts.Models
         public int Status { get; set; }
         [Required]
         public decimal Cost { get; set; }
-        //Khối lượng
         [Required]
         public decimal Mass { get; set; }
         [Required]
@@ -39,5 +38,8 @@ namespace AgriculturalProducts.Models
         [Required]
         public Guid UnitId { get; set; }
         public Unit Unit { get; set; }
+        [Required]
+        public Guid StatusProdcutId { get; set; }
+        public StatusProduct StatusProduct { get; set; }
     }
 }

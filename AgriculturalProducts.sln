@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriculturalProducts.Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriculturalProducts.Repository", "AgriculturalProducts.Repository\AgriculturalProducts.Repository.csproj", "{07D7BF8C-D454-4E35-BD4A-99BC461FC60C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriculturalProducts.APIWeb", "AgriculturalProducts.APIWeb\AgriculturalProducts.APIWeb.csproj", "{49EB0994-365F-472A-A8CA-916358D027E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriculturalProducts.Web", "AgriculturalProducts.APIWeb\AgriculturalProducts.Web.csproj", "{49EB0994-365F-472A-A8CA-916358D027E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriculturalProducts.Admin", "AgriculturalProducts.Admin\AgriculturalProducts.Admin.csproj", "{EBEBEA47-CB70-4552-934A-14CDB4BBC5C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriculturalProducts.Admin", "AgriculturalProducts.Admin\AgriculturalProducts.Admin.csproj", "{EBEBEA47-CB70-4552-934A-14CDB4BBC5C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

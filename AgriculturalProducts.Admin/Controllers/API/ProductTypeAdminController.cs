@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
@@ -54,11 +55,19 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             return Ok();
         }
         [HttpPost]
-        [Route("get-product-type")]
+        [Route("get-all-product-type")]
         public async Task<IActionResult> GetAllProductType()
         {
-            var provider = _productTypeService.GetAllProductType();
-            return Ok();
+            try
+            {
+                var productType = _productTypeService.GetAllProductType();
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = productType, Error = null });
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Lỗi lấy danh sách loại sản phẩm");
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy danh sách loại sản phẩm" });
+            }
         }
         [HttpPost]
         [Route("delete-product-type")]

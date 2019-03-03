@@ -1,7 +1,4 @@
-﻿body {
-}
-
-.text-pagin {
+﻿.text-pagin {
     width: 50px;
     text-align: center;
     padding: 0px;
@@ -10,4 +7,9 @@
 .text-search {
     width: 230px;
     right: 0px;
+}
+
+.height-dropdown {
+    max-height: 300px;
+    overflow-y: auto;
 }

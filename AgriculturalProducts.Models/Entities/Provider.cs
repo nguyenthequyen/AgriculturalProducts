@@ -19,6 +19,8 @@ namespace AgriculturalProducts.Models
         [Required]
         public DateTime DateTimeRegister { get; set; }
         public DateTime DateTimeStop { get; set; }
-        public string Status { get; set; }
+        [Required]
+        public Guid StatusProviderId { get; set; }
+        public StatusProvider StatusProvider { get; set; }
     }
 }

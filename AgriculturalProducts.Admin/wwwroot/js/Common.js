@@ -11,15 +11,23 @@ var GET_PRODUCT_PAGING = "api/productadmin/get-product-paging";
 //Manager Provider
 var INSERT_PROVIDER = "api/ProviderAdmin/insert-provider";
 var GET_PROVIDER_PAGINGATE = "api/ProviderAdmin/getprovider-paging";
-var DELETE_PROVIDER = "api/ProviderAdmin/delete-provider"
+var DELETE_PROVIDER = "api/ProviderAdmin/delete-provider";
+var GET_ALL_PROVIVER = "api/ProviderAdmin/get-all-provider";
 //Manager Category
 var INSERT_CATEGORY = "api/CategoryAdmin/insert-category";
 var GET_CATEGORY_PAGING = "api/CategoryAdmin/get-categories-paging";
-var DELETE_CATEGORY = "api/CategoryAdmin/delete-category"
+var DELETE_CATEGORY = "api/CategoryAdmin/delete-category";
+var GET_ALL_CATEGORY = "api/CategoryAdmin/get-all-category";
 //Manager Product type
 var INSERT_PRODUCT_TYPE = "api/ProductTypeAdmin/inssert-product-type";
 var GET_PRODUCT_TYPE_PAGING = "api/ProductTypeAdmin/get-product-type-paging";
 var DELETE_PRODUT_TYPE = "api/ProductTypeAdmin/delete-product-type";
+var GET_PRODUCT_TYPE = "api/producttypeadmin/get-all-product-type";
+//Manager Units
+var GET_ALL_UNITS = "api/unitadmin/get-all-unit";
+var INSERT_UNIT = "api/unitadmin/insert-unit";
+var GET_UNIT_PAGING = "api/unitadmin/get-unit-paging";
+
 
 var renderAPI = {
     postAPI: function (url, async, method, data, callbackSuccess, callbackError) {
@@ -42,6 +50,9 @@ var renderAPI = {
     },
     isWorking: function (result) {
         $(result).parent().parent().addClass("isWorking");
+    },
+    isWorkingDropdownList: function (result) {
         debugger
+        $(result).addClass('isWorking');
     }
 }

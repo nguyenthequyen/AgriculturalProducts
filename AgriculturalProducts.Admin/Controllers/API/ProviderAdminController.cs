@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
@@ -47,11 +48,19 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             return Ok();
         }
         [HttpPost]
-        [Route("get-provider")]
+        [Route("get-all-provider")]
         public async Task<IActionResult> GetAllProvider()
         {
-            var provider = _providerService.GetAllProvider();
-            return Ok();
+            try
+            {
+                var provider = _providerService.GetAllProvider();
+                return Ok(new Result() { Code = 200, Data = provider, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu tất cả nhà cung cấp: " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy dữ liệu nhà cung cấp" });
+            }
         }
         [HttpPost]
         [Route("delete-provider")]
