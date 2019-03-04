@@ -52,7 +52,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                 });
 
             migrationBuilder.CreateTable(
-                name: "StatusProduct",
+                name: "StatusProducts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -62,11 +62,11 @@ namespace AgriculturalProducts.Repository.Data.Application
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusProduct", x => x.Id);
+                    table.PrimaryKey("PK_StatusProducts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "StatusProvider",
+                name: "StatusProviders",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -76,7 +76,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusProvider", x => x.Id);
+                    table.PrimaryKey("PK_StatusProviders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,9 +139,9 @@ namespace AgriculturalProducts.Repository.Data.Application
                 {
                     table.PrimaryKey("PK_Providers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Providers_StatusProvider_StatusProviderId",
+                        name: "FK_Providers_StatusProviders_StatusProviderId",
                         column: x => x.StatusProviderId,
-                        principalTable: "StatusProvider",
+                        principalTable: "StatusProviders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -190,8 +190,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                     ProviderId = table.Column<Guid>(nullable: false),
                     ProductTypeId = table.Column<Guid>(nullable: false),
                     UnitId = table.Column<Guid>(nullable: false),
-                    StatusProdcutId = table.Column<Guid>(nullable: false),
-                    StatusProductId = table.Column<Guid>(nullable: true)
+                    StatusProductId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,11 +214,11 @@ namespace AgriculturalProducts.Repository.Data.Application
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_StatusProduct_StatusProductId",
+                        name: "FK_Products_StatusProducts_StatusProductId",
                         column: x => x.StatusProductId,
-                        principalTable: "StatusProduct",
+                        principalTable: "StatusProducts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Units_UnitId",
                         column: x => x.UnitId,
@@ -362,7 +361,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                 name: "Providers");
 
             migrationBuilder.DropTable(
-                name: "StatusProduct");
+                name: "StatusProducts");
 
             migrationBuilder.DropTable(
                 name: "Units");
@@ -371,7 +370,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "StatusProvider");
+                name: "StatusProviders");
         }
     }
 }

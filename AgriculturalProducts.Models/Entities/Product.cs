@@ -39,7 +39,7 @@ namespace AgriculturalProducts.Models
         public Guid UnitId { get; set; }
         public Unit Unit { get; set; }
         [Required]
-        public Guid StatusProdcutId { get; set; }
+        public Guid StatusProductId { get; set; }
         public StatusProduct StatusProduct { get; set; }
     }
 }

@@ -43,7 +43,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
         }
         [HttpPost]
         [Route("get-all-status-products")]
-        public async Task<IActionResult> GetAllProvider()
+        public async Task<IActionResult> GetAllProcduct()
         {
             try
             {

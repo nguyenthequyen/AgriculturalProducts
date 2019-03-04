@@ -2,6 +2,7 @@
 using AgriculturalProducts.Services;
 using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -24,6 +25,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
         }
         public static void RegisterRepository(this IServiceCollection services)
         {
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             //Repository
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProviderRepository, ProviderRepository>();
@@ -31,6 +33,8 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IStatusProviderRepository, StatusProviderRepository>();
+            services.AddScoped<IStatusProductRepository, StatusProductRepository>();
         }
         public static void RegisterService(this IServiceCollection services)
         {
@@ -42,6 +46,8 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IStatusProviderService, StatusProviderService>();
+            services.AddScoped<IStatusProductService, StatusProductService>();
         }
     }
 }

@@ -7,8 +7,8 @@ namespace AgriculturalProducts.Repository
 {
     public interface IStatusProductRepository : IBaseRepository<StatusProduct>
     {
-        void InsertStatusProduct(StatusProduct roles);
-        void UpdateStatusProduct(StatusProduct roles);
+        void InsertStatusProduct(StatusProduct statusProduct);
+        void UpdateStatusProduct(StatusProduct statusProduct);
         IEnumerable<StatusProduct> GetAllStatusProduct();
         void DeleteStatusProduct(StatusProduct roles);
     }

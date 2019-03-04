@@ -21,5 +21,7 @@ namespace AgriculturalProducts.Repository
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<StatusProduct> StatusProducts { get; set; }
+        public DbSet<StatusProvider> StatusProviders { get; set; }
     }
 }

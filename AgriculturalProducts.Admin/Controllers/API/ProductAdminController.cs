@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
@@ -36,14 +37,28 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi thêm sản phẩm: " + ex);
-                return Ok(new Result() { Data = null, Code = ex.GetHashCode(), Error = "Thêm sản phẩm thất bại" });
+                return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = "Thêm sản phẩm thất bại" });
             }
         }
         [HttpPost]
+        //[Route("getproduct-paging")]
+        //public async Task<IActionResult> GetProductPagingnate(string sortOrder, string curentFilter, string searchString, int? page)
+        //{
+        //    return Ok();
+        //}
+        [HttpPost]
         [Route("getproduct-paging")]
-        public async Task<IActionResult> GetProductPagingnate(string sortOrder, string curentFilter, string searchString, int? page)
+        public async Task<IActionResult> GetProductPageList(PagingParams pagingParams)
         {
-            return Ok();
+            var data = _productService.GetProductPageList(pagingParams);
+            _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
+            Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
+            var output = new OutPutModel<Product>
+            {
+                Paging = data.GetHeader(),
+                Items = data.List.ToList(),
+            };
+            return Ok(new Result() { Code = 200, Data = output, Error = null });
         }
         [HttpPost]
         [Route("update-product-type")]

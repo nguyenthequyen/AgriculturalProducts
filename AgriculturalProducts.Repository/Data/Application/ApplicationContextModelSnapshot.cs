@@ -102,9 +102,7 @@ namespace AgriculturalProducts.Repository.Data.Application
 
                     b.Property<int>("Status");
 
-                    b.Property<Guid>("StatusProdcutId");
-
-                    b.Property<Guid?>("StatusProductId");
+                    b.Property<Guid>("StatusProductId");
 
                     b.Property<Guid>("UnitId");
 
@@ -257,7 +255,7 @@ namespace AgriculturalProducts.Repository.Data.Application
 
                     b.HasKey("Id");
 
-                    b.ToTable("StatusProduct");
+                    b.ToTable("StatusProducts");
                 });
 
             modelBuilder.Entity("AgriculturalProducts.Models.StatusProvider", b =>
@@ -273,7 +271,7 @@ namespace AgriculturalProducts.Repository.Data.Application
 
                     b.HasKey("Id");
 
-                    b.ToTable("StatusProvider");
+                    b.ToTable("StatusProviders");
                 });
 
             modelBuilder.Entity("AgriculturalProducts.Models.Unit", b =>
@@ -352,7 +350,8 @@ namespace AgriculturalProducts.Repository.Data.Application
 
                     b.HasOne("AgriculturalProducts.Models.StatusProduct", "StatusProduct")
                         .WithMany()
-                        .HasForeignKey("StatusProductId");
+                        .HasForeignKey("StatusProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AgriculturalProducts.Models.Unit", "Unit")
                         .WithMany()

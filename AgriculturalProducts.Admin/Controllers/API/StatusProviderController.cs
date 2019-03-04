@@ -28,7 +28,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
         }
         [HttpPost]
         [Route("insert-status-provider")]
-        public async Task<IActionResult> InsertStatusProcduct(List<StatusProvider> statusProvider)
+        public async Task<IActionResult> InsertStatusProvider(List<StatusProvider> statusProvider)
         {
             try
             {

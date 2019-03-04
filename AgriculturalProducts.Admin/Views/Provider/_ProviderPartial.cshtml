@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal m-t-20" id="insertProduct">
+                <div class="form-horizontal m-t-20" id="insertProvider">
                     <div class="row p-b-30">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -38,7 +38,14 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Tình trạng</i></span>
                             </div>
-                            <input type="text" class="form-control form-control-lg provider-status" placeholder="Tình trạng" aria-label="ProviderStatus" aria-describedby="basic-addon1" required="">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-light dropdown-toggle btn-status-provider" data-toggle="dropdown">
+                                    Tình trạng
+                                </button>
+                                <div class="dropdown-menu list-status-provider">
+                                    
+                                </div>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">

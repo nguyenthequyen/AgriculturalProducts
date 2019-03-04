@@ -6,6 +6,8 @@
     $('.provider tbody').on('click', '.btn-edit-provider', callAjaxProvider.editProvider);
     $('.provider tbody').on('click', '.btn-delete-provider', callAjaxProvider.deleteProvider);
     $('.provider tbody').on('click', '.btn-view-provider', callAjaxProvider.viewProvider);
+    $('.btn-status-provider').click(callAjaxProvider.loadDataStatusProduct);
+    $('.list-status-provider').on('click', 'a', callAjaxProvider.addDataStatusProvider);
 });
 var callAjaxProvider = {
     insertProvider: function () {
@@ -13,14 +15,14 @@ var callAjaxProvider = {
         var providerCode = $('.provider-code').val();
         var providerPhone = $('.provider-phone').val();
         var providerAddress = $('.provider-address').val();
-        var providerStatus = $('.provider-status').val();
+        var statusProviderId = $('#insertProvider').find(".btn-status-provider").attr('details-id-status-provider');
         var providerDateTimeRegister = $('.provider-datetime-register').val();
         var provider = {
             name: providerName,
             code: providerCode,
             phone: providerPhone,
             address: providerAddress,
-            status: providerStatus,
+            statusProviderId: statusProviderId,
             DateTimeRegister: providerDateTimeRegister
         }
         var providers = [];
@@ -104,5 +106,25 @@ var callAjaxProvider = {
         } else {
             console.log("Lỗi provider");
         }
+    },
+    loadDataStatusProduct: function () {
+        $(renderAPI.postAPI(GET_ALL_STATUS_PROVIDER, true, 'post', null, callAjaxProvider.dataLoadStatusProvider, callAjaxProvider.errorLoadAllStatusProvider))
+    },
+    dataLoadStatusProvider: function (result) {
+        $('.list-status-provider').html('');
+        $.each(result.data, function (index, value) {
+            var query = '<a class="dropdown-item" statusProviderId="' + value.id + '">' + value.name + '</a>';
+            $('.list-status-provider').append(query);
+        });
+    },
+    errorLoadAllStatusProvider: function () {
+
+    },
+    addDataStatusProvider: function () {
+        (renderAPI.isWorkingDropdownList(this));
+        var statusProductId = $('.list-status-provider').find('.isWorking').attr('statusProviderId');
+        var productTypeName = $('.list-status-provider').find('.isWorking').text();
+        $('.btn-status-provider').attr('details-id-status-provider', statusProductId);
+        $('.btn-status-provider').text(productTypeName);
     }
 }

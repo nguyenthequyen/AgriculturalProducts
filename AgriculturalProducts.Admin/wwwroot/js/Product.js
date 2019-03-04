@@ -5,15 +5,69 @@
     $('.product tbody').on('click', '.btn-edit-product', callAjaxProductAdmin.editProduct);
     $('.product tbody').on('click', '.btn-delete-product', callAjaxProductAdmin.deleteProduct);
     $('.product tbody').on('click', '.btn-view-product', callAjaxProductAdmin.viewProduct);
+    $('.product tbody').on('click', '.btn-upload-image', callAjaxProductAdmin.uploadImage);
     $('.btn-category').on('click', callAjaxProductAdmin.loadAllCategory);
     $('.btn-product-type').on('click', callAjaxProductAdmin.loadAllProductType);
     $('.btn-provider').on('click', callAjaxProductAdmin.loadAllProvider);
     $('.btn-unit').on('click', callAjaxProductAdmin.loadAllUnit);
+    $('.btn-status-product').on('click', callAjaxProductAdmin.loadDataStatusProduct);
     $('.list-product-type').on('click', 'a', callAjaxProductAdmin.addDatatDropdowListProductType);
     $('.list-provider').on('click', 'a', callAjaxProductAdmin.addDatatDropdowListProvider);
     $('.list-category').on('click', 'a', callAjaxProductAdmin.addDatatDropdowListCategory);
     $('.list-unit').on('click', 'a', callAjaxProductAdmin.addDataUnit);
-    $('.list-status').on('click', 'a', callAjaxProductAdmin.addDataStatus);
+    $('.list-status-product').on('click', 'a', callAjaxProductAdmin.addDataStatus);
+    $('.bd-upload-image-modal-lg').on('click', '#to-recover', function () {
+        $('.bd-upload-image-modal-lg').hide();
+        $('.bd-upload-image-modal-lg').removeClass("show");
+    });
+    $('.btn-upload-img-product').click(function () {
+        var files = $('#fileInput')[0].files;
+        var formData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            formData.append("files", file);
+        }
+        debugger
+        $.ajax({
+            url: "api/Images/upload-images",
+            type: "POST",
+            contentType: false,
+            data: formData,
+            dataType: "json",
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("ProductId", $('.product-id').text());
+            },
+            processData: false,
+            async: false,
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress",
+                    function (evt) {
+                        if (evt.lengthComputable) {
+                            var progress = Math.round((evt.loaded / evt.total) * 100);
+                        }
+                    },
+                    false);
+                return xhr;
+            }
+        })
+            .done(function (data, textStatus, jqXhr) {
+                alert("Uploading is done");
+
+                // Clear the input
+                $("#files").val();
+            })
+            .fail(function (jqXhr, textStatus, errorThrown) {
+                debugger
+                if (errorThrown === "abort") {
+                    alert("Uploading was aborted");
+                } else {
+                    alert("Uploading failed");
+                }
+            })
+            .always(function (data, textStatus, jqXhr) { });
+    });
 });
 
 var callAjaxProductAdmin = {
@@ -23,13 +77,13 @@ var callAjaxProductAdmin = {
         var productCode = $("#insertProduct").find(".product-code").val();
         var productQuanlity = $("#insertProduct").find(".product-quanlity").val();
         var productCost = $("#insertProduct").find(".product-cost").val();
-        var productStatus = $("#insertProduct").find(".product-status").val();
+        var productStatus = $("#insertProduct").find('.btn-status-product').attr("details-id-status-product");
         var productMass = $("#insertProduct").find(".product-mass").val();
-        var productCategoryId = $("#insertProduct").attr("details-id-category");
-        var productTypeId = $("#insertProduct").attr("details-id-productType");
-        var providerId = $("#insertProduct").attr("details-id-provider");
+        var productCategoryId = $("#insertProduct").find('.btn-category').attr("details-id-category");
+        var productTypeId = $("#insertProduct").find('.btn-product-type').attr("details-id-productType");
+        var providerId = $("#insertProduct").find('.btn-provider').attr("details-id-provider");
         var productSale = $("#insertProduct").find(".product-sale").val();
-        var unitId = $("#insertProduct").attr("details-id-category");
+        var unitId = $("#insertProduct").find('.btn-unit').attr("details-id-unit");
         var shortDescription = $("#insertProduct").find(".product-shortDescription").val();
         var fullDescription = $("#insertProduct").find(".product-fullDescription").val();
         var product = {
@@ -37,7 +91,6 @@ var callAjaxProductAdmin = {
             code: productCode,
             quantity: productQuanlity,
             cost: productCost,
-            status: productStatus,
             mass: productMass,
             categoryId: productCategoryId,
             providerId: providerId,
@@ -45,9 +98,9 @@ var callAjaxProductAdmin = {
             sale: productSale,
             unitId: unitId,
             shortDescription: shortDescription,
-            fullDescription: fullDescription
+            fullDescription: fullDescription,
+            statusProductId: productStatus
         }
-        debugger
         var products = [];
         products.push(product);
         $(renderAPI.postAPI(INSERT_PRODUCT, true, 'post', JSON.stringify(products), callAjaxProductAdmin.getProductPaging, callAjaxProductAdmin.errorInsertProduct));
@@ -82,9 +135,10 @@ var callAjaxProductAdmin = {
                 '<td>' + value.quantity + '</td>' +
                 '<td>' + value.unitId + '</td>' +
                 '<td>' +
-                '<button type="button" class="btn btn-secondary btn-sm btn-edit-product">Sửa</button>' +
-                '<button type="button" class="btn btn-success btn-sm btn-delete-product">Xóa</button>' +
-                '<button type="button" class="btn btn-danger btn-sm btn-view-product">Xem</button>' +
+                '<button type="button" class="btn btn-secondary btn-sm btn-edit-product mr-1">Sửa</button>' +
+                '<button type="button" class="btn btn-success btn-sm btn-delete-product mr-1">Xóa</button>' +
+                '<button type="button" class="btn btn-danger btn-sm btn-view-product mr-1">Xem</button>' +
+                '<button type="button" class="btn btn-danger btn-sm btn-upload-image" data-target=".bd-upload-image-modal-lg">Thêm ảnh</button>' +
                 '</td>' +
                 '</tr>';
             $('.product tbody').append(query);
@@ -100,6 +154,18 @@ var callAjaxProductAdmin = {
     },
     editProduct: function () {
 
+    },
+    uploadImage: function () {
+        $('.product tbody tr').removeClass('isWorking');
+        $(renderAPI.isWorking(this));
+        var checkIsWorking = $(".product tbody").find("isWorking");
+        if (checkIsWorking) {
+            $('.bd-upload-image-modal-lg').show();
+            $('.bd-upload-image-modal-lg').addClass("show");
+            $('.product-id').text($('.isWorking #product-id').text());
+        } else {
+            console.log("Lỗi product");
+        }
     },
     loadAllProvider: function () {
         $(renderAPI.postAPI(GET_ALL_PROVIVER, true, 'post', null, callAjaxProductAdmin.dataLoadAllProvider, callAjaxProductAdmin.errorLoadAllProvider))
@@ -153,6 +219,19 @@ var callAjaxProductAdmin = {
     errorLoadAllUnit: function () {
 
     },
+    loadDataStatusProduct: function () {
+        $(renderAPI.postAPI(GET_ALL_STATUS_PRODUCT, true, 'post', null, callAjaxProductAdmin.dataLoadStatusProduct, callAjaxProductAdmin.errorLoadAllStatusProduct))
+    },
+    dataLoadStatusProduct: function (result) {
+        $('.list-status-product').html('');
+        $.each(result.data, function (index, value) {
+            var query = '<a class="dropdown-item" statusProductId="' + value.id + '">' + value.name + '</a>';
+            $('.list-status-product').append(query);
+        });
+    },
+    errorLoadAllStatusProduct: function () {
+
+    },
     addDatatDropdowListProductType: function () {
         $(renderAPI.isWorkingDropdownList(this));
         var productTypeId = $('.list-product-type').find('.isWorking').attr('productTypeId');
@@ -183,9 +262,9 @@ var callAjaxProductAdmin = {
     },
     addDataStatus: function () {
         $(renderAPI.isWorkingDropdownList(this));
-        var productTypeId = $('.list-status').find('.isWorking').attr('statusValue');
-        var productTypeName = $('.list-status').find('.isWorking').text();
-        $('.btn-status').attr('details-id-unit', productTypeId);
-        $('.btn-status').text(productTypeName);
+        var statusProductId = $('.list-status-product').find('.isWorking').attr('statusProductId');
+        var productTypeName = $('.list-status-product').find('.isWorking').text();
+        $('.btn-status-product').attr('details-id-status-product', statusProductId);
+        $('.btn-status-product').text(productTypeName);
     }
 }
