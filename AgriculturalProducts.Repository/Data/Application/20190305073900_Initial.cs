@@ -236,8 +236,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                     ModifyDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Path = table.Column<string>(nullable: false),
-                    ProdutId = table.Column<Guid>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: true)
+                    ProductId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -247,7 +246,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

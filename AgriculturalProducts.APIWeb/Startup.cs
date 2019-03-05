@@ -38,7 +38,7 @@ namespace AgriculturalProducts.APIWeb
             var connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<Web.Api.Infrastructure.Identity.AppIdentityDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("AgriculturalProducts.Repository")));
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("AgriculturalProducts.Repository")));
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("AgriculturalProducts.Repository")));
             services.RegisterServiceAndRespository();
         }

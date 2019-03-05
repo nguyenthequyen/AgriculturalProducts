@@ -32,6 +32,17 @@ namespace AgriculturalProducts.Repository
 
         public void GetAllProductPaging()
         {
+            throw new NotImplementedException();
+        }
+
+        public void GetTopNewPoduct()
+        {
+            _applicationContext.Products
+               .Join(_applicationContext.Images, p => p.Id, img => img.ProductId, (p, img) => new { p, img })
+               .Select(prd=>new {
+                   ProductName = prd.p.Name,
+                   Imgage = prd.img.Path.ToList()
+               }).ToList();
             //var categorizedProducts = _applicationContext.Products
             // .Join(_applicationContext.Categeries, p => p.CategoryId, pc => pc.Id, (p, pc) => new { p, pc })
             // .Join(_applicationContext.Units, u => u.p.UnitId, c => c.Id, (u, c) => new { u, c })

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AgriculturalProducts.Models
 {
-    public class ProductResult
+    public class ProductResult : BaseEntity
     {
     }
 }

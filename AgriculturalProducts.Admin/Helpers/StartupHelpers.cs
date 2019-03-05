@@ -35,6 +35,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IStatusProviderRepository, StatusProviderRepository>();
             services.AddScoped<IStatusProductRepository, StatusProductRepository>();
+            services.AddScoped<IImagesRepository, ImagesRepository>();
         }
         public static void RegisterService(this IServiceCollection services)
         {
@@ -48,6 +49,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IStatusProviderService, StatusProviderService>();
             services.AddScoped<IStatusProductService, StatusProductService>();
+            services.AddScoped<IImagesService, ImagesService>();
         }
     }
 }

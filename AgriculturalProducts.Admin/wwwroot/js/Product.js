@@ -27,7 +27,6 @@
             var file = files[i];
             formData.append("files", file);
         }
-        debugger
         $.ajax({
             url: "api/Images/upload-images",
             type: "POST",
@@ -52,14 +51,11 @@
                 return xhr;
             }
         })
-            .done(function (data, textStatus, jqXhr) {
+            .success(function (data, textStatus, jqXhr) {
                 alert("Uploading is done");
-
-                // Clear the input
                 $("#files").val();
             })
-            .fail(function (jqXhr, textStatus, errorThrown) {
-                debugger
+            .error(function (jqXhr, textStatus, errorThrown) {
                 if (errorThrown === "abort") {
                     alert("Uploading was aborted");
                 } else {

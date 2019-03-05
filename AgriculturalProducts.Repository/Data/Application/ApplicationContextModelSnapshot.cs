@@ -54,9 +54,7 @@ namespace AgriculturalProducts.Repository.Data.Application
                     b.Property<string>("Path")
                         .IsRequired();
 
-                    b.Property<Guid?>("ProductId");
-
-                    b.Property<Guid>("ProdutId");
+                    b.Property<Guid>("ProductId");
 
                     b.HasKey("Id");
 
@@ -328,7 +326,8 @@ namespace AgriculturalProducts.Repository.Data.Application
                 {
                     b.HasOne("AgriculturalProducts.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AgriculturalProducts.Models.Product", b =>
