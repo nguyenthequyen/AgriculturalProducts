@@ -20,6 +20,7 @@ namespace AgriculturalProducts.Services
         public void DeleteRoles(Roles roles)
         {
             Delete(roles);
+            _unitOfWork.Commit();
         }
 
         public async Task<Roles> FindRolesById(Guid id)
@@ -38,12 +39,14 @@ namespace AgriculturalProducts.Services
             roles.ModifyDate = DateTime.Now;
             roles.CreatedDate = DateTime.Now;
             Add(roles);
+            _unitOfWork.Commit();
         }
 
         public void UpdateRoles(Roles roles)
         {
             roles.ModifyDate = DateTime.Now;
             Update(roles);
+            _unitOfWork.Commit();
         }
     }
 }

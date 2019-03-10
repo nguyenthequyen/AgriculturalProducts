@@ -16,9 +16,19 @@ namespace AgriculturalProducts.Services
             _reponsitory = reponsitory;
         }
 
+        public List<object> GetListDiscountProducts()
+        {
+            return _reponsitory.GetListDiscountProducts();
+        }
+
         public List<object> GetTopNewPoduct()
         {
             return _reponsitory.GetTopNewPoduct();
+        }
+
+        public List<object> GetProductDetails(Guid id)
+        {
+            return _reponsitory.GetProductDetails(id);
         }
     }
 }

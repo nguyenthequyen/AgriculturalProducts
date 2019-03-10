@@ -27,6 +27,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IImagesClientRepository, ImagesClientRepository>();
+            services.AddScoped<IUserClientRepository, UserClientRepository>();
             //Services
             services.AddScoped<IProductClientService, ProductClientService>();
             services.AddScoped<IProviderService, ProviderService>();
@@ -34,6 +35,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IImagesClientServices, ImagesClientServices>();
+            services.AddScoped<IUserClientService, UserClientService>();
         }
     }
 }

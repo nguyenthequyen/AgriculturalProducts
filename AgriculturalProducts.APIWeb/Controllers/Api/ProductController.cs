@@ -7,6 +7,7 @@ using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductClientService _productService;
@@ -46,8 +48,46 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         [Route("list-new-product")]
         public async Task<IActionResult> GetListNewProducts()
         {
-            var data = _productService.GetTopNewPoduct();
-            return Ok(new Result() { Code = 200, Data = data, Error = null });
+            try
+            {
+                var data = _productService.GetTopNewPoduct();
+                return Ok(new Result() { Code = 200, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lõi lấy sản phẩm mới nhất: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = "Lỗi lấy danh sách sản phẩm mới nhất" });
+            }
+        }
+        [HttpPost]
+        [Route("list-top-discount-product")]
+        public async Task<IActionResult> GetListDiscountProduct()
+        {
+            try
+            {
+                var data = _productService.GetListDiscountProducts();
+                return Ok(new Result() { Code = 200, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lõi lấy sản phẩm giảm giá nhiều nhất: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = "Lỗi lấy danh sách sản phẩm mới nhất" });
+            }
+        }
+        [HttpPost]
+        [Route("get-product-details")]
+        public async Task<IActionResult> GetProductDetails(ProductId id)
+        {
+            try
+            {
+                var data = _productService.GetProductDetails(id.Id);
+                return Ok(new Result() { Code = 200, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lõi lấy sản phẩm giảm giá nhiều nhất: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = "Lỗi lấy danh sách sản phẩm mới nhất" });
+            }
         }
         [HttpPost]
         [Route("update-product")]
@@ -93,6 +133,13 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         public async Task<IActionResult> FindProductById(Guid id)
         {
             await _productService.GetFirstOrDefault(id);
+            return Ok();
+        }
+        [Route("get-carts")]
+        [Authorize(Roles = "Users")]
+        [HttpPost]
+        public async Task<IActionResult> CartDetailsFromUser()
+        {
             return Ok();
         }
     }

@@ -18,7 +18,7 @@
 }
 
 .prettycheckbox>a{
-	background: rgba(0, 0, 0, 0) url("images/uncheked.png") no-repeat scroll 0 0;
+	background: rgba(0, 0, 0, 0) url("~/images/uncheked.png") no-repeat scroll 0 0;
     border: 1px solid #ddd;
     cursor: pointer;
     display: block;

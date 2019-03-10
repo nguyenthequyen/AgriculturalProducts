@@ -1,0 +1,54 @@
+﻿<div class="modal fade bd-admin-user-modal-lg" tabindex="-1" role="dialog" aria-labelledby="category-manager" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productManager">Thêm danh mục sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal m-t-20" id="inserUserAdmin">
+                    <div class="row p-b-30">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Tên đăng nhập</i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg user-name" placeholder="Tên quyền" aria-label="CategoryName" aria-describedby="basic-addon1" required="">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Mật khẩu</i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg password-user" placeholder="Tên quyền" aria-label="CategoryName" aria-describedby="basic-addon1" required="">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Phân quyền</i></span>
+                            </div>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-light dropdown-toggle btn-roles" data-toggle="dropdown">
+                                    Tên quyền
+                                </button>
+                                <div class="dropdown-menu height-dropdown list-roles">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row border-top border-secondary">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <div class="p-t-20">
+                                    <button class="btn btn-info" id="to-recover" data-dismiss="modal" type="button"><i class="fa fa-lock m-r-5"></i>Hủy bỏ</button>
+                                    <button class="btn btn-success float-right btn-add-user">Thêm</button>
+                                    <button class="btn btn-success float-right btn-edit-user" hidden>Sửa</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

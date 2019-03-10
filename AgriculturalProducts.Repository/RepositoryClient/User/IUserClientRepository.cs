@@ -8,9 +8,8 @@ namespace AgriculturalProducts.Repository
 {
     public interface IUserClientRepository : IBaseRepository<User>
     {
-        int UserStatisticsClient();
-        void CreatedUserClient(List<User> user);
-        Task<CreateUserResponse> Create(User user);
-        void UpdateUserClient(List<User> user);
+        void CreatedUserCliet(User user);
+        Task<User> FindClientUser(LoginDto login);
+        Task<User> CheckUserExists(string userName);
     }
 }

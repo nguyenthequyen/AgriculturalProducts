@@ -32,6 +32,11 @@ var INSERT_STATUS_PROVIDER = "api/StatusProvider/insert-status-provider";
 var GET_ALL_STATUS_PROVIDER = "api/StatusProvider/get-all-status-provider";
 var INSERT_STATUS_PRODUCT = "api/StatusProduct/insert-status-products";
 var GET_ALL_STATUS_PRODUCT = "api/StatusProduct/get-all-status-products";
+//Roles Manager
+var INSERT_ROLES = "http://localhost:57736/api/RolesAdmin/insert-roles";
+var GET_ALL_ROLES = "http://localhost:57736/api/RolesAdmin/get-all-roles"
+//User Admin Manager
+var INSERT_USER_ADMIN ="http://localhost:57736/api/UserAdmin/create-user"
 
 
 var renderAPI = {
@@ -64,6 +69,7 @@ var renderAPI = {
                 xhr.setRequestHeader("Authorization", "Beare" + localStorage.getItem("access_token"));
             },
             success: function (result) {
+  
                 callbackSuccess(result);
             },
             error: function (jqXHR, exception) {

@@ -10,5 +10,6 @@ namespace AgriculturalProducts.Web.Models
         public int Code { get; set; }
         public string Error { get; set; }
         public object Data { get; set; }
+        public string Message { get; set; }
     }
 }

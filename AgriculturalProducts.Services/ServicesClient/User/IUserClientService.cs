@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    interface IUserClientService : IBaseService<User>
+    public interface IUserClientService : IBaseService<User>
     {
-        int UserStatisticsClient();
-        Task<CreateUserResponse> Create(User user);
-        void UpdateUserClient(List<User> user);
+        void CreatedUserCliet(UserModel user);
+        Task<User> FindClientUser(LoginDto login);
+        Task<User> CheckUserExists(string userName);
     }
 }

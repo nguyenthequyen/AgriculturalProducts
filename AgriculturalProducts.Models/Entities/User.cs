@@ -9,20 +9,17 @@ namespace AgriculturalProducts.Models
 {
     public class User : BaseEntity
     {
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
-        public string IdentityId { get; set; }
+        [Required]
         public string UserName { get; set; }
+        [Required]
         public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        [Required]
+        public string Password { get; set; }
         public Guid RolesId { get; set; }
         public Roles Roles { get; set; }
-        //public User(string firstName, string lastName, string identityId, string userName)
-        //{
-        //    FirstName = firstName;
-        //    LastName = lastName;
-        //    IdentityId = identityId;
-        //    UserName = userName;
-        //}
     }
 }

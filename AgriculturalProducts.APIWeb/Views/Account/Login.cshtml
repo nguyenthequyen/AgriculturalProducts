@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="register">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12 box">
+                <div class="commontop text-left">
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Tên đăng nhập *</label>
+                        <input type="text" name="email" value="" placeholder="Tên đăng nhập" id="input-email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu *</label>
+                        <input type="text" name="password" value="" placeholder="Mật khẩu" id="input-password" class="form-control" />
+                    </div>
+                    <div class="links">
+                        <input class="checkclass checkbox-inline" type="checkbox">Nhớ mật khẩu!
+                        <a href="#" class="pull-right">Quên mật khẩu?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

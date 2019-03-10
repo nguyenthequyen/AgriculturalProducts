@@ -1,6 +1,8 @@
 ﻿//Product Client
 var GET_NEW_PRODUCT = "api/Product/list-new-product";
-var GET_IMAGE = "api/Product/get-image-display-web";
+var LIST_TOP_DISCOUNT_PRODUCT = "api/Product/list-top-discount-product";
+//Account
+var REGISTER = "http://localhost:51277/api/account/create-user";
 
 var renderAPI = {
     postAPI: function (url, async, method, data, callbackSuccess, callbackError) {
@@ -40,7 +42,7 @@ var renderAPI = {
         })
     },
     isWorking: function (result) {
-        $(result).parent().parent().addClass("isWorking");
+        $(result).parent().parent().parent().parent().addClass("isWorking");
     },
     isWorkingDropdownList: function (result) {
         $(result).addClass('isWorking');

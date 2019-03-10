@@ -23,11 +23,66 @@ namespace AgriculturalProducts.Repository
                 Cost = x.Cost,
                 Code = x.Code,
                 Sale = x.Sale,
-                Image = _applicationContext.Images.Join(_applicationContext.Products, p => p.ProductId, pd => pd.Id, (p, pd) => new { p, pd }).Select(pt => new
+                Created = x.CreatedDate,
+                Image = _applicationContext.Images.Where(p => p.ProductId == x.Id).Select(img => new
                 {
-                    Path = pt.p.Path
-                })
-            }).ToList();
+                    Path = "data:image/png;base64, " + GetBase64StringForImage(img.Path)
+                }).ToList()
+            }).OrderBy(x => x.Created).Take(10).ToList();
+            List<object> products = new List<object>();
+            foreach (var item in product)
+            {
+                products.Add(item);
+            }
+            return products;
+        }
+        private static string GetBase64StringForImage(string imgPath)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
+        }
+
+        public List<object> GetListDiscountProducts()
+        {
+            var product = _applicationContext.Products.Select(x => new
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Cost = x.Cost,
+                Code = x.Code,
+                Sale = x.Sale,
+                Created = x.CreatedDate,
+                Image = _applicationContext.Images.Where(p => p.ProductId == x.Id).Select(img => new
+                {
+                    Path = "data:image/png;base64, " + GetBase64StringForImage(img.Path)
+                }).ToList()
+            }).OrderBy(x => x.Sale).Take(8).ToList();
+            List<object> products = new List<object>();
+            foreach (var item in product)
+            {
+                products.Add(item);
+            }
+            return products;
+        }
+
+        public List<object> GetProductDetails(Guid id)
+        {
+            var product = _applicationContext.Products.Select(x => new
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Cost = x.Cost,
+                Code = x.Code,
+                Sale = x.Sale,
+                ShortDescription = x.ShortDescription,
+                FullDescription = x.FullDescription,
+                Created = x.CreatedDate,
+                Image = _applicationContext.Images.Where(p => p.ProductId == x.Id).Select(img => new
+                {
+                    Path = "data:image/png;base64, " + GetBase64StringForImage(img.Path)
+                }).ToList()
+            }).Where(x => x.Id == id).ToList();
             List<object> products = new List<object>();
             foreach (var item in product)
             {

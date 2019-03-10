@@ -8,5 +8,7 @@ namespace AgriculturalProducts.Repository
     public interface IProductClientRepository : IBaseRepository<Product>
     {
         List<object> GetTopNewPoduct();
+        List<object> GetListDiscountProducts();
+        List<object> GetProductDetails(Guid id);
     }
 }
