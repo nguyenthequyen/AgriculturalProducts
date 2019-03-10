@@ -32,9 +32,9 @@ namespace AgriculturalProducts.Services
             return _reponsitory.GetAllRecords();
         }
 
-        public async Task<TEntity> GetFirstOrDefault(Guid recordId)
+        public async Task<TEntity> GetFirstOrDefault(Guid id)
         {
-            return await _reponsitory.GetFirstOrDefault(recordId);
+            return await _reponsitory.GetFirstOrDefault(id);
         }
 
         public void Update(TEntity entity)

@@ -78,51 +78,37 @@ var callAjaxProduct = {
         $(renderAPI.isWorking(this))
         var isWorking = $('.new-product').find('isWorking');
         if (isWorking) {
-            var carts = [];
-            var productId = $('.isWorking').find('span').text();
-            var productName = $('.isWorking').find('h4 a').text();
-            var cost = $('.isWorking').find('.price').text();
-            var img = $('.isWorking').find('img').attr("src");
-            var data = JSON.parse(localStorage.getItem("carts"));
-            if (data !== null) {
-                $.each(data, function (index, value) {
-                    if (productId == value.id) {
-                        value.quantity = value.quantity + 1;
-                        var product = {
-                            id: productId,
-                            cost: cost,
-                            name: productName,
-                            img: img,
-                            quantity: value.quantity
-                        }
-                        data.push(product);
-                        localStorage.setItem("carts", JSON.stringify(data));
-                    } else {
-                        var product = {
-                            id: productId,
-                            cost: cost,
-                            name: productName,
-                            img: img,
-                            quantity: 1
-                        }
-                        data.push(product);
-                        localStorage.setItem("carts", JSON.stringify(data));
-                    }
-                })
-            } else {
-                var product = {
-                    id: productId,
-                    cost: cost,
-                    name: productName,
-                    img: img,
-                    quantity: 1
-                }
-                carts.push(product);
-                localStorage.setItem("carts", JSON.stringify(carts));
+            var id = $('.isWorking').find('.icon_cart_alt').find('span').text();
+            var data = {
+                id: id
             }
+            $(renderAPI.postAPI(ADD_TO_CARTS, true, 'post', JSON.stringify(data), callAjaxProduct.dataAfterAddCarts, callAjaxProduct.errorAfterAddCarts));
         }
         else {
 
         }
-    }
+    },
+    dataAfterAddCarts: function () {
+        $(renderAPI.postAPI(SET_QUANTITY_CARTS, true, 'post', null, callAjaxProduct.dataAfterGetCartsSession, callAjaxProduct.errorAfterGetCartsSession));
+    },
+    errorAfterAddCarts: function (jqXHR, exception) {
+        console.log(jqXHR);
+    },
+    dataAfterGetCartsSession: function (result) {
+        $.each(result.data, function (index, value) {
+            var sum = 0;
+            for (var el in result.data) {
+                debugger
+                if (result.hasOwnProperty(el)) {
+                    sum += parseFloat(result[el]);
+                }
+                debugger
+            }
+            debugger
+            console.log(sum);
+        });
+    },
+    errorAfterGetCartsSession: function (jqXHR, exception) {
+        console.log(jqXHR);
+    },
 }

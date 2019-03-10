@@ -61,12 +61,11 @@ namespace AgriculturalProducts.APIWeb
                 });
 
             services.AddMvc();
-
+            services.AddSession();
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<User, UserDTO>();
             });
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +84,7 @@ namespace AgriculturalProducts.APIWeb
             //app.UseCookiePolicy();
             app.ConfigureCustomExceptionMiddleware();
             app.UseAuthentication();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

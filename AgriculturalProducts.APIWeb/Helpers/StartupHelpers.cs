@@ -1,16 +1,7 @@
 ﻿using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
-using AutoMapper.Configuration;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using Serilog.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AgriculturalProducts.APIWeb.Helpers
 {
@@ -18,6 +9,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
     {
         public static void RegisterServiceAndRespository(this IServiceCollection services)
         {
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Repository

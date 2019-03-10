@@ -24,9 +24,4 @@
     <ProjectReference Include="..\AgriculturalProducts.Services\AgriculturalProducts.Services.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Logs\" />
-  </ItemGroup>
-
 </Project>
