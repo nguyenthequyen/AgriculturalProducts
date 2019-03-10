@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AgriculturalProducts.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountViewsController : Controller
     {
         public IActionResult Index()
         {

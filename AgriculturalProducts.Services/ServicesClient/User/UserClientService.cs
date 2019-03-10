@@ -29,7 +29,7 @@ namespace AgriculturalProducts.Services
                 Id = Guid.NewGuid(),
                 CreatedDate = DateTime.Now,
                 ModifyDate = DateTime.Now,
-                RolesId = Guid.Parse("de663bf9-7bc3-46b8-b0ab-08a8fe2c4d59"),
+                RolesId = Guid.Parse("08298d88-a335-4423-8ec8-16d86d21bfcd"),
                 Password = model.Password,
                 Email = model.Email,
                 FirstName = model.FirstName,
@@ -43,6 +43,11 @@ namespace AgriculturalProducts.Services
         public async Task<User> FindClientUser(LoginDto login)
         {
             return await _reponsitory.FindClientUser(login);
+        }
+
+        public int UsersStatistics()
+        {
+            return _reponsitory.UsersStatistics();
         }
     }
 }

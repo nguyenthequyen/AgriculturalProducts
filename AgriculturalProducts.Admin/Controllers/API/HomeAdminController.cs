@@ -22,11 +22,13 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         private readonly IProductTypeService _productTypeService;
         private readonly IProviderService _providerService;
         private readonly ICategoryService _categoryService;
+        private readonly IUserClientService _usersClientService;
         public HomeAdminController(
             IProductService productService,
             IProductTypeService productTypeService,
             IProviderService providerService,
             ICategoryService categoryService,
+            IUserClientService userClientService,
         ApplicationContext applicationContext)
         {
             _productService = productService;
@@ -34,6 +36,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             _providerService = providerService;
             _categoryService = categoryService;
             _applicationContext = applicationContext;
+            _usersClientService = userClientService;
         }
         [HttpPost]
         [Route("product-statistics")]
@@ -62,6 +65,13 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         {
             var categoryStatistics = _categoryService.CategoryStatistics();
             return Ok(new Result() { Code = 200, Data = categoryStatistics, Error = null });
+        }
+        [HttpPost]
+        [Route("users-statistics")]
+        public async Task<IActionResult> UsersStatistics()
+        {
+            var usersStatistics = _usersClientService.UsersStatistics();
+            return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
         }
     }
 }

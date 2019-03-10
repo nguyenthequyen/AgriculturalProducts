@@ -37,6 +37,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IStatusProductRepository, StatusProductRepository>();
             services.AddScoped<IImagesRepository, ImagesRepository>();
             services.AddScoped<IUserAdminRepository, UserAdminRepository>();
+            services.AddScoped<IUserClientRepository, UserClientRepository>();
         }
         public static void RegisterService(this IServiceCollection services)
         {
@@ -51,6 +52,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IStatusProductService, StatusProductService>();
             services.AddScoped<IImagesService, ImagesService>();
             services.AddScoped<IUserAdminService, UserAdminService>();
+            services.AddScoped<IUserClientService, UserClientService>();
         }
     }
 }

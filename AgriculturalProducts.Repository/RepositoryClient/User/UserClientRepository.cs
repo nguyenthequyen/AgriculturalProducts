@@ -31,6 +31,11 @@ namespace AgriculturalProducts.Repository
         {
             return _applicationContext.Users.FirstOrDefault(x => x.UserName == login.Username && x.Password == login.Password);
         }
+
+        public int UsersStatistics()
+        {
+            return _applicationContext.Users.Count();
+        }
     }
 }
 

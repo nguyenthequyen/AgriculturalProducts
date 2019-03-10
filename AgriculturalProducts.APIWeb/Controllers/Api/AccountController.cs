@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
@@ -22,15 +23,18 @@ namespace AgriculturalProducts.API.Controllers
     {
         private readonly IUserClientService _userClientService;
         private readonly ILogger<AccountController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationContext _applicationContext;
         public AccountController(
             IUserClientService userClientService,
             ApplicationContext applicationContext,
+            IHttpContextAccessor httpContextAccessor,
             ILogger<AccountController> logger)
         {
             _userClientService = userClientService;
             _logger = logger;
             _applicationContext = applicationContext;
+            _httpContextAccessor = httpContextAccessor;
         }
         [Route("create-user")]
         [HttpPost]
@@ -38,16 +42,8 @@ namespace AgriculturalProducts.API.Controllers
         {
             try
             {
-                var userExists = _userClientService.CheckUserExists(model.UserName);
-                if (userExists != null)
-                {
-                    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "tên đăng nhập đã tồn tại" });
-                }
-                else
-                {
-                    _userClientService.CreatedUserCliet(model);
-                    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
-                }
+                _userClientService.CreatedUserCliet(model);
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
             }
             catch (Exception ex)
             {
@@ -55,6 +51,7 @@ namespace AgriculturalProducts.API.Controllers
                 return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi tạo tài khoản" });
             }
         }
+        [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginDto model)
         {
@@ -72,7 +69,8 @@ namespace AgriculturalProducts.API.Controllers
                                 .AddIssuer("JwtRoleBasedAuth")
                                 .AddAudience("JwtRoleBasedAuth")
                                 .AddExpiry(1)
-                                .AddClaim("Name", model.Username)
+                                .AddClaim("Username", model.Username)
+                                .AddClaim("Email", user.Result.Email)
                                 .AddClaim("LastName", user.Result.LastName)
                                 .AddClaim("FirstName", user.Result.FirstName)
                                 .AddClaim("RolesId", user.Result.RolesId.ToString())
@@ -88,9 +86,24 @@ namespace AgriculturalProducts.API.Controllers
             }
             catch (Exception ex)
             {
-
                 return Ok(new Result() { Message = "ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data = "Máy chủ bị lõio", Error = ex.ToString() });
             }
+        }
+        [HttpPost]
+        [Route("get-users-infor")]
+        public async Task<IActionResult> GetUserInfor()
+        {
+            var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
+            var data = new UsersInfor();
+            var name = claimsIdentity.FirstOrDefault(x => x.Type == "UserName").Value;
+            var lastName = claimsIdentity.FirstOrDefault(x => x.Type == "LastName").Value;
+            var firstName = claimsIdentity.FirstOrDefault(x => x.Type == "FirstName").Value;
+            var email = claimsIdentity.FirstOrDefault(x => x.Type == "Email").Value;
+            data.UserName = name;
+            data.LastName = lastName;
+            data.FirstName = firstName;
+            data.Email = email;
+            return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
         }
 
     }

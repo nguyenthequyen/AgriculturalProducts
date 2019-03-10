@@ -18,7 +18,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductClientService _productService;

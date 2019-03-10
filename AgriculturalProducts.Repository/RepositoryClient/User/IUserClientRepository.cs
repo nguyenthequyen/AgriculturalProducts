@@ -11,5 +11,6 @@ namespace AgriculturalProducts.Repository
         void CreatedUserCliet(User user);
         Task<User> FindClientUser(LoginDto login);
         Task<User> CheckUserExists(string userName);
+        int UsersStatistics();
     }
 }

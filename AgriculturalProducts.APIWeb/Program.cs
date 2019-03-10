@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
+using Serilog.Sinks.SystemConsole.Themes;
 
 namespace AgriculturalProducts.APIWeb
 {
@@ -17,19 +18,22 @@ namespace AgriculturalProducts.APIWeb
         private static string _environmentName;
         public static void Main(string[] args)
         {
-
-            CreateWebHostBuilder(args).UseSerilog().Build().Run();
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json")
-                        .AddJsonFile($"appsettings.{_environmentName}.json", optional: true, reloadOnChange: true)
-                        .Build();
-            var log = new LoggerConfiguration()
-                        .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-                        .CreateLogger();
+            Console.Title = "IdentityServer4";
+            CreateWebHostBuilder(args).Build().Run();
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseSerilog((context, config) =>
+                {
+                    config
+                        .MinimumLevel.Debug()
+                        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                        .MinimumLevel.Override("System", LogEventLevel.Warning)
+                        .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
+                        .Enrich.FromLogContext()
+                        .WriteTo.File(@"AgriculturalProducts.txt")
+                        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Literate);
+                });
     }
 }

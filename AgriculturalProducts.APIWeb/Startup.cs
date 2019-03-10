@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AgriculturalProducts.Admin.Middleware;
 using AgriculturalProducts.APIWeb.Helpers;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
@@ -65,6 +66,7 @@ namespace AgriculturalProducts.APIWeb
             {
                 cfg.CreateMap<User, UserDTO>();
             });
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +83,7 @@ namespace AgriculturalProducts.APIWeb
 
             app.UseStaticFiles();
             //app.UseCookiePolicy();
+            app.ConfigureCustomExceptionMiddleware();
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
