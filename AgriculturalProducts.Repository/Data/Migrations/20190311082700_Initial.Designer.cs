@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriculturalProducts.Repository.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190308094731_Initial")]
+    [Migration("20190311082700_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.Property<Guid>("ProductId");
 
                     b.Property<int>("Quantity");
+
+                    b.Property<float>("TotalCost");
 
                     b.HasKey("Id");
 

@@ -74,7 +74,7 @@ namespace AgriculturalProducts.API.Controllers
                                 .AddClaim("LastName", user.Result.LastName)
                                 .AddClaim("FirstName", user.Result.FirstName)
                                 .AddClaim("RolesId", user.Result.RolesId.ToString())
-                                .AddClaim("sub", user.Result.RolesId.ToString())
+                                .AddClaim("UserId", user.Result.Id.ToString())
                                 .AddRole("Users")
                                 .Build();
                     return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = token.Value, Error = null });

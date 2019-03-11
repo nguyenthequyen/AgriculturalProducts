@@ -324,9 +324,10 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
-                    OrderId = table.Column<Guid>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    TotalCost = table.Column<float>(nullable: false),
                     ProductId = table.Column<Guid>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
+                    OrderId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

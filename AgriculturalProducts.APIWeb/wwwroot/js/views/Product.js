@@ -88,27 +88,7 @@ var callAjaxProduct = {
 
         }
     },
-    dataAfterAddCarts: function () {
-        $(renderAPI.postAPI(SET_QUANTITY_CARTS, true, 'post', null, callAjaxProduct.dataAfterGetCartsSession, callAjaxProduct.errorAfterGetCartsSession));
-    },
     errorAfterAddCarts: function (jqXHR, exception) {
         console.log(jqXHR);
-    },
-    dataAfterGetCartsSession: function (result) {
-        $.each(result.data, function (index, value) {
-            var sum = 0;
-            for (var el in result.data) {
-                debugger
-                if (result.hasOwnProperty(el)) {
-                    sum += parseFloat(result[el]);
-                }
-                debugger
-            }
-            debugger
-            console.log(sum);
-        });
-    },
-    errorAfterGetCartsSession: function (jqXHR, exception) {
-        console.log(jqXHR);
-    },
+    }
 }

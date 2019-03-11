@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "DetailsCarts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mycart">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="table-responsive">
+                        <table class="table listproducts">
+                            <thead>
+                                <tr>
+                                    <td class="text-left">List Products</td>
+                                    <td class="text-center">Price</td>
+                                    <td class="text-center">Quantity(Kg)</td>
+                                    <td class="text-center">Total</td>
+                                    <td class="text-center">Delete</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-left">
+                                        <a href="#"><img src="images/header1/deal-img6.png" class="img-responsive" alt="img" title="img"></a>
+                                        <div class="name">Title here</div>
+                                    </td>
+                                    <td class="text-center">$ 80.00</td>
+                                    <td class="text-center">
+                                        <p class="qtypara">
+                                            <span id="minus" class="minus"><i class="fa fa-minus"></i></span>
+                                            <input type="text" name="quantity" value="1" size="2" id="input-quantity" class="form-control qty">
+                                            <span id="add" class="add"><i class="fa fa-plus"></i></span>
+                                            <input type="hidden" name="product_id" value="1">
+                                        </p>
+                                    </td>
+                                    <td class="text-center">$80.00</td>
+                                    <td class="text-center">
+                                        <button type="button"><i class="icon_close_alt2"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">
+                                        <a href="#"><img src="images/header1/deal-img3.png" class="img-responsive" alt="img" title="img"></a>
+                                        <div class="name">Title here</div>
+                                    </td>
+                                    <td class="text-center">$ 80.00</td>
+                                    <td class="text-center">
+                                        <p class="qtypara">
+                                            <span id="minus1" class="minus"><i class="fa fa-minus"></i></span>
+                                            <input type="text" name="quantity" value="1" size="2" id="input-quantity1" class="form-control qty">
+                                            <span id="add1" class="add"><i class="fa fa-plus"></i></span>
+                                            <input type="hidden" name="product_id" value="1">
+                                        </p>
+                                    </td>
+                                    <td class="text-center">$80.00</td>
+                                    <td class="text-center">
+                                        <button type="button"><i class="icon_close_alt2"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">
+                                        <a href="#"><img src="images/header1/deal-img1.png" class="img-responsive" alt="img" title="img"></a>
+                                        <div class="name">Title here</div>
+                                    </td>
+                                    <td class="text-center">$ 80.00</td>
+                                    <td class="text-center">
+                                        <p class="qtypara">
+                                            <span id="minus2" class="minus"><i class="fa fa-minus"></i></span>
+                                            <input type="text" name="quantity" value="1" size="2" id="input-quantity2" class="form-control qty">
+                                            <span id="add2" class="add"><i class="fa fa-plus"></i></span>
+                                            <input type="hidden" name="product_id" value="1">
+                                        </p>
+                                    </td>
+                                    <td class="text-center">$80.00</td>
+                                    <td class="text-center">
+                                        <button type="button"><i class="icon_close_alt2"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">Sub Total</td>
+                                    <td colspan="2" class="text-right">$240.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="buttons">
+                    <a class="btn-primary">Xóa toàn bộ giỏ hàng</a>
+                    <a class="btn-primary" asp-action="Index" asp-controller="Home">Tiếp tục mua hàng</a>
+                    <a class="btn-primary pull-right">Thanh toán</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/views/DetailsCarts.js"></script>
+}

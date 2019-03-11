@@ -20,6 +20,8 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IImagesClientRepository, ImagesClientRepository>();
             services.AddScoped<IUserClientRepository, UserClientRepository>();
+            services.AddScoped<IOrderRpository, OrderRepository>();
+            services.AddScoped<IOrderDetailsRepository, OrderDetailsRepository>();
             //Services
             services.AddScoped<IProductClientService, ProductClientService>();
             services.AddScoped<IProviderService, ProviderService>();
@@ -28,6 +30,8 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IImagesClientServices, ImagesClientServices>();
             services.AddScoped<IUserClientService, UserClientService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderDetailsService, OrderDetailsService>();
         }
     }
 }

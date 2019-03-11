@@ -71,8 +71,20 @@ namespace AgriculturalProducts.Web.Controllers.Api
         public async Task<IActionResult> GetCartsSession()
         {
             var carts = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = carts, Error = "Lỗi tạo tài khoản" });
+            return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = carts, Error = null, Message = null });
         }
+        [HttpPost]
+        [Route("remove-carts")]
+        public async Task<IActionResult> RemoveCartsSession(ProductCarts id)
+        {
+            List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            int index = IsExist(Guid.Parse(id.Id));
+            cart.RemoveAt(index);
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            var carts = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = carts, Error = null, Message = null });
+        }
+        #region private
         private int IsExist(Guid id)
         {
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
@@ -85,5 +97,6 @@ namespace AgriculturalProducts.Web.Controllers.Api
             }
             return -1;
         }
+        #endregion
     }
 }

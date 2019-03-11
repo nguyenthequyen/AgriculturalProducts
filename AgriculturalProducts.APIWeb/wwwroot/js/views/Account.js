@@ -34,8 +34,8 @@ var callAjaxAccount = {
         }
         $(renderAPI.postAPI(REGISTER, true, 'post', JSON.stringify(data), callAjaxAccount.loginUserSuccess, callAjaxAccount.errorLoginUser))
     },
-    loginUserSuccess: function () {
-
+    loginUserSuccess: function (result) {
+        console.log(result);
     },
     errorLoginUser: function () {
 

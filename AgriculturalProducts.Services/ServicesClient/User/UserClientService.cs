@@ -29,7 +29,7 @@ namespace AgriculturalProducts.Services
                 Id = Guid.NewGuid(),
                 CreatedDate = DateTime.Now,
                 ModifyDate = DateTime.Now,
-                RolesId = Guid.Parse("08298d88-a335-4423-8ec8-16d86d21bfcd"),
+                RolesId = Guid.Parse("e04cb2f4-c7b2-41a6-addc-1abce3af9919"),
                 Password = model.Password,
                 Email = model.Email,
                 FirstName = model.FirstName,

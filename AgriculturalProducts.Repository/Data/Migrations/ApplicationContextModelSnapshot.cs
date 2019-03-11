@@ -118,6 +118,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
                     b.Property<int>("Quantity");
 
+                    b.Property<float>("TotalCost");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
