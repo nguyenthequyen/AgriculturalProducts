@@ -1,6 +1,7 @@
 ﻿//Product Client
 var GET_NEW_PRODUCT = "api/Product/list-new-product";
 var LIST_TOP_DISCOUNT_PRODUCT = "api/Product/list-top-discount-product";
+var PRODUCT_DETAILS = "http://localhost:51277/api/product/get-product-details"
 //Account
 var REGISTER = "http://localhost:51277/api/account/create-user";
 //Carts
@@ -37,5 +38,8 @@ var renderAPI = {
     },
     isWorkingCarts: function (result) {
         $(result).parent().parent().parent().addClass("isWorking");
+    },
+    isWorkingDetailsCart: function (result) {
+        $(result).addClass('isWorking');
     }
 }

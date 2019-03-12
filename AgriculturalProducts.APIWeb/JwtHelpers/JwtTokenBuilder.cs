@@ -80,7 +80,7 @@ namespace AgriculturalProducts.Web.JwtHelpers
               new Claim(JwtRegisteredClaimNames.Sub, this.subject),
               new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             }
-            .Union(this.claims.Select(item => new Claim(item.Key, item.Value)));
+            .Union(this.claims.Select(item =>new Claim(item.Key, item.Value)));
 
             var token = new JwtSecurityToken(
                               issuer: this.issuer,

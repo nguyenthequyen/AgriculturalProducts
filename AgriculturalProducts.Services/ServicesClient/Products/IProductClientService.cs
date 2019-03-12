@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IProductClientService : IBaseService<Product>
+    public interface IProductClientService : IBlogsService<Product>
     {
         List<object> GetTopNewPoduct();
         List<object> GetListDiscountProducts();

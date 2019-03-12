@@ -53,6 +53,8 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IImagesService, ImagesService>();
             services.AddScoped<IUserAdminService, UserAdminService>();
             services.AddScoped<IUserClientService, UserClientService>();
+            services.AddScoped<IBlogsService, BlogService>();
+            services.AddMetaWeblog<MetaWeblogService>();
         }
     }
 }

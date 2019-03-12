@@ -6,7 +6,7 @@ using AgriculturalProducts.Models;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IUserAdminService : IBaseService<UserAdmin>
+    public interface IUserAdminService : IBlogsService<UserAdmin>
     {
         void CreatedUserAdmin(UserAdmin model);
         Task<UserAdmin> FindAdminUser(LoginDto login);

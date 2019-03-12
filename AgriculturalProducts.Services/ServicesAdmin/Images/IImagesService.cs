@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IImagesService : IBaseService<Image>
+    public interface IImagesService : IBlogsService<Image>
     {
         void InsertImage(List<IFormFile> files, string productId);
     }

@@ -1,0 +1,27 @@
+﻿using AgriculturalProducts.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AgriculturalProducts.Services
+{
+    public interface IBlogsService
+    {
+        Task<IEnumerable<Post>> GetPosts(int count, int skip = 0);
+
+        Task<IEnumerable<Post>> GetPostsByCategory(string category);
+
+        Task<Post> GetPostBySlug(string slug);
+
+        Task<Post> GetPostById(string id);
+
+        Task<IEnumerable<string>> GetCategories();
+
+        Task SavePost(Post post);
+
+        Task DeletePost(Post post);
+
+        Task<string> SaveFile(byte[] bytes, string fileName, string suffix = null);
+    }
+}

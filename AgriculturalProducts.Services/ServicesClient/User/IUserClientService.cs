@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IUserClientService : IBaseService<User>
+    public interface IUserClientService : IBlogsService<User>
     {
         void CreatedUserCliet(UserModel user);
         Task<User> FindClientUser(LoginDto login);

@@ -1,7 +1,8 @@
 ﻿$(document).ready(function () {
     $(callAjaxProduct.callAjaxNewProduct);
     $(callAjaxProduct.callAjaxDiscountProducts);
-    $('.new-product').on('click', '.icons.cart-icon', callAjaxProduct.addProductToCart)
+    $('.new-product').on('click', '.icons.cart-icon', callAjaxProduct.addProductToCart);
+    $('.new-product').on('click', '.product-thumb', callAjaxProduct.getDetailsProducts);
 });
 
 var callAjaxProduct = {
@@ -15,12 +16,11 @@ var callAjaxProduct = {
             var query = '<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 product">' +
                 '<div class="product-thumb">' +
                 '<div class="image">' +
-                '<a href="shop.html">' +
+                '<a>' +
                 '<img src="' + value.image[0].path + '" alt="image" title="image" class="img-responsive" />' +
                 '</a>' +
                 '<div class="onhover1">' +
                 '<div class="button-group">' +
-                '<button class="btn-icon" type="button"><i class="icon_piechart"></i></button>' +
                 '<button class="icons cart-icon" type="button"><i class="icon_cart_alt"> <span hidden>' + value.id + '</span></i></button>' +
                 '<button class="btn-icon" type="button"><i class="icon_heart_alt"></i></button>' +
                 '</div>' +
@@ -52,18 +52,29 @@ var callAjaxProduct = {
         $('.product-discount').html('');
         var data = result.data;
         $.each(data, function (index, value) {
-            var query = '<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">' +
-                '<div class="product-thumb1">' +
+            var query = '<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 product">' +
+                '<div class="product-thumb">' +
                 '<div class="image">' +
-                '<a href="shop.html"><img src="' + value.image[0].path + '" alt="image" title="image" class="img-responsive" /></a>' +
-                '</div>' +
-                '<div class="caption">' +
-                '<h4>' + value.name + '</h4>' +
-                '<p>Giá : <span>' + (value.sale / 100) * value.cost + '</span></p>' +
+                '<a>' +
+                '<img src="' + value.image[0].path + '" alt="image" title="image" class="img-responsive" />' +
+                '</a>' +
+                '<div class="onhover1">' +
                 '<div class="button-group">' +
-                '<button type="button"><i class="icon_cart_alt"></i></button>' +
-                '<button type="button"><i class="icon_heart_alt"></i></button>' +
+                '<button class="icons cart-icon" type="button"><i class="icon_cart_alt"> <span hidden>' + value.id + '</span></i></button>' +
+                '<button class="btn-icon" type="button"><i class="icon_heart_alt"></i></button>' +
                 '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="caption text-center">' +
+                '<h4><a href="shop.html">' + value.name + '</a></h4>' +
+                '<div class="rating">' +
+                '<i class="fa fa-star"></i>' +
+                '<i class="fa fa-star"></i>' +
+                '<i class="fa fa-star"></i>' +
+                '<i class="fa fa-star-half-o"></i>' +
+                '<i class="fa fa-star-o"></i>' +
+                '</div>' +
+                '<p class="price"><span>' + (value.sale / 100) * value.cost + '</span> ' + value.cost + '</p>' +
                 '</div>' +
                 '</div>' +
                 '</div>';
@@ -88,7 +99,31 @@ var callAjaxProduct = {
 
         }
     },
+    dataAfterAddCarts: function (result) {
+        console.log(result);
+    },
     errorAfterAddCarts: function (jqXHR, exception) {
         console.log(jqXHR);
+    },
+    getDetailsProducts: function () {
+        $('.new-product').find('.product-thumb').removeClass('isWorking');
+        $(renderAPI.isWorkingDetailsCart(this))
+        var isWorking = $('.new-product').find('isWorking');
+        debugger
+        if (isWorking) {
+            var id = $('.isWorking').find('.icon_cart_alt').find('span').text();
+            var data = {
+                id: id
+            }
+            $(renderAPI.postAPI(PRODUCT_DETAILS, true, 'post', JSON.stringify(data), callAjaxProduct.dataAfterDetailsProduct, callAjaxProduct.errorAfterAddCarts));
+        }
+        else {
+
+        }
+    },
+    dataAfterDetailsProduct: function (results) {
+        $.each(results.data, function (index, value) {
+            window.location.href = "http://localhost:51277/Product/Details?productId=" + value.id;
+        })
     }
 }

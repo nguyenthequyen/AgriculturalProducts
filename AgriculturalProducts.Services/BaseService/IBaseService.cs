@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IBaseService<TEntity> : IService
+    public interface IBlogsService<TEntity> : IService
      where TEntity : BaseEntity, new()
     {
         IEnumerable<TEntity> GetAllRecords();

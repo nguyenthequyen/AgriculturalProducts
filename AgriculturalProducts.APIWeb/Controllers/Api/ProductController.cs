@@ -85,7 +85,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
             }
             catch (Exception ex)
             {
-                _logger.LogError("Lõi lấy sản phẩm giảm giá nhiều nhất: " + ex);
+                _logger.LogError("Lỗi lấy chi tiết sản phẩm: " + ex);
                 return Ok(new Result() { Code = 200, Data = null, Error = "Lỗi lấy danh sách sản phẩm mới nhất" });
             }
         }
@@ -112,6 +112,13 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                 imageResults.Add(imageResult);
             }
             return Ok(new Result() { Data = imageResults, Code = 200, Error = null });
+        }
+        [HttpPost]
+        [Route("details-products")]
+        public async Task<IActionResult> GetDetailsProduct([FromBody]ProductId id)
+        {
+            _productService.GetProductDetails(id.Id);
+            return Ok();
         }
         [HttpPost]
         [Route("delete-product")]

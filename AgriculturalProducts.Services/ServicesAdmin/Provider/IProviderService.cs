@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IProviderService : IBaseService<Provider>
+    public interface IProviderService : IBlogsService<Provider>
     {
         void InsertProvider(List<Provider> provider);
         void UpdateProvider(List<Provider> provider);

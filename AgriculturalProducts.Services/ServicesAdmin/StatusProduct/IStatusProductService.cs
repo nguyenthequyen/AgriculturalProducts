@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IStatusProductService:IBaseService<StatusProduct>
+    public interface IStatusProductService:IBlogsService<StatusProduct>
     {
         void InsertStatusProduct(List<StatusProduct> statusProduct);
         void UpdateStatusProduct(List<StatusProduct> statusProduct);

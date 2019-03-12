@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IRolesService : IBaseService<Roles>
+    public interface IRolesService : IBlogsService<Roles>
     {
         void InsertRoles(Roles roles);
         void UpdateRoles(Roles roles);

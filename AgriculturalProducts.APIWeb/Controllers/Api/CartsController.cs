@@ -47,7 +47,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
                 }
                 else
                 {
-                    List<Item> cart = getSession;
+                    List<Item>cart = getSession;
                     int index = IsExist(ids);
                     if (index != -1)
                     {
@@ -87,7 +87,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
         #region private
         private int IsExist(Guid id)
         {
-            List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            List<Item>cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             for (int i = 0; i < cart.Count; i++)
             {
                 if (cart[i].Product.Id.Equals(id))

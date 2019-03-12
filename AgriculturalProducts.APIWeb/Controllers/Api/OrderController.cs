@@ -6,6 +6,7 @@ using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,11 +33,12 @@ namespace AgriculturalProducts.Web.Controllers.Api
         }
         [HttpPost]
         [Route("order-now")]
+        [Authorize]
         public async Task<IActionResult> OrderNow(List<OrderDTo> orders)
         {
             var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
             var userId = claimsIdentity.FirstOrDefault(x => x.Type == "UserId").Value;
-            var orderId = new Guid();
+            var orderId = Guid.NewGuid();
             Order order = new Order();
             order.UserId = Guid.Parse(userId);
             order.Id = orderId;
@@ -57,6 +59,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
                 _orderDetailsService.AddOrderDetails(details);
             }
             _unitOfWork.Commit();
+            HttpContext.Session.Clear();
             return Ok();
         }
     }

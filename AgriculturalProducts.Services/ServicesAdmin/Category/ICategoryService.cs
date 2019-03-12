@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public interface ICategoryService : IBaseService<Category>
+    public interface ICategoryService : IBlogsService<Category>
     {
         void InsertCategory(List<Category> category);
         void UpdateCategory(List<Category> category);

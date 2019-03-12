@@ -53,7 +53,7 @@ namespace AgriculturalProducts.API.Controllers
         }
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(LoginDto model)
+        public async Task<IActionResult>Login(LoginDto model)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace AgriculturalProducts.API.Controllers
         }
         [HttpPost]
         [Route("get-users-infor")]
-        public async Task<IActionResult> GetUserInfor()
+        public async Task<IActionResult>GetUserInfor()
         {
             var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
             var data = new UsersInfor();

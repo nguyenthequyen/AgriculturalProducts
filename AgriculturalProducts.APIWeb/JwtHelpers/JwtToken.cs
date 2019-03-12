@@ -16,6 +16,6 @@ namespace AgriculturalProducts.Web.JwtHelpers
         }
 
         public DateTime ValidTo => token.ValidTo;
-        public string Value => new JwtSecurityTokenHandler().WriteToken(this.token);
+        public string Value =>new JwtSecurityTokenHandler().WriteToken(this.token);
     }
 }
