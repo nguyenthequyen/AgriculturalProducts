@@ -82,7 +82,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         [Route("order-cart-statistics")]
         public async Task<IActionResult> GetOrdersStatistics()
         {
-            _emailSenderService.SendEmail("", "", "");
+            //_emailSenderService.SendEmail("", "", "");
             var usersStatistics = _usersClientService.UsersStatistics();
             return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
         }

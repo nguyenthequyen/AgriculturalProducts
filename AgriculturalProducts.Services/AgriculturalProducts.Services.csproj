@@ -13,8 +13,4 @@
     <ProjectReference Include="..\AgriculturalProducts.Repository\AgriculturalProducts.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ServicesAdmin\Blogs\" />
-  </ItemGroup>
-
 </Project>

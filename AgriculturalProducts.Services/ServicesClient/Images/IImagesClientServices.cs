@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IImagesClientServices:IBlogsService<Image>
+    public interface IImagesClientServices:IBaseService<Image>
     {
         Task<Image> GetImageByProductId(string productId);
     }

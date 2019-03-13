@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public class BaseService<TEntity> : IBlogsService<TEntity>
+    public class BaseService<TEntity> : IBaseService<TEntity>
         where TEntity : BaseEntity, new()
     {
         private readonly IBaseRepository<TEntity> _reponsitory;

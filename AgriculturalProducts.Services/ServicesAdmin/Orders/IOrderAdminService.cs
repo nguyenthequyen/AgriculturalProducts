@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IOrderAdminService:IBlogsService<Order>
+    public interface IOrderAdminService:IBaseService<Order>
     {
         int GetStatisticsOrder();
     }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IStatisticsService : IBlogsService<Statistics>
+    public interface IStatisticsService : IBaseService<Statistics>
     {
         void InsertStatistics(Statistics statistics);
     }

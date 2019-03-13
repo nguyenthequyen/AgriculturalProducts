@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IProductService : IBlogsService<Product>
+    public interface IProductService : IBaseService<Product>
     {
         void InsertProduct(List<Product> product);
         void UpdateProduct(List<Product> product);

@@ -34,7 +34,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
             IStatisticsService statisticsService,
         ApplicationContext applicationContext,
         IHostingEnvironment hostingEnvironment,
-            ILogger<ProviderController> logger)
+            ILogger<ProductController> logger)
         {
             _applicationContext = applicationContext;
             _logger = logger;
@@ -54,6 +54,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         {
             try
             {
+
                 var data = _productService.GetTopNewPoduct();
                 Statistics statistics = new Statistics()
                 {
@@ -63,7 +64,12 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                     Id = Guid.NewGuid(),
                     ModifyDate = DateTime.Now
                 };
-                _statisticsService.InsertStatistics(statistics);
+                var sesion = HttpContext.Session.GetString("visitor");
+                if (sesion == null)
+                {
+                    HttpContext.Session.SetString("visitor", "visitor");
+                    _statisticsService.InsertStatistics(statistics);
+                }
                 return Ok(new Result() { Code = 200, Data = data, Error = null });
             }
             catch (Exception ex)

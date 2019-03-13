@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IUnitService : IBlogsService<Unit>
+    public interface IUnitService : IBaseService<Unit>
     {
         void InsertUnit(List<Unit> unit);
         void UpdateUnit(List<Unit> unit);

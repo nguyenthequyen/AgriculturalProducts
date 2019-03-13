@@ -1,13 +1,12 @@
 ﻿using AgriculturalProducts.Models;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IImagesService : IBaseService<Image>
+    public interface IStatisticsAdminService:IBaseService<Statistics>
     {
-        void InsertImage(List<IFormFile> files, string productId);
+        List<object> StatisticsAccessSystem();
     }
 }

@@ -59,7 +59,13 @@ var callAjaxAccount = {
         console.log(jqXHR);
     },
     getUserInfor: function () {
-        $(renderAPI.postAPI(GET_USER_INFOR, true, 'post', null, callAjaxAccount.dataUserInforAutoLoad, callAjaxAccount.errorGetUserInforInforAutoLoad));
+        var local = localStorage.getItem("access_token");
+        debugger
+        if (local === null) {
+            return false;
+        } else {
+            $(renderAPI.postAPI(GET_USER_INFOR, true, 'post', null, callAjaxAccount.dataUserInforAutoLoad, callAjaxAccount.errorGetUserInforInforAutoLoad));
+        }
     },
     dataUserInforAutoLoad: function (result) {
         if (result == null) {

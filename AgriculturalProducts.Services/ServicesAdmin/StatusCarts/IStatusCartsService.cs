@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AgriculturalProducts.Services
 {
-    public interface IStatusCartsService: IBlogsService<StatusCart>
+    public interface IStatusCartsService: IBaseService<StatusCart>
     {
         void InsertStatusCart(StatusCart statusCart);
     }
