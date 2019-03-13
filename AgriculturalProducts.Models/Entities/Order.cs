@@ -9,6 +9,8 @@ namespace AgriculturalProducts.Models
     {
         [Required]
         public Guid UserId { get; set; }
+        public Guid StatusCartsId { get; set; }
+        public StatusCart StatusCarts { get; set; }
         public User User { get; set; }
     }
 }

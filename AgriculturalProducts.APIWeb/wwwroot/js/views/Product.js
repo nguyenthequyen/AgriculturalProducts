@@ -2,7 +2,7 @@
     $(callAjaxProduct.callAjaxNewProduct);
     $(callAjaxProduct.callAjaxDiscountProducts);
     $('.new-product').on('click', '.icons.cart-icon', callAjaxProduct.addProductToCart);
-    $('.new-product').on('click', '.product-thumb', callAjaxProduct.getDetailsProducts);
+    $('.new-product').on('click', '.caption.text-center', callAjaxProduct.getDetailsProducts);
 });
 
 var callAjaxProduct = {
@@ -66,7 +66,7 @@ var callAjaxProduct = {
                 '</div>' +
                 '</div>' +
                 '<div class="caption text-center">' +
-                '<h4><a href="shop.html">' + value.name + '</a></h4>' +
+                '<h4><a href="#">' + value.name + '</a></h4>' +
                 '<div class="rating">' +
                 '<i class="fa fa-star"></i>' +
                 '<i class="fa fa-star"></i>' +
@@ -109,9 +109,8 @@ var callAjaxProduct = {
         $('.new-product').find('.product-thumb').removeClass('isWorking');
         $(renderAPI.isWorkingDetailsCart(this))
         var isWorking = $('.new-product').find('isWorking');
-        debugger
         if (isWorking) {
-            var id = $('.isWorking').find('.icon_cart_alt').find('span').text();
+            var id = $('.isWorking').prev().find('span').text();
             var data = {
                 id: id
             }

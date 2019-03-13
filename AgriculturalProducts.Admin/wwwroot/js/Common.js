@@ -5,6 +5,7 @@ var PRODUCT_TYPE_STATISTICS = "api/homeadmin/product-type-statistics"
 var CATEGORY_STATISTICS = "api/homeadmin/category-statistics";
 var CARTS_STATISTICS = "api/homeadmin/carts-statistics";
 var USERS_STATISTICS = "api/homeadmin/users-statistics";
+var ORDER_STATISTICS = "api/homeadmin/order-cart-statistics";
 //Manager product
 var INSERT_PRODUCT = "api/productadmin/insert-product";
 var GET_PRODUCT_PAGING = "api/productadmin/getproduct-paging";
@@ -32,6 +33,7 @@ var INSERT_STATUS_PROVIDER = "api/StatusProvider/insert-status-provider";
 var GET_ALL_STATUS_PROVIDER = "api/StatusProvider/get-all-status-provider";
 var INSERT_STATUS_PRODUCT = "api/StatusProduct/insert-status-products";
 var GET_ALL_STATUS_PRODUCT = "api/StatusProduct/get-all-status-products";
+var INSERT_STATUS_CART = "http://localhost:57736/api/StatusCarts/insert-status-cart";
 //Roles Manager
 var INSERT_ROLES = "http://localhost:57736/api/RolesAdmin/insert-roles";
 var GET_ALL_ROLES = "http://localhost:57736/api/RolesAdmin/get-all-roles"

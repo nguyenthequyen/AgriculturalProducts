@@ -38,6 +38,8 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IImagesRepository, ImagesRepository>();
             services.AddScoped<IUserAdminRepository, UserAdminRepository>();
             services.AddScoped<IUserClientRepository, UserClientRepository>();
+            services.AddScoped<IStatusCartsRepository, StatusCartsRepository>();
+            services.AddScoped<IOrderAdminRepository, OrderAdminRepository>();
         }
         public static void RegisterService(this IServiceCollection services)
         {
@@ -53,8 +55,11 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IImagesService, ImagesService>();
             services.AddScoped<IUserAdminService, UserAdminService>();
             services.AddScoped<IUserClientService, UserClientService>();
-            services.AddScoped<IBlogsService, BlogService>();
-            services.AddMetaWeblog<MetaWeblogService>();
+            services.AddScoped<IStatusCartsService, StatusCartsService>();
+            services.AddScoped<IOrderAdminService, OrderAdminService>();
+            services.AddScoped<IEmailSenderService, EmailSenderService>();
+            //services.AddScoped<IBlogService, BlogService>();
+            //services.AddMetaWeblog<MetaWeblogService>();
         }
     }
 }

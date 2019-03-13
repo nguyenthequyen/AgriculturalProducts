@@ -68,7 +68,14 @@ namespace AgriculturalProducts.Services
             }
             _unitOfWork.Commit();
         }
+        private static string FormatDateTime(DateTime dateTime)
+        {
+            const string UTC = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'";
 
+            return dateTime.Kind == DateTimeKind.Utc
+                ? dateTime.ToString(UTC)
+                : dateTime.ToUniversalTime().ToString(UTC);
+        }
         public int ProviderStatistics()
         {
             return _providerRepository.ProductStatistics();

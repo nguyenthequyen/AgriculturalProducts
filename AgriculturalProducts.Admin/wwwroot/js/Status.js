@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     $('.btn-add-status-product').click(callAjaxStatusAdmin.insertStatusProduct);
     $('.btn-add-status-provider').click(callAjaxStatusAdmin.insertStatusProvider);
+    $('.btn-add-status-cart').click(callAjaxStatusAdmin.insertStatusCartr);
 })
 var callAjaxStatusAdmin = {
     insertStatusProvider: function () {
@@ -32,5 +33,19 @@ var callAjaxStatusAdmin = {
     },
     errorStatusProduct: function () {
 
+    },
+    insertStatusCartr: function () {
+        var statusName = $('.status-cart-name').val();
+        var statusProduct = {
+            name: statusName
+        }
+        $(renderAPI.postAPI(INSERT_STATUS_CART, true, 'post', JSON.stringify(statusProduct), callAjaxStatusAdmin.getStatusCartPaging, callAjaxStatusAdmin.errorStatusCart));
+    },
+    getStatusCartPaging: function (result) {
+        alert("Thêm thành công");
+    },
+    errorStatusCart: function (jqXHR, exception) {
+        alert("Thêm thất bại");
+        console.log(jqXHR);
     }
 }

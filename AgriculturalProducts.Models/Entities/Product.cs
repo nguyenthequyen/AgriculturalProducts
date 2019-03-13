@@ -17,6 +17,7 @@ namespace AgriculturalProducts.Models
         public int Status { get; set; }
         [Required]
         public decimal Cost { get; set; }
+        public decimal CostOld { get; set; }
         [Required]
         public decimal Mass { get; set; }
         [Required]

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using Action = AgriculturalProducts.Models.Action;
 
 namespace AgriculturalProducts.APIWeb.Controllers.Api
 {
@@ -23,14 +24,16 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
     {
         private readonly IProductClientService _productService;
         private readonly IImagesClientServices _imagesClientServices;
+        private readonly IStatisticsService _statisticsService;
         private readonly ILogger _logger;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly ApplicationContext _applicationContext;
         public ProductController(
             IProductClientService productService,
             IImagesClientServices imagesClientServices,
-            ApplicationContext applicationContext,
-            IHostingEnvironment hostingEnvironment,
+            IStatisticsService statisticsService,
+        ApplicationContext applicationContext,
+        IHostingEnvironment hostingEnvironment,
             ILogger<ProviderController> logger)
         {
             _applicationContext = applicationContext;
@@ -38,6 +41,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
             _productService = productService;
             _imagesClientServices = imagesClientServices;
             _hostingEnvironment = hostingEnvironment;
+            _statisticsService = statisticsService;
         }
         /// <summary>
         /// Danh sách các sản phẩm mới nhất
@@ -51,6 +55,15 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
             try
             {
                 var data = _productService.GetTopNewPoduct();
+                Statistics statistics = new Statistics()
+                {
+                    Action = (int)Action.Visitor,
+                    ActionName = "Truy cập vào trang web",
+                    CreatedDate = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    ModifyDate = DateTime.Now
+                };
+                _statisticsService.InsertStatistics(statistics);
                 return Ok(new Result() { Code = 200, Data = data, Error = null });
             }
             catch (Exception ex)

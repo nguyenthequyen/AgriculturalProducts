@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
@@ -23,12 +25,14 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         private readonly IProviderService _providerService;
         private readonly ICategoryService _categoryService;
         private readonly IUserClientService _usersClientService;
+        private readonly IEmailSenderService _emailSenderService;
         public HomeAdminController(
             IProductService productService,
             IProductTypeService productTypeService,
             IProviderService providerService,
             ICategoryService categoryService,
             IUserClientService userClientService,
+            IEmailSenderService emailSenderService,
         ApplicationContext applicationContext)
         {
             _productService = productService;
@@ -37,6 +41,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             _categoryService = categoryService;
             _applicationContext = applicationContext;
             _usersClientService = userClientService;
+            _emailSenderService = emailSenderService;
         }
         [HttpPost]
         [Route("product-statistics")]
@@ -70,6 +75,14 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         [Route("users-statistics")]
         public async Task<IActionResult> UsersStatistics()
         {
+            var usersStatistics = _usersClientService.UsersStatistics();
+            return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
+        }
+        [HttpPost]
+        [Route("order-cart-statistics")]
+        public async Task<IActionResult> GetOrdersStatistics()
+        {
+            _emailSenderService.SendEmail("", "", "");
             var usersStatistics = _usersClientService.UsersStatistics();
             return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
         }

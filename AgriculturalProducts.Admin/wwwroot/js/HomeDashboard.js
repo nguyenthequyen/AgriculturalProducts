@@ -4,6 +4,9 @@
     $(callAjaxDashboard.productTypeStatistics)
     $(callAjaxDashboard.categoryStatistics)
     $(callAjaxDashboard.cartsStatistics)
+    $(callAjaxDashboard.usersStatistics)
+    $(callAjaxDashboard.usersStatistics)
+    $(callAjaxDashboard.orderStatistics)
 });
 
 var callAjaxDashboard = {
@@ -60,4 +63,13 @@ var callAjaxDashboard = {
     dataUsersStatistics: function (result) {
         $('.users-statistics').text(result.data);
     },
+    orderStatistics: function () {
+        $(renderAPI.postAPI(ORDER_STATISTICS, true, 'post', null, callAjaxDashboard.dataOrderStatistics, function (xhr, status) {
+            debugger
+            window.location.href = "http://localhost:57736/AccountAdmin/Login";
+        }));
+    },
+    dataOrderStatistics: function (result) {
+        $('.cart-statistics').text(result.data);
+    }
 }

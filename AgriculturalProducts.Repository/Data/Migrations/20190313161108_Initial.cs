@@ -52,6 +52,35 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Statistics",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    Action = table.Column<int>(nullable: false),
+                    ActionName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Statistics", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatusCarts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusCarts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StatusProducts",
                 columns: table => new
                 {
@@ -174,11 +203,18 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false),
+                    StatusCartsId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_StatusCarts_StatusCartsId",
+                        column: x => x.StatusCartsId,
+                        principalTable: "StatusCarts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
@@ -222,6 +258,7 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     View = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     Cost = table.Column<decimal>(nullable: false),
+                    CostOld = table.Column<decimal>(nullable: false),
                     Mass = table.Column<decimal>(nullable: false),
                     ShortDescription = table.Column<string>(nullable: false),
                     FullDescription = table.Column<string>(nullable: false),
@@ -400,6 +437,11 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_StatusCartsId",
+                table: "Orders",
+                column: "StatusCartsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
@@ -475,6 +517,9 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                 name: "Rates");
 
             migrationBuilder.DropTable(
+                name: "Statistics");
+
+            migrationBuilder.DropTable(
                 name: "UserAdmin");
 
             migrationBuilder.DropTable(
@@ -485,6 +530,9 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "StatusCarts");
 
             migrationBuilder.DropTable(
                 name: "Users");

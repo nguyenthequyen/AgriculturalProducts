@@ -14,6 +14,7 @@ using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Action = AgriculturalProducts.Models.Action;
 
 namespace AgriculturalProducts.API.Controllers
 {
@@ -25,16 +26,23 @@ namespace AgriculturalProducts.API.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationContext _applicationContext;
+        private readonly IEmailSenderService _emailSenderService;
+        private readonly IStatisticsService _statisticsService;
         public AccountController(
             IUserClientService userClientService,
             ApplicationContext applicationContext,
             IHttpContextAccessor httpContextAccessor,
+            IEmailSenderService emailSenderService,
+            IStatisticsService statisticsService,
             ILogger<AccountController> logger)
         {
+
             _userClientService = userClientService;
             _logger = logger;
             _applicationContext = applicationContext;
             _httpContextAccessor = httpContextAccessor;
+            _emailSenderService = emailSenderService;
+            _statisticsService = statisticsService;
         }
         [Route("create-user")]
         [HttpPost]
@@ -43,6 +51,16 @@ namespace AgriculturalProducts.API.Controllers
             try
             {
                 _userClientService.CreatedUserCliet(model);
+                _emailSenderService.SendEmail(model.Email, Constants.SubjectCreatedAccount, Constants.BodyCreatedAccount);
+                Statistics statistics = new Statistics()
+                {
+                    Action = (int)Action.CreatedUser,
+                    ActionName = "Đăng ký tài khoản",
+                    CreatedDate = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    ModifyDate = DateTime.Now
+                };
+                _statisticsService.InsertStatistics(statistics);
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
             }
             catch (Exception ex)
@@ -53,7 +71,7 @@ namespace AgriculturalProducts.API.Controllers
         }
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult>Login(LoginDto model)
+        public async Task<IActionResult> Login(LoginDto model)
         {
             try
             {
@@ -69,7 +87,7 @@ namespace AgriculturalProducts.API.Controllers
                                 .AddIssuer("JwtRoleBasedAuth")
                                 .AddAudience("JwtRoleBasedAuth")
                                 .AddExpiry(1)
-                                .AddClaim("Username", model.Username)
+                                .AddClaim("UserName", model.Username)
                                 .AddClaim("Email", user.Result.Email)
                                 .AddClaim("LastName", user.Result.LastName)
                                 .AddClaim("FirstName", user.Result.FirstName)
@@ -77,6 +95,15 @@ namespace AgriculturalProducts.API.Controllers
                                 .AddClaim("UserId", user.Result.Id.ToString())
                                 .AddRole("Users")
                                 .Build();
+                    Statistics statistics = new Statistics()
+                    {
+                        Action = (int)Action.Login,
+                        ActionName = "Đăng nhập vào hệ thống",
+                        CreatedDate = DateTime.Now,
+                        Id = Guid.NewGuid(),
+                        ModifyDate = DateTime.Now
+                    };
+                    _statisticsService.InsertStatistics(statistics);
                     return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = token.Value, Error = null });
                 }
                 else
@@ -91,7 +118,7 @@ namespace AgriculturalProducts.API.Controllers
         }
         [HttpPost]
         [Route("get-users-infor")]
-        public async Task<IActionResult>GetUserInfor()
+        public async Task<IActionResult> GetUserInfor()
         {
             var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
             var data = new UsersInfor();

@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
-    $('.btn-register').click(callAjaxAccount.registerAccount)
+    $(callAjaxAccount.getUserInfor);
+    $('.btn-register').click(callAjaxAccount.registerAccount);
+    $('.btn-login').click(callAjaxAccount.loginAccount);
+    $('.li-logout').on('click', callAjaxAccount.logoutAccount);
 })
 var callAjaxAccount = {
     registerAccount: function () {
@@ -26,18 +29,58 @@ var callAjaxAccount = {
         console.log(jqXHR);
     },
     loginAccount: function () {
-        var userName = $('.').val();
-        var password = $('.').val();
+        var userName = $('#input-email').val();
+        var password = $('#input-password').val();
         var data = {
             userName: userName,
             password: password
         }
-        $(renderAPI.postAPI(REGISTER, true, 'post', JSON.stringify(data), callAjaxAccount.loginUserSuccess, callAjaxAccount.errorLoginUser))
+        $(renderAPI.postAPI(LOGIN, true, 'post', JSON.stringify(data), callAjaxAccount.loginUserSuccess, callAjaxAccount.errorLoginUser))
     },
     loginUserSuccess: function (result) {
-        console.log(result);
+        localStorage.setItem("access_token", result.data);
+        window.location.href = "http://localhost:51277";
+        $(renderAPI.postAPI(GET_USER_INFOR, true, 'post', null, callAjaxAccount.dataUserInfor, callAjaxAccount.errorGetUserInfor));
     },
-    errorLoginUser: function () {
-
+    errorLoginUser: function (jqXHR, exception) {
+        console.log(jqXHR);
+    },
+    dataUserInfor: function (result) {
+        if (result == null) {
+            return false;
+        }
+        $('.username').text(result.data.userName);
+        $('.des.text-center').hide();
+        $('#register').hide();
+        $('.login').hide();
+        $('.logout').show();
+    },
+    errorGetUserInfor: function (jqXHR, exception) {
+        console.log(jqXHR);
+    },
+    getUserInfor: function () {
+        $(renderAPI.postAPI(GET_USER_INFOR, true, 'post', null, callAjaxAccount.dataUserInforAutoLoad, callAjaxAccount.errorGetUserInforInforAutoLoad));
+    },
+    dataUserInforAutoLoad: function (result) {
+        if (result == null) {
+            return false;
+        }
+        $('.username').text(result.data.userName);
+        $('.des.text-center').hide();
+        $('#register').hide();
+        $('.li-login').hide();
+        $('.li-logout').show();
+    },
+    errorGetUserInforInforAutoLoad: function (jqXHR, exception) {
+        console.log(jqXHR);
+    },
+    logoutAccount: function () {
+        localStorage.removeItem('access_token');
+        $('.username').text('');
+        $('.des.text-center').show();
+        $('#register').show();
+        $('.li-login').show();
+        $('.li-logout').hide();
+        window.location.reload();
     }
 }

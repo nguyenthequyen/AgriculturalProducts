@@ -56,8 +56,13 @@ var callAjaxCartsDetails = {
         $(renderAPI.postAPI(ORDER_NOW, true, 'post', JSON.stringify(arr), callAjaxCartsDetails.dataOrderCarts, callAjaxCartsDetails.errorOrderCarts))
     },
     dataOrderCarts: function (result) {
+        alert(result.data);
+        window.location.href = "http://localhost:51277/";
     },
     errorOrderCarts: function (jqXHR, exception) {
-        console.log(jqXHR);
+        if (jqXHR.status == 401) {
+            alert("Bạn cần đăng nhập để đặt hàng");
+            window.location.href = "http://localhost:51277/AccountViews/Login";
+        }
     }
 }

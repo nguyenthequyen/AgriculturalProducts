@@ -6,21 +6,19 @@ using System.Text;
 
 namespace AgriculturalProducts.Services
 {
-    public class OrderService : BaseService<Order>, IOrderService
+    public class StatisticsService : BaseService<Statistics>, IStatisticsService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IOrderRpository _reponsitory;
-        public OrderService(IUnitOfWork unitOfWork, IOrderRpository reponsitory) : base(unitOfWork, reponsitory)
+        private readonly IStatisticsRepostory _reponsitory;
+        public StatisticsService(IUnitOfWork unitOfWork, IStatisticsRepostory reponsitory) : base(unitOfWork, reponsitory)
         {
             _unitOfWork = unitOfWork;
             _reponsitory = reponsitory;
         }
 
-        public void AddOrder(Order order)
+        public void InsertStatistics(Statistics statistics)
         {
-            order.CreatedDate = DateTime.Now;
-            order.ModifyDate = DateTime.Now;
-            Add(order);
+            Add(statistics);
             _unitOfWork.Commit();
         }
     }

@@ -94,9 +94,13 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
                     b.Property<DateTime>("ModifyDate");
 
+                    b.Property<Guid>("StatusCartsId");
+
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StatusCartsId");
 
                     b.HasIndex("UserId");
 
@@ -140,6 +144,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                         .IsRequired();
 
                     b.Property<decimal>("Cost");
+
+                    b.Property<decimal>("CostOld");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -280,6 +286,41 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("AgriculturalProducts.Models.Statistics", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Action");
+
+                    b.Property<string>("ActionName");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Statistics");
+                });
+
+            modelBuilder.Entity("AgriculturalProducts.Models.StatusCart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StatusCarts");
                 });
 
             modelBuilder.Entity("AgriculturalProducts.Models.StatusProduct", b =>
@@ -436,6 +477,11 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
             modelBuilder.Entity("AgriculturalProducts.Models.Order", b =>
                 {
+                    b.HasOne("AgriculturalProducts.Models.StatusCart", "StatusCarts")
+                        .WithMany()
+                        .HasForeignKey("StatusCartsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("AgriculturalProducts.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")

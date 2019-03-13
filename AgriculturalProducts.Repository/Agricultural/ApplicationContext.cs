@@ -28,5 +28,7 @@ namespace AgriculturalProducts.Repository
         public DbSet<UserInfor> UserInfors { get; set; }
         public DbSet<Roles> Roles { get; set; }
         public DbSet<UserAdmin> UserAdmin { get; set; }
+        public DbSet<StatusCart> StatusCarts { get; set; }
+        public DbSet<Statistics> Statistics { get; set; }
     }
 }
