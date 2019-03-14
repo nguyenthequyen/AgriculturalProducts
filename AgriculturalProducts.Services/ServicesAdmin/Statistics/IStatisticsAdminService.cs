@@ -8,5 +8,7 @@ namespace AgriculturalProducts.Services
     public interface IStatisticsAdminService:IBaseService<Statistics>
     {
         List<object> StatisticsAccessSystem();
+        List<object> StatisticsUser();
+        List<object> StatisticsOrder();
     }
 }

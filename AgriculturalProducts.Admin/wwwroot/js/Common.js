@@ -6,6 +6,9 @@ var CATEGORY_STATISTICS = "api/homeadmin/category-statistics";
 var CARTS_STATISTICS = "api/homeadmin/carts-statistics";
 var USERS_STATISTICS = "api/homeadmin/users-statistics";
 var ORDER_STATISTICS = "api/homeadmin/order-cart-statistics";
+var STATISTICS_ACCESS = "http://localhost:57736/api/Statistic/statistics-access";
+var STATISTICS_USER = "http://localhost:57736/api/Statistic/statistics-user";
+var STATISTICS_ORDER = "http://localhost:57736/api/Statistic/statistics-order";
 //Manager product
 var INSERT_PRODUCT = "api/productadmin/insert-product";
 var GET_PRODUCT_PAGING = "api/productadmin/getproduct-paging";
@@ -38,7 +41,7 @@ var INSERT_STATUS_CART = "http://localhost:57736/api/StatusCarts/insert-status-c
 var INSERT_ROLES = "http://localhost:57736/api/RolesAdmin/insert-roles";
 var GET_ALL_ROLES = "http://localhost:57736/api/RolesAdmin/get-all-roles"
 //User Admin Manager
-var INSERT_USER_ADMIN ="http://localhost:57736/api/UserAdmin/create-user"
+var INSERT_USER_ADMIN = "http://localhost:57736/api/UserAdmin/create-user"
 
 
 var renderAPI = {
@@ -71,7 +74,7 @@ var renderAPI = {
                 xhr.setRequestHeader("Authorization", "Beare" + localStorage.getItem("access_token"));
             },
             success: function (result) {
-  
+
                 callbackSuccess(result);
             },
             error: function (jqXHR, exception) {

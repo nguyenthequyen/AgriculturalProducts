@@ -20,5 +20,15 @@ namespace AgriculturalProducts.Services
         {
             return _reponsitory.StatisticsAccessSystem();
         }
+
+        public List<object> StatisticsOrder()
+        {
+            return _reponsitory.StatisticsOrder();
+        }
+
+        public List<object> StatisticsUser()
+        {
+            return _reponsitory.StatisticsUser();
+        }
     }
 }

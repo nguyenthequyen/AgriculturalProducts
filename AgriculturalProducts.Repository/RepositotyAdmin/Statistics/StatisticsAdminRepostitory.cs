@@ -17,10 +17,41 @@ namespace AgriculturalProducts.Repository
 
         public List<object> StatisticsAccessSystem()
         {
-            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.Visitor).GroupBy(x => x.CreatedDate.Day).Select(x=>new {
-                Count = x.Key,
-                Date = x.Distinct().Count()
-            }).ToList();
+            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.Visitor).GroupBy(x => x.CreatedDate.DayOfWeek).Select(x => new
+            {
+                label = x.Key,
+                y = x.Distinct().Count()
+            }).OrderBy(x => x.label).ToList();
+            List<object> listStatistics = new List<object>();
+            foreach (var item in statistics)
+            {
+                listStatistics.Add(item);
+            }
+            return listStatistics;
+        }
+
+        public List<object> StatisticsOrder()
+        {
+            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.Order).GroupBy(x => x.CreatedDate.DayOfWeek).Select(x => new
+            {
+                label = x.Key,
+                y = x.Distinct().Count()
+            }).OrderBy(x => x.label).ToList();
+            List<object> listStatistics = new List<object>();
+            foreach (var item in statistics)
+            {
+                listStatistics.Add(item);
+            }
+            return listStatistics;
+        }
+
+        public List<object> StatisticsUser()
+        {
+            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.CreatedUser).GroupBy(x => x.CreatedDate.DayOfWeek).Select(x => new
+            {
+                label = x.Key,
+                y = x.Distinct().Count()
+            }).OrderBy(x => x.label).ToList();
             List<object> listStatistics = new List<object>();
             foreach (var item in statistics)
             {

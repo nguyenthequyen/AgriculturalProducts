@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="~/htmleditor/css/froala_editor.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/froala_style.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/code_view.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/colors.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/emoticons.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/image_manager.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/image.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/line_breaker.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/table.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/char_counter.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/video.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/fullscreen.css" rel="stylesheet" />
+    <link href="~/htmleditor/css/file.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+    <link href="~/css/Blogs.css" rel="stylesheet" />
+}
+<div class="form-group pt-2 pb-2">
+    <button class="btn btn-primary float-right mr-3">Lưu</button>
+</div>
+<div class="container-fluid">
+    <div class="form-group">
+        <label for="usr">Tiêu đề:</label>
+        <input type="text" class="form-control border-danger" id="usr" name="username">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Thẻ:</label>
+        <input type="password" class="form-control border-danger" id="pwd" name="password">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Mô tả ngắn:</label>
+        <textarea type="password" class="form-control border-danger" id="pwd" name="password"></textarea>
+    </div>
+</div>
+<div id="editor" class="pl-4 pr-4 border-bottom">
+    <div id='edit' style="margin-top: 30px;">
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+    <script src="~/htmleditor/js/froala_editor.min.js"></script>
+    <script src="~/htmleditor/js/align.min.js"></script>
+    <script src="~/htmleditor/js/code_beautifier.min.js"></script>
+    <script src="~/htmleditor/js/code_view.min.js"></script>
+    <script src="~/htmleditor/js/colors.min.js"></script>
+    <script src="~/htmleditor/js/draggable.min.js"></script>
+    <script src="~/htmleditor/js/emoticons.min.js"></script>
+    <script src="~/htmleditor/js/font_size.min.js"></script>
+    <script src="~/htmleditor/js/font_family.min.js"></script>
+    <script src="~/htmleditor/js/image.min.js"></script>
+    <script src="~/htmleditor/js/file.min.js"></script>
+    <script src="~/htmleditor/js/image_manager.min.js"></script>
+    <script src="~/htmleditor/js/line_breaker.min.js"></script>
+    <script src="~/htmleditor/js/link.min.js"></script>
+    <script src="~/htmleditor/js/lists.min.js"></script>
+    <script src="~/htmleditor/js/paragraph_format.min.js"></script>
+    <script src="~/htmleditor/js/paragraph_style.min.js"></script>
+    <script src="~/htmleditor/js/video.min.js"></script>
+    <script src="~/htmleditor/js/table.min.js"></script>
+    <script src="~/htmleditor/js/url.min.js"></script>
+    <script src="~/htmleditor/js/entities.min.js"></script>
+    <script src="~/htmleditor/js/char_counter.min.js"></script>
+    <script src="~/htmleditor/js/inline_style.min.js"></script>
+    <script src="~/htmleditor/js/save.min.js"></script>
+    <script src="~/htmleditor/js/fullscreen.min.js"></script>
+    <script>
+        $(function () {
+            $('#edit').froalaEditor()
+        });
+    </script>
+}

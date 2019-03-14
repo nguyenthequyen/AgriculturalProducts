@@ -8,5 +8,7 @@ namespace AgriculturalProducts.Repository
     public interface IStatisticsAdminRepostitory : IBaseRepository<Statistics>
     {
         List<object> StatisticsAccessSystem();
+        List<object> StatisticsUser();
+        List<object> StatisticsOrder();
     }
 }

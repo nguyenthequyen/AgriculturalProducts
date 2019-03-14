@@ -1,12 +1,12 @@
 ﻿$(document).ready(function () {
     $(callAjaxDashboard.productStatistics);
     $(callAjaxDashboard.providerStatistics);
-    $(callAjaxDashboard.productTypeStatistics)
-    $(callAjaxDashboard.categoryStatistics)
-    $(callAjaxDashboard.cartsStatistics)
-    $(callAjaxDashboard.usersStatistics)
-    $(callAjaxDashboard.usersStatistics)
-    $(callAjaxDashboard.orderStatistics)
+    $(callAjaxDashboard.productTypeStatistics);
+    $(callAjaxDashboard.categoryStatistics);
+    $(callAjaxDashboard.cartsStatistics);
+    $(callAjaxDashboard.usersStatistics);
+    $(callAjaxDashboard.usersStatistics);
+    $(callAjaxDashboard.orderStatistics);
 });
 
 var callAjaxDashboard = {
