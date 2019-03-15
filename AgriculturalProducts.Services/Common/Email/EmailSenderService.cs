@@ -25,7 +25,7 @@ namespace AgriculturalProducts.Services
                  ("nguyenthequyen13@gmail.com", "THEQUYEN96");
 
             smtp.EnableSsl = true;
-            smtp.Send(mail);
+            //smtp.Send(mail);
         }
     }
 }

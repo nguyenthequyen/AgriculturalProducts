@@ -19,6 +19,30 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AgriculturalProducts.Models.Blogs", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<string>("ShortDescription");
+
+                    b.Property<string>("Tags");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Blogs");
+                });
+
             modelBuilder.Entity("AgriculturalProducts.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -44,6 +68,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid>("BlogsId");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("ModifyDate");
@@ -53,6 +79,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BlogsId");
 
                     b.HasIndex("ProductId");
 
@@ -456,6 +484,11 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
             modelBuilder.Entity("AgriculturalProducts.Models.Comments", b =>
                 {
+                    b.HasOne("AgriculturalProducts.Models.Blogs", "Blogs")
+                        .WithMany()
+                        .HasForeignKey("BlogsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("AgriculturalProducts.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")

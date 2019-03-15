@@ -30,5 +30,6 @@ namespace AgriculturalProducts.Repository
         public DbSet<UserAdmin> UserAdmin { get; set; }
         public DbSet<StatusCart> StatusCarts { get; set; }
         public DbSet<Statistics> Statistics { get; set; }
+        public DbSet<Blogs> Blogs { get; set; }
     }
 }

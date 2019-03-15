@@ -132,6 +132,21 @@ namespace AgriculturalProducts.API.Controllers
             data.Email = email;
             return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
         }
-
+        [HttpPost]
+        [Route("test")]
+         public async Task<IActionResult> Test()
+        {
+            var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
+            var data = new UsersInfor();
+            var name = claimsIdentity.FirstOrDefault(x => x.Type == "UserName").Value;
+            var lastName = claimsIdentity.FirstOrDefault(x => x.Type == "LastName").Value;
+            var firstName = claimsIdentity.FirstOrDefault(x => x.Type == "FirstName").Value;
+            var email = claimsIdentity.FirstOrDefault(x => x.Type == "Email").Value;
+            data.UserName = name;
+            data.LastName = lastName;
+            data.FirstName = firstName;
+            data.Email = email;
+            return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+        }
     }
 }
