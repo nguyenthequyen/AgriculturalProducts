@@ -29,9 +29,9 @@ namespace AgriculturalProducts.APIWeb
         public static void CreateFileLogger()
         {
             Log.Logger = new LoggerConfiguration()
-                            .MinimumLevel.Information()
+                            .MinimumLevel.Error()
                             .MinimumLevel.Override("SerilogDemo", LogEventLevel.Information)
-                            .WriteTo.File("Logs/Example.txt",
+                            .WriteTo.File("Logs/Client.txt",
                                     LogEventLevel.Information, // Minimum Log level
                                     rollingInterval: RollingInterval.Day, // This will append time period to the filename like Example20180316.txt
                                     retainedFileCountLimit: null,

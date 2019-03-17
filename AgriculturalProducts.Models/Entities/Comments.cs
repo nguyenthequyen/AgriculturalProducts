@@ -9,11 +9,9 @@ namespace AgriculturalProducts.Models
     {
         [Required]
         public Guid UserId { get; set; }
-        [Required]
+        public string Content { get; set; }
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
         public User User { get; set; }
-        public Guid BlogsId { get; set; }
-        public Blogs Blogs { get; set; }
     }
 }

@@ -30,9 +30,7 @@ var callAjaxBlogs = {
                 '</div>' +
                 '</div>';
             $('.list-blogs').html(value.content);
-            debugger
         })
-        debugger
     },
     errorGerBlogs: function (xhr, status) {
         console.log(xhr);

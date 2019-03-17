@@ -20,10 +20,11 @@ var callAjaxAccount = {
             password: password,
             confirmpassword: confirmpassword
         }
-        $(renderAPI.postAPI(REGISTER, true, 'post', JSON.stringify(data), callAjaxAccount.createdUserSuccess, callAjaxAccount.errorCreatedUser));
+        debugger
+        $(renderAPI.postAPILogin(REGISTER, true, 'post', JSON.stringify(data), callAjaxAccount.createdUserSuccess, callAjaxAccount.errorCreatedUser));
     },
     createdUserSuccess: function () {
-        window.location.href = "http://localhost:51277/AccountViews/Login";
+        window.location.href = DOMAIN + "AccountViews/Login";
     },
     errorCreatedUser: function (jqXHR, exception) {
         console.log(jqXHR);
@@ -35,11 +36,11 @@ var callAjaxAccount = {
             userName: userName,
             password: password
         }
-        $(renderAPI.postAPI(LOGIN, true, 'post', JSON.stringify(data), callAjaxAccount.loginUserSuccess, callAjaxAccount.errorLoginUser))
+        $(renderAPI.postAPILogin(LOGIN, true, 'post', JSON.stringify(data), callAjaxAccount.loginUserSuccess, callAjaxAccount.errorLoginUser))
     },
     loginUserSuccess: function (result) {
         localStorage.setItem("access_token", result.data);
-        window.location.href = "http://localhost:51277";
+        window.location.href = DOMAIN;
         $(renderAPI.postAPI(GET_USER_INFOR, true, 'post', null, callAjaxAccount.dataUserInfor, callAjaxAccount.errorGetUserInfor));
     },
     errorLoginUser: function (jqXHR, exception) {

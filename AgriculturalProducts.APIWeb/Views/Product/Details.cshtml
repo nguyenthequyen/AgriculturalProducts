@@ -3,9 +3,67 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section Styles{
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href="~/css/rate.css" rel="stylesheet" />
+}
 <div class="shopdetail">
     <div class="container details-products">
+    </div>
+    <div class="container">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+            <ul class="nav nav-tabs" style="margin-bottom:0px;">
+                <li class="active"><a data-toggle="tab" href="#home">Mô tả chi tiết</a></li>
+                <li><a data-toggle="tab" href="#menu1">Bình luận</a></li>
+                <li><a data-toggle="tab" href="#menu2">Đánh giá</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <div class="full-description">
+                        <p></p>
+                    </div>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <div class="form-group">
+                        <label for="comment">Nội dung bình luận:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-comment">Bình luận</button>
+                    <p>
+                        <div class="card pb-2">
+                            nội dung
+                        </div>
+                    </p>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <p>
+                        <div class='rating-stars text-center'>
+                            <ul id='stars'>
+                                <li class='star' title='Poor' data-value='1'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Fair' data-value='2'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Good' data-value='3'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='Excellent' data-value='4'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                                <li class='star' title='WOW!!!' data-value='5'>
+                                    <i class='fa fa-star fa-fw'></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-rate">Đánh giá</button>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @section Scripts{

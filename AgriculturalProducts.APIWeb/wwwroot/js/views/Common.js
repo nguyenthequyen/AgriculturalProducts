@@ -2,7 +2,8 @@
 //Product Client
 var GET_NEW_PRODUCT = "api/Product/list-new-product";
 var LIST_TOP_DISCOUNT_PRODUCT = "api/Product/list-top-discount-product";
-var PRODUCT_DETAILS = DOMAIN + "api/product/get-product-details"
+var PRODUCT_DETAILS = DOMAIN + "api/product/get-product-details";
+var SEARCH_PRODUCT = DOMAIN + "api/product/find-product-by-name";
 //Account
 var REGISTER = DOMAIN + "api/account/create-user";
 var LOGIN = DOMAIN + "api/account/login";
@@ -15,7 +16,10 @@ var REMOVE_CARTS_SESION = DOMAIN + "api/Carts/remove-carts";
 //Order
 var ORDER_NOW = DOMAIN + "api/Order/order-now";
 var GET_BLOGS = DOMAIN + "api/BlogsClient/get-top-blogs";
-
+//COMMENT
+var COMMENT_CREATED = DOMAIN + "api/comment/created-comment";
+//RATE
+var CREATED_RATE = DOMAIN + "api/Rates/created-rates";
 var renderAPI = {
     postAPI: function (url, async, method, data, callbackSuccess, callbackError) {
         $.ajax({
@@ -35,6 +39,21 @@ var renderAPI = {
             }
         })
     },
+    postAPILogin: function (url, async, method, data, callbackSuccess, callbackError) {
+        $.ajax({
+            method: method,
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            data: data,
+            async: async,
+            success: function (result) {
+                callbackSuccess(result);
+            },
+            error: function (jqXHR, exception) {
+                callbackError(jqXHR, exception);
+            }
+        })
+    },
     isWorking: function (result) {
         $(result).parent().parent().parent().parent().addClass("isWorking");
     },
@@ -46,5 +65,15 @@ var renderAPI = {
     },
     isWorkingDetailsCart: function (result) {
         $(result).addClass('isWorking');
+    }
+}
+function GetURLParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
     }
 }

@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriculturalProducts.Repository.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190315125916_Initial")]
+    [Migration("20190317092122_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -70,7 +70,7 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("BlogsId");
+                    b.Property<string>("Content");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -81,8 +81,6 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BlogsId");
 
                     b.HasIndex("ProductId");
 
@@ -486,11 +484,6 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
             modelBuilder.Entity("AgriculturalProducts.Models.Comments", b =>
                 {
-                    b.HasOne("AgriculturalProducts.Models.Blogs", "Blogs")
-                        .WithMany()
-                        .HasForeignKey("BlogsId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("AgriculturalProducts.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")

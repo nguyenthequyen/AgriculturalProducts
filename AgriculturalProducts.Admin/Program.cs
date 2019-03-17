@@ -32,13 +32,14 @@ namespace AgriculturalProducts.Web.Admin
         public static void CreateFileLogger()
         {
             Log.Logger = new LoggerConfiguration()
-                            .MinimumLevel.Information()
+                            .MinimumLevel.Error()
                             .MinimumLevel.Override("SerilogDemo", LogEventLevel.Information)
-                            .WriteTo.File("Logs/Example.txt",
+                            .WriteTo.File("Logs/Admin.log",
                                     LogEventLevel.Information, // Minimum Log level
-                                    rollingInterval: RollingInterval.Day, // This will append time period to the filename like Example20180316.txt
+                                    rollingInterval: RollingInterval.Month, // This will append time period to the filename like Example20180316.txt
                                     retainedFileCountLimit: null,
-                                    fileSizeLimitBytes: null,
+                                    rollOnFileSizeLimit:true,
+                                    fileSizeLimitBytes: 50000,
                                     outputTemplate: "{Timestamp:dd-MMM-yyyy HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",  // Set custom file format
                                     shared: true // Shared between multi-process shared log files
                                     )

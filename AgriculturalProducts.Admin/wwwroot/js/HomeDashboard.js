@@ -13,7 +13,7 @@ var callAjaxDashboard = {
     //Thống kê sản phẩm
     productStatistics: function () {
         $(renderAPI.postAPI(PRODUCT_STATISTICS, true, 'post', null, callAjaxDashboard.dataProductStatistics, function () {
-            window.location.href = DOMAIN+"AccountAdmin/Login";
+            //window.location.href = DOMAIN+"AccountAdmin/Login";
         }));
     },
     dataProductStatistics: function (result) {
@@ -22,7 +22,7 @@ var callAjaxDashboard = {
     //Thống kê nhà cung cấp
     providerStatistics: function () {
         $(renderAPI.postAPI(PROVIDER_STATISTICS, true, 'post', null, callAjaxDashboard.dataProdiverStatistics, function () {
-            window.location.href = DOMAIN+"AccountAdmin/Login";
+            //window.location.href = DOMAIN+"AccountAdmin/Login";
         }));
     },
     dataProdiverStatistics: function (result) {
@@ -31,7 +31,7 @@ var callAjaxDashboard = {
     //Thống kê loại sản phẩm
     productTypeStatistics: function (result) {
         $(renderAPI.postAPI(PRODUCT_TYPE_STATISTICS, true, 'post', null, callAjaxDashboard.dataProductTypeStatistics, function () {
-            window.location.href = DOMAIN+"AccountAdmin/Login";
+            //window.location.href = DOMAIN+"AccountAdmin/Login";
         }));
     },
     dataProductTypeStatistics: function (result) {
@@ -40,7 +40,7 @@ var callAjaxDashboard = {
     //Thống kê danh mục sản phẩm
     categoryStatistics: function (result) {
         $(renderAPI.postAPI(CATEGORY_STATISTICS, true, 'post', null, callAjaxDashboard.dataCategoryStatistics, function () {
-            window.location.href = DOMAIN+"AccountAdmin/Login";
+            //window.location.href = DOMAIN+"AccountAdmin/Login";
         }));
     },
     dataCategoryStatistics: function (result) {
@@ -57,7 +57,7 @@ var callAjaxDashboard = {
     //Thống kê người dùng
     usersStatistics: function (result) {
         $(renderAPI.postAPI(USERS_STATISTICS, true, 'post', null, callAjaxDashboard.dataUsersStatistics, function () {
-            window.location.href = DOMAIN+"AccountAdmin/Login";
+            //window.location.href = DOMAIN+"AccountAdmin/Login";
         }));
     },
     dataUsersStatistics: function (result) {
@@ -65,8 +65,7 @@ var callAjaxDashboard = {
     },
     orderStatistics: function () {
         $(renderAPI.postAPI(ORDER_STATISTICS, true, 'post', null, callAjaxDashboard.dataOrderStatistics, function (xhr, status) {
-            debugger
-            window.location.href = DOMAIN+"AccountAdmin/Login";
+            //window.location.href = DOMAIN + "AccountAdmin/Login";
         }));
     },
     dataOrderStatistics: function (result) {

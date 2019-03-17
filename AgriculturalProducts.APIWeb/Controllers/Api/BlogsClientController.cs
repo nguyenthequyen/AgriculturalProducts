@@ -29,11 +29,12 @@ namespace AgriculturalProducts.Web.Controllers.Api
             try
             {
                 var data = _blogsService.GetBlogsTopNews();
-                _logger.LogError("Ghi log thành công");
+                _logger.LogError("Tạo blog thành công");
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = data, Error = null });
             }
             catch (Exception ex)
             {
+                _logger.LogError("Tạo blog thất bại: " + ex);
                 return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = ex.Message });
             }
         }

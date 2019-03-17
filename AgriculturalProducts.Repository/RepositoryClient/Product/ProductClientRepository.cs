@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Repository
 {
@@ -83,6 +84,31 @@ namespace AgriculturalProducts.Repository
                     Path = "data:image/png;base64, " + GetBase64StringForImage(img.Path)
                 }).ToList()
             }).Where(x => x.Id == id).ToList();
+            List<object> products = new List<object>();
+            foreach (var item in product)
+            {
+                products.Add(item);
+            }
+            return products;
+        }
+
+        public List<object> FindProductByName(string name)
+        {
+            var product = _applicationContext.Products.Select(x => new
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Cost = x.Cost,
+                Code = x.Code,
+                Sale = x.Sale,
+                ShortDescription = x.ShortDescription,
+                FullDescription = x.FullDescription,
+                Created = x.CreatedDate,
+                Image = _applicationContext.Images.Where(p => p.ProductId == x.Id).Select(img => new
+                {
+                    Path = "data:image/png;base64, " + GetBase64StringForImage(img.Path)
+                }).ToList()
+            }).Where(x => x.Name.StartsWith(name)).ToList();
             List<object> products = new List<object>();
             foreach (var item in product)
             {

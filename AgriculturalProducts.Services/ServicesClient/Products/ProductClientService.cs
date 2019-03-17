@@ -3,6 +3,7 @@ using AgriculturalProducts.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
@@ -29,6 +30,11 @@ namespace AgriculturalProducts.Services
         public List<object> GetProductDetails(Guid id)
         {
             return _reponsitory.GetProductDetails(id);
+        }
+
+        public List<object> FindProductByName(string name)
+        {
+            return _reponsitory.FindProductByName(name);
         }
     }
 }

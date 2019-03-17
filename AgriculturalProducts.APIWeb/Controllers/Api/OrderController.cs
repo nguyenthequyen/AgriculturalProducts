@@ -10,6 +10,7 @@ using AgriculturalProducts.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Action = AgriculturalProducts.Models.Action;
 
 namespace AgriculturalProducts.Web.Controllers.Api
@@ -24,12 +25,14 @@ namespace AgriculturalProducts.Web.Controllers.Api
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEmailSenderService _emailSenderService;
         private readonly IStatisticsService _statisticsService;
+        private readonly ILogger<OrderController> _logger;
         public OrderController(
             IUnitOfWork unitOfWork,
             IOrderService orderService,
             IOrderDetailsService orderDetailsService,
             IEmailSenderService emailSenderService,
             StatisticsService statisticsService,
+            ILogger<OrderController> logger,
             IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
@@ -38,6 +41,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
             _httpContextAccessor = httpContextAccessor;
             _emailSenderService = emailSenderService;
             _statisticsService = statisticsService;
+            _logger = logger;
         }
         [HttpPost]
         [Route("order-now")]
@@ -85,7 +89,8 @@ namespace AgriculturalProducts.Web.Controllers.Api
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = "Đặt hàng thất bại", Error = ex.Message });
+                _logger.LogError("Đặt hàng thất bại: " + ex);
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = null, Error = "Đặt hàng thất bại" });
             }
         }
     }

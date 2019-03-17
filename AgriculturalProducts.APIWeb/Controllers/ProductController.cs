@@ -12,5 +12,9 @@ namespace AgriculturalProducts.Web.Controllers
         {
             return View();
         }
+        public IActionResult SearchProduct()
+        {
+            return View();
+        }
     }
 }

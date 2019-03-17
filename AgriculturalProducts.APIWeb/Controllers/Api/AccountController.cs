@@ -61,6 +61,7 @@ namespace AgriculturalProducts.API.Controllers
                     ModifyDate = DateTime.Now
                 };
                 _statisticsService.InsertStatistics(statistics);
+                _logger.LogError("Đăng ký tài khoản thành công");
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
             }
             catch (Exception ex)
@@ -104,49 +105,44 @@ namespace AgriculturalProducts.API.Controllers
                         ModifyDate = DateTime.Now
                     };
                     _statisticsService.InsertStatistics(statistics);
+                    _logger.LogError("Đăng nhập thành công");
                     return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = token.Value, Error = null });
                 }
                 else
                 {
+                    _logger.LogError("Lỗi tài khoản hoặc mật khẩu không đúng");
                     return Ok(new Result() { Message = "Forbidden", Code = (int)HttpStatusCode.Forbidden, Data = "Mật khẩu hoặc user name không đúng", Error = null });
                 }
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Message = "ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data = "Máy chủ bị lõio", Error = ex.ToString() });
+                _logger.LogError("Lỗi tài khoản hoặc mật khẩu không đúng" + ex);
+                return Ok(new Result() { Message = "ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data = "Máy chủ bị lỗi", Error = ex.ToString() });
             }
         }
         [HttpPost]
         [Route("get-users-infor")]
         public async Task<IActionResult> GetUserInfor()
         {
-            var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
-            var data = new UsersInfor();
-            var name = claimsIdentity.FirstOrDefault(x => x.Type == "UserName").Value;
-            var lastName = claimsIdentity.FirstOrDefault(x => x.Type == "LastName").Value;
-            var firstName = claimsIdentity.FirstOrDefault(x => x.Type == "FirstName").Value;
-            var email = claimsIdentity.FirstOrDefault(x => x.Type == "Email").Value;
-            data.UserName = name;
-            data.LastName = lastName;
-            data.FirstName = firstName;
-            data.Email = email;
-            return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
-        }
-        [HttpPost]
-        [Route("test")]
-         public async Task<IActionResult> Test()
-        {
-            var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
-            var data = new UsersInfor();
-            var name = claimsIdentity.FirstOrDefault(x => x.Type == "UserName").Value;
-            var lastName = claimsIdentity.FirstOrDefault(x => x.Type == "LastName").Value;
-            var firstName = claimsIdentity.FirstOrDefault(x => x.Type == "FirstName").Value;
-            var email = claimsIdentity.FirstOrDefault(x => x.Type == "Email").Value;
-            data.UserName = name;
-            data.LastName = lastName;
-            data.FirstName = firstName;
-            data.Email = email;
-            return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            try
+            {
+                var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
+                var data = new UsersInfor();
+                var name = claimsIdentity.FirstOrDefault(x => x.Type == "UserName").Value;
+                var lastName = claimsIdentity.FirstOrDefault(x => x.Type == "LastName").Value;
+                var firstName = claimsIdentity.FirstOrDefault(x => x.Type == "FirstName").Value;
+                var email = claimsIdentity.FirstOrDefault(x => x.Type == "Email").Value;
+                data.UserName = name;
+                data.LastName = lastName;
+                data.FirstName = firstName;
+                data.Email = email;
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy thông tin tài khoản" + ex);
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = null, Error = "Lỗi lấy thông tin tài khoản" });
+            }
         }
     }
 }

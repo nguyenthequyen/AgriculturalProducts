@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Repository
 {
@@ -10,5 +11,6 @@ namespace AgriculturalProducts.Repository
         List<object> GetTopNewPoduct();
         List<object> GetListDiscountProducts();
         List<object> GetProductDetails(Guid id);
+        List<object> FindProductByName(string name);
     }
 }

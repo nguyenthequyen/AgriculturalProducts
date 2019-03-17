@@ -34,7 +34,7 @@ var callAjaxCarts = {
         }
     },
     errorViewsCarts: function (jqXHR, exception) {
-        console(jqXHR);
+        console.log(jqXHR);
     },
     removeCarts: function () {
         $(renderAPI.isWorkingCarts(this));

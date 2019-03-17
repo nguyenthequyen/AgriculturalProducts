@@ -19,6 +19,7 @@
     <link href="~/css/ele-style.css" rel="stylesheet" type="text/css" />
     <!-- stylesheet -->
     <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    @RenderSection("Styles", required: false)
     @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">*@
 </head>
 <body class="header3">
@@ -52,10 +53,6 @@
                         <li class="dropdown login">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon_profile"></i> Tài khoản <span class="username"></span></a>
                             <ul class="dropdown-menu">
-                                <li hidden>
-                                    <button type="button" class="fac">Facebook</button>
-                                    <button type="button" class="go">Google+</button>
-                                </li>
                                 <li>
                                     <a href="#"><i class="icon_profile"></i>Thông tin tài khoản</a>
                                 </li>
@@ -153,82 +150,37 @@
                             <div class="collapse navbar-collapse navbar-ex1-collapse padd0">
                                 <ul class="nav navbar-nav pull-right">
                                     <li class="dropdown topheader">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trang chủ</a>
+                                        <a asp-action="Index" asp-controller="Home" class="dropdown-toggle">Trang chủ</a>
+                                    </li>
+                                    <li class="dropdown topheading">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Danh mục</a>
                                         <div class="dropdown-menu">
-                                            <h2><span>Offer Deals : </span> Get flat 25% on Vegetables | Get 16% off organic healthy  foods | Get 28% off in organic meat.</h2>
-                                            <div class="col-sm-4">
-                                                <h4>Vegetables</h4>
+                                            <div class="dropdown-inner">
                                                 <ul class="list-unstyled">
                                                     <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Lorem ipsum</a>
+                                                        <a href="shop.html">Shop</a>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Sed eget</a>
+                                                        <a href="shopdetail.html">Shop Detail</a>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Curabitur <span class="new">New</span></a>
+                                                        <a href="shoppingcart.html">Shopping cart</a>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Nulla ut</a>
+                                                        <a href="checkout.html">Checkout</a>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Duis leo <span class="hot">Hot</span></a>
+                                                        <a href="confirmation.html">Confirmation</a>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Integer diam</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <h4>Fruits</h4>
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Lorem ipsum <span class="new">New</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Sed eget</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Curabitur</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Nulla ut <span class="hot">Hot</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Duis leo</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Integer diam</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <h4>Meats</h4>
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Lorem ipsum</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Sed eget <span class="new">New</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Curabitur</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Nulla ut</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Duis leo</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html"><i class="fa fa-circle"></i> Integer diam <span class="hot">Hot</span></a>
+                                                        <a href="login_register.html">Login & Register</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="aboutus.html">Thị trường nông sản</a>
+                                        <a href="aboutus.html">Thị trường</a>
                                     </li>
                                     <li class="dropdown topheading">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tin tức</a>
@@ -327,9 +279,9 @@
                 </div>
                 <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
                     <div id="srch" class="input-group">
-                        <input type="text" name="search" value="Tìm kiếm" placeholder="Tìm kiếm" class="form-control input-lg" />
+                        <input type="text" name="search" value="" placeholder="Tìm kiếm" class="form-control input-lg txt-text-search" />
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default btn-lg"><i class="icon_search"></i></button>
+                            <button type="button" class="btn btn-default btn-lg btn-search"><i class="icon_search"></i></button>
                         </span>
                     </div>
                 </div>

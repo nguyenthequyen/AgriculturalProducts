@@ -331,18 +331,12 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: false),
-                    BlogsId = table.Column<Guid>(nullable: false)
+                    Content = table.Column<string>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Comments_Blogs_BlogsId",
-                        column: x => x.BlogsId,
-                        principalTable: "Blogs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_Products_ProductId",
                         column: x => x.ProductId,
@@ -435,11 +429,6 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_BlogsId",
-                table: "Comments",
-                column: "BlogsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ProductId",
@@ -535,6 +524,9 @@ namespace AgriculturalProducts.Repository.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Blogs");
+
+            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
@@ -554,9 +546,6 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserInfors");
-
-            migrationBuilder.DropTable(
-                name: "Blogs");
 
             migrationBuilder.DropTable(
                 name: "Orders");

@@ -10,7 +10,6 @@ namespace AgriculturalProducts.Models
     {
         [Required]
         public Guid ProductId { get; set; }
-        [Required]
         public Guid UserId { get; set; }
         [Required]
         public int Quantity { get; set; }

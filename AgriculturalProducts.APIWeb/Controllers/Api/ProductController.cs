@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AgriculturalProducts.APIWeb.Models;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using Serilog;
 using Action = AgriculturalProducts.Models.Action;
 
 namespace AgriculturalProducts.APIWeb.Controllers.Api
@@ -25,7 +27,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         private readonly IProductClientService _productService;
         private readonly IImagesClientServices _imagesClientServices;
         private readonly IStatisticsService _statisticsService;
-        private readonly ILogger _logger;
+        private readonly ILogger<ProductController> _logger;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly ApplicationContext _applicationContext;
         public ProductController(
@@ -120,7 +122,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         public async Task<IActionResult> GetImageFile([FromBody]ProductId id)
         {
             string webRootPath = _hostingEnvironment.WebRootPath;
-            var folderName = @"F:\AgriculturalProducts\Upload" + @"\" + id.Id;
+            var folderName = @"E:\AgriculturalProducts\Upload" + @"\" + id.Id;
             List<ImageResult> imageResults = new List<ImageResult>();
             foreach (var files in Directory.GetFiles(folderName))
             {
@@ -160,6 +162,21 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         {
             await _productService.GetFirstOrDefault(id);
             return Ok();
+        }
+        [Route("find-product-by-name")]
+        [HttpPost]
+        public async Task<IActionResult> FindProductByName([FromBody]ProductName name)
+        {
+            try
+            {
+                var data = _productService.FindProductByName(name.Name);
+                return Ok(new Result() { Code = 200, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi tìm kiếm sản phẩm theo tên: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = "Lỗi tìm kiếm sản phẩm" });
+            }
         }
         [Route("get-carts")]
         [Authorize(Roles = "Users")]

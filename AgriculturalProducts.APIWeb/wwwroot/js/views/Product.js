@@ -1,8 +1,10 @@
 ﻿$(document).ready(function () {
     $(callAjaxProduct.callAjaxNewProduct);
     $(callAjaxProduct.callAjaxDiscountProducts);
-    $('.new-product').on('click', '.icons.cart-icon', callAjaxProduct.addProductToCart);
-    $('.new-product').on('click', '.caption.text-center', callAjaxProduct.getDetailsProducts);
+    $('.list-product').on('click', '.icons.cart-icon', callAjaxProduct.addProductToCart);
+    $('.list-product').on('click', '.caption.text-center', callAjaxProduct.getDetailsProducts);
+    $('.btn-search').on('click', callAjaxProduct.searchProducctByName);
+
 });
 
 var callAjaxProduct = {
@@ -11,7 +13,7 @@ var callAjaxProduct = {
     },
     dataNewProduct: function (result) {
         var data = result.data;
-        $('.new-product').html('');
+        $('.list-product').html('');
         $.each(data, function (index, value) {
             var query = '<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 product">' +
                 '<div class="product-thumb">' +
@@ -27,7 +29,7 @@ var callAjaxProduct = {
                 '</div>' +
                 '</div>' +
                 '<div class="caption text-center">' +
-                '<h4><a href="shop.html">' + value.name + '</a></h4>' +
+                '<h4><a style="cursor:pointer;">' + value.name + '</a></h4>' +
                 '<div class="rating">' +
                 '<i class="fa fa-star"></i>' +
                 '<i class="fa fa-star"></i>' +
@@ -39,7 +41,7 @@ var callAjaxProduct = {
                 '</div>' +
                 '</div>' +
                 '</div>';
-            $('.new-product').append(query);
+            $('.list-product').append(query);
         });
     },
     errorNewProduct: function () {
@@ -85,9 +87,9 @@ var callAjaxProduct = {
 
     },
     addProductToCart: function () {
-        $('.new-product').find('.product-thumb').removeClass('isWorking');
+        $('.list-product').find('.product-thumb').removeClass('isWorking');
         $(renderAPI.isWorking(this))
-        var isWorking = $('.new-product').find('isWorking');
+        var isWorking = $('.list-product').find('isWorking');
         if (isWorking) {
             var id = $('.isWorking').find('.icon_cart_alt').find('span').text();
             var data = {
@@ -106,9 +108,10 @@ var callAjaxProduct = {
         console.log(jqXHR);
     },
     getDetailsProducts: function () {
-        $('.new-product').find('.product-thumb').removeClass('isWorking');
+        $('.list-product').find('.product-thumb').removeClass('isWorking');
+        debugger
         $(renderAPI.isWorkingDetailsCart(this))
-        var isWorking = $('.new-product').find('isWorking');
+        var isWorking = $('.list-product').find('isWorking');
         if (isWorking) {
             var id = $('.isWorking').prev().find('span').text();
             var data = {
@@ -122,7 +125,19 @@ var callAjaxProduct = {
     },
     dataAfterDetailsProduct: function (results) {
         $.each(results.data, function (index, value) {
-            window.location.href = "http://localhost:51277/Product/Details?productId=" + value.id;
+            window.location.href = DOMAIN + "Product/Details?productId=" + value.id;
+        })
+    },
+    searchProducctByName: function () {
+        var data = {
+            name: $('.txt-text-search').val()
+        }
+        $(renderAPI.postAPI(SEARCH_PRODUCT, true, 'post', JSON.stringify(data), callAjaxProduct.dataAfterSearch, callAjaxProduct.errorSearchProduct));
+    },
+    dataAfterSearch: function (result) {
+        var name = $('.txt-text-search').val()
+        $.each(result.data, function (index, value) {
+            window.location.href = DOMAIN + "Product/SearchProduct?name=" + name;
         })
     }
 }
