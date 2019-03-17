@@ -17,22 +17,33 @@ namespace AgriculturalProducts.Web.Admin
     {
         public static void Main(string[] args)
         {
-            Console.Title = "IdentityServer4";
-            CreateWebHostBuilder(args).Build().Run();
+            CreateFileLogger();
+
+            BuildWebHost(args).Run();
         }
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+
+        public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseSerilog((context, config) =>
-                {
-                    config
-                        .MinimumLevel.Debug()
-                        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                        .MinimumLevel.Override("System", LogEventLevel.Warning)
-                        .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
-                        .Enrich.FromLogContext()
-                        .WriteTo.File(@"AgriculturalProducts.txt")
-                        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Literate);
-                });
+                .UseUrls("https://localhost:44300/")
+                .UseSerilog()
+                .Build();
+
+        public static void CreateFileLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                            .MinimumLevel.Information()
+                            .MinimumLevel.Override("SerilogDemo", LogEventLevel.Information)
+                            .WriteTo.File("Logs/Example.txt",
+                                    LogEventLevel.Information, // Minimum Log level
+                                    rollingInterval: RollingInterval.Day, // This will append time period to the filename like Example20180316.txt
+                                    retainedFileCountLimit: null,
+                                    fileSizeLimitBytes: null,
+                                    outputTemplate: "{Timestamp:dd-MMM-yyyy HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",  // Set custom file format
+                                    shared: true // Shared between multi-process shared log files
+                                    )
+                            .CreateLogger();
+        }
+
     }
 }

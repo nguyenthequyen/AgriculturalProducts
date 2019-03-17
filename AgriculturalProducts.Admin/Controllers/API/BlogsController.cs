@@ -9,6 +9,7 @@ using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace AgriculturalProducts.Admin.Controllers.API
 {
@@ -30,7 +31,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             try
             {
                 _blogsService.CreatedBlogs(blogs);
-                _logger.LogError("Ghi log thành công");
+                _logger.LogInformation("Index method called!!!");
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = "Tạo bài viết thành công", Error = null });
             }
             catch (Exception ex)
