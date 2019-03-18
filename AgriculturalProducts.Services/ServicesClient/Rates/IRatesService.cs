@@ -8,5 +8,6 @@ namespace AgriculturalProducts.Services
     public interface IRatesService : IBaseService<Rate>
     {
         void CreatedRate(Rate rate);
+        List<object> GetAllRates(Guid id);
     }
 }

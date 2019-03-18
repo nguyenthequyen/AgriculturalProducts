@@ -58,6 +58,8 @@ $(document).ready(function () {
      * Đánh giá 5 sao
      */
     $('.btn-rate').click(callAjaxDetailsProduct.rateProduct);
+    $(callAjaxDetailsProduct.getAllComments);
+    $(callAjaxDetailsProduct.getAllRates);
 })
 function responseMessage(msg) {
     $('.success-box').fadeIn(200);
@@ -111,8 +113,6 @@ var callAjaxDetailsProduct = {
                 '</div>' +
                 '<div class="buttons">' +
                 '<button type="button" class="btn-default"><i class="icon_cart"></i> Thêm vào giỏ hàng</button>' +
-                '<button type="button" class="btn-default"><i class="icon_heart"></i></button>' +
-                '<button type="button" class="btn-default"><i class="icon_piechart"></i></button>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
@@ -130,7 +130,7 @@ var callAjaxDetailsProduct = {
         var content = $('#comment').val();
         debugger
         var data = {
-            id: id,
+            productId: id,
             content: content
         }
         $(renderAPI.postAPI(COMMENT_CREATED, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterComment, callAjaxDetailsProduct.errorAfterComment));
@@ -156,9 +156,67 @@ var callAjaxDetailsProduct = {
         $(renderAPI.postAPI(CREATED_RATE, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterRates, callAjaxDetailsProduct.errorAfterRate));
     },
     dataAfterRates: function (result) {
-
+        debugger
+        alert(result.data);
     },
     errorAfterRate: function (xhr, status) {
+        alert("Đánh giá sản phẩm thất bại");
+    },
+    getAllComments: function () {
+        var id = GetURLParameter('productId');
+        var data = {
+            id: id
+        }
+        $(renderAPI.postAPI(GET_ALL_COMMENT, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterComments, callAjaxDetailsProduct.errorAfterComments));
+    },
+    dataAfterComments: function (result) {
+        $('.pading-content-comment').html('');
+        $.each(result.data, function (index, value) {
+            var html = '<div class="detail">' +
+                '<span class="user-name">' + value.createdBy + '</span><br />' +
+                '<span class="content">' + value.content + '</span>' +
+                '</div>';
+            $('.pading-content-comment').append(html);
+        });
+    },
+    errorAfterComments: function (xhr, status) {
+        alert("Lấy bình luận thất bại");
+        console.log(xhr);
+    },
+    getAllRates: function () {
+        var id = GetURLParameter('productId');
+        var data = {
+            id: id
+        }
+        $(renderAPI.postAPI(GET_ALL_RATES, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterRates, callAjaxDetailsProduct.errorAfterRates));
+    },
+    dataAfterRates: function (result) {
+        $(callAjaxDetailsProduct.chartColumn('chart-rate', result.data, 'Thống kê đánh giá'))
+    },
+    errorAfterRates: function () {
+        alert("Lấy đánh giá thất bại");
+        console.log(xhr);
+    },
+    chartColumn: function (element, data, text) {
+        var chart = new CanvasJS.Chart(element, {
+            animationEnabled: true,
 
+            title: {
+                text: text
+            },
+            axisX: {
+                interval: 1
+            },
+            axisY2: {
+                interlacedColor: "rgba(1,77,101,.2)",
+                gridColor: "rgba(1,77,101,.1)",
+            },
+            data: [{
+                type: "bar",
+                name: "companies",
+                dataPoints: data
+            }]
+        });
+        chart.render();
     }
 }

@@ -33,6 +33,11 @@ namespace AgriculturalProducts.Services
             return GetAllRecords();
         }
 
+        public Roles GetRolesClient()
+        {
+            return _rolesRepository.GetRolesClient();
+        }
+
         public void InsertRoles(Roles roles)
         {
             roles.Id = Guid.NewGuid();

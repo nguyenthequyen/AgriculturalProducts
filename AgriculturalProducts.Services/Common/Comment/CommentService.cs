@@ -23,5 +23,9 @@ namespace AgriculturalProducts.Services
             Add(comments);
             _unitOfWork.Commit();
         }
+        public IEnumerable<Comments> GetAllComments(Guid id)
+        {
+            return _reponsitory.GetAllComments(id);
+        }
     }
 }

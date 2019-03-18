@@ -1,6 +1,7 @@
 ﻿using AgriculturalProducts.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AgriculturalProducts.Repository
@@ -16,6 +17,10 @@ namespace AgriculturalProducts.Repository
         public void CreatedComment(Comments comments)
         {
             Add(comments);
+        }
+        public IEnumerable<Comments> GetAllComments(Guid id)
+        {
+            return _applicationContext.Comments.Where(x => x.ProductId == id).OrderBy(x => x.CreatedDate <= DateTime.Now).ToList();
         }
     }
 }

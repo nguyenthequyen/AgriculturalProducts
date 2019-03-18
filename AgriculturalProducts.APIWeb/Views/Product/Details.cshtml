@@ -32,11 +32,8 @@
                         <textarea class="form-control" rows="5" id="comment"></textarea>
                     </div>
                     <button type="button" class="btn btn-primary btn-comment">Bình luận</button>
-                    <p>
-                        <div class="card pb-2">
-                            nội dung
-                        </div>
-                    </p>
+                    <div class="card pb-2 pading-content-comment padding-content">
+                    </div>
                 </div>
                 <div id="menu2" class="tab-pane fade">
                     <p>
@@ -60,6 +57,10 @@
                             </ul>
                         </div>
                         <button type="button" class="btn btn-primary btn-rate">Đánh giá</button>
+                        <div class="card pb-2 padding-content">
+                            <div id="chart-rate"style="height: 370px; width: 100%;">
+                            </div>
+                        </div>
                     </p>
                 </div>
             </div>
@@ -67,5 +68,7 @@
     </div>
 </div>
 @section Scripts{
+    @*<script src="~/js/jquery.min.js"></script>*@
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="~/js/views/DetailsProduct.js"></script>
 }

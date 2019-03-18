@@ -8,5 +8,6 @@ namespace AgriculturalProducts.Services
     public interface ICommentService : IBaseService<Comments>
     {
         void CreatedComment(Comments comments);
+        IEnumerable<Comments> GetAllComments(Guid id);
     }
 }

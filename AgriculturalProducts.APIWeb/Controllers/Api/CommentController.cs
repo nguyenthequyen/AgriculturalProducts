@@ -39,6 +39,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                 var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
                 var data = new UsersInfor();
                 var userId = claimsIdentity.FirstOrDefault(x => x.Type == "UserId").Value;
+                var userName = claimsIdentity.FirstOrDefault(x => x.Type == "UserName").Value;
                 comments.UserId = Guid.Parse(userId);
                 _commentService.CreatedComment(comments);
                 _logger.LogError("Tạo comment thành công");
@@ -49,6 +50,21 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                 _logger.LogError("Tạo comment thất bại: " + ex);
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Thêm bình luận thất bại" });
             }
+        }
+        [HttpPost]
+        [Route("get-comment-byproductId")]
+        public async Task<IActionResult> GetCommentByProductId([FromBody]ProductId id)
+        {
+            try
+            {
+                var data = _commentService.GetAllComments(id.Id);
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Lấy bình luận thất bại" });
+            }
+
         }
     }
 }

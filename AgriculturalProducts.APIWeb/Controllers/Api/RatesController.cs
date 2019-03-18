@@ -50,5 +50,20 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Thêm bình luận thất bại" });
             }
         }
+        [HttpPost]
+        [Route("get-all-rates")]
+        public async Task<IActionResult> GetAllRates([FromBody] ProductId id)
+        {
+            try
+            {
+                var data = _ratesService.GetAllRates(id.Id);
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lấy dữ liệu đánh giá thất bại: " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Lấy dữ liệu đánh giá thất bại" });
+            }
+        }
     }
 }

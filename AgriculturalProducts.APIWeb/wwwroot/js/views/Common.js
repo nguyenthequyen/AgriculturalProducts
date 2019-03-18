@@ -18,8 +18,11 @@ var ORDER_NOW = DOMAIN + "api/Order/order-now";
 var GET_BLOGS = DOMAIN + "api/BlogsClient/get-top-blogs";
 //COMMENT
 var COMMENT_CREATED = DOMAIN + "api/comment/created-comment";
+var GET_ALL_COMMENT = DOMAIN + "api/Comment/get-comment-byproductId";
 //RATE
 var CREATED_RATE = DOMAIN + "api/Rates/created-rates";
+var GET_ALL_RATES = DOMAIN + "api/rates/get-all-rates";
+
 var renderAPI = {
     postAPI: function (url, async, method, data, callbackSuccess, callbackError) {
         $.ajax({

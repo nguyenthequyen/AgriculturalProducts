@@ -13,5 +13,6 @@ namespace AgriculturalProducts.Services
         IEnumerable<Roles> GetAllRoles();
         void DeleteRoles(Roles roles);
         Task<Roles> FindRolesById(Guid id);
+        Roles GetRolesClient();
     }
 }

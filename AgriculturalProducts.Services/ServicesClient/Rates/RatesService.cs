@@ -19,6 +19,12 @@ namespace AgriculturalProducts.Services
         public void CreatedRate(Rate rate)
         {
             Add(rate);
+            _unitOfWork.Commit();
+        }
+
+        public List<object> GetAllRates(Guid id)
+        {
+            return _ratesRepository.GetAllRates(id);
         }
     }
 }

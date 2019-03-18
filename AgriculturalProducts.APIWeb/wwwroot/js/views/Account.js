@@ -39,15 +39,21 @@ var callAjaxAccount = {
         $(renderAPI.postAPILogin(LOGIN, true, 'post', JSON.stringify(data), callAjaxAccount.loginUserSuccess, callAjaxAccount.errorLoginUser))
     },
     loginUserSuccess: function (result) {
-        localStorage.setItem("access_token", result.data);
-        window.location.href = DOMAIN;
-        $(renderAPI.postAPI(GET_USER_INFOR, true, 'post', null, callAjaxAccount.dataUserInfor, callAjaxAccount.errorGetUserInfor));
+        if (result.data === null) {
+            alert("Đăng nhập thất bại");
+        } else {
+            localStorage.setItem("access_token", result.data);
+            window.location.href = DOMAIN;
+            $(renderAPI.postAPI(GET_USER_INFOR, true, 'post', null, callAjaxAccount.dataUserInfor, callAjaxAccount.errorGetUserInfor));
+        }
+
     },
     errorLoginUser: function (jqXHR, exception) {
+        debugger
         console.log(jqXHR);
     },
     dataUserInfor: function (result) {
-        if (result == null) {
+        if (result.data === null) {
             return false;
         }
         $('.username').text(result.data.userName);
@@ -68,7 +74,7 @@ var callAjaxAccount = {
         }
     },
     dataUserInforAutoLoad: function (result) {
-        if (result == null) {
+        if (result.data == null) {
             return false;
         }
         $('.username').text(result.data.userName);

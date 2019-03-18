@@ -143,3 +143,12 @@ pre {
         .rating-stars ul > li.star.selected > i.fa {
             color: #FF912C;
         }
+
+.padding-content {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.user-name {
+    font-weight: bold;
+}

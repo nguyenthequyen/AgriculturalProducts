@@ -28,12 +28,14 @@ namespace AgriculturalProducts.API.Controllers
         private readonly ApplicationContext _applicationContext;
         private readonly IEmailSenderService _emailSenderService;
         private readonly IStatisticsService _statisticsService;
+        private readonly IRolesService _rolesService;
         public AccountController(
             IUserClientService userClientService,
             ApplicationContext applicationContext,
             IHttpContextAccessor httpContextAccessor,
             IEmailSenderService emailSenderService,
             IStatisticsService statisticsService,
+            IRolesService rolesService,
             ILogger<AccountController> logger)
         {
 
@@ -43,6 +45,7 @@ namespace AgriculturalProducts.API.Controllers
             _httpContextAccessor = httpContextAccessor;
             _emailSenderService = emailSenderService;
             _statisticsService = statisticsService;
+            _rolesService = rolesService;
         }
         [Route("create-user")]
         [HttpPost]
@@ -50,6 +53,8 @@ namespace AgriculturalProducts.API.Controllers
         {
             try
             {
+                var roles = _rolesService.GetRolesClient();
+                model.RolesId = roles.Id;
                 _userClientService.CreatedUserCliet(model);
                 _emailSenderService.SendEmail(model.Email, Constants.SubjectCreatedAccount, Constants.BodyCreatedAccount);
                 Statistics statistics = new Statistics()
@@ -80,7 +85,7 @@ namespace AgriculturalProducts.API.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                var user = _userClientService.FindClientUser(model);
+                var user = await _userClientService.FindClientUser(model);
                 if (user != null)
                 {
                     var token = new JwtTokenBuilder()
@@ -89,11 +94,11 @@ namespace AgriculturalProducts.API.Controllers
                                 .AddAudience("JwtRoleBasedAuth")
                                 .AddExpiry(1)
                                 .AddClaim("UserName", model.Username)
-                                .AddClaim("Email", user.Result.Email)
-                                .AddClaim("LastName", user.Result.LastName)
-                                .AddClaim("FirstName", user.Result.FirstName)
-                                .AddClaim("RolesId", user.Result.RolesId.ToString())
-                                .AddClaim("UserId", user.Result.Id.ToString())
+                                .AddClaim("Email", user.Email)
+                                .AddClaim("LastName", user.LastName)
+                                .AddClaim("FirstName", user.FirstName)
+                                .AddClaim("RolesId", user.RolesId.ToString())
+                                .AddClaim("UserId", user.Id.ToString())
                                 .AddRole("Users")
                                 .Build();
                     Statistics statistics = new Statistics()
@@ -111,7 +116,7 @@ namespace AgriculturalProducts.API.Controllers
                 else
                 {
                     _logger.LogError("Lỗi tài khoản hoặc mật khẩu không đúng");
-                    return Ok(new Result() { Message = "Forbidden", Code = (int)HttpStatusCode.Forbidden, Data = "Mật khẩu hoặc user name không đúng", Error = null });
+                    return Ok(new Result() { Message = "Forbidden", Code = (int)HttpStatusCode.Forbidden, Data = null, Error = null });
                 }
             }
             catch (Exception ex)

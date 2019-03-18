@@ -11,6 +11,7 @@ namespace AgriculturalProducts.Models
         public Guid UserId { get; set; }
         public string Content { get; set; }
         public Guid ProductId { get; set; }
+        public string CreatedBy { get; set; }
         public Product Product { get; set; }
         public User User { get; set; }
     }

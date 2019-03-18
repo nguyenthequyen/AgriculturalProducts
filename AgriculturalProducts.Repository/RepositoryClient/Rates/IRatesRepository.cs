@@ -8,5 +8,6 @@ namespace AgriculturalProducts.Repository
     public interface IRatesRepository : IBaseRepository<Rate>
     {
         void CreatedRate(Rate rate);
+        List<object> GetAllRates(Guid id);
     }
 }

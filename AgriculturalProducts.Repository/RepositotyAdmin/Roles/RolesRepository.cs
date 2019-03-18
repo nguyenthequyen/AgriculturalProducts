@@ -1,6 +1,7 @@
 ﻿using AgriculturalProducts.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,11 @@ namespace AgriculturalProducts.Repository
         public IEnumerable<Roles> GetAllRoles()
         {
             return GetAllRecords();
+        }
+
+        public Roles GetRolesClient()
+        {
+            return _applicationContext.Roles.SingleOrDefault(x => x.Name == "Users");
         }
 
         public void InsertRoles(Roles role)

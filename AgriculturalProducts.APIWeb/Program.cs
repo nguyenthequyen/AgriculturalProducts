@@ -15,23 +15,25 @@ namespace AgriculturalProducts.APIWeb
 {
     public class Program
     {
-        private static string _environmentName;
         public static void Main(string[] args)
         {
             CreateFileLogger();
-            CreateWebHostBuilder(args).Build().Run();
+
+            BuildWebHost(args).Run();
         }
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-           WebHost.CreateDefaultBuilder(args)
-               .UseStartup<Startup>()
-               .UseUrls("https://localhost:44307/")
-               .UseSerilog();
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseUrls("https://localhost:44307/")
+                .UseSerilog()
+                .Build();
+
         public static void CreateFileLogger()
         {
             Log.Logger = new LoggerConfiguration()
-                            .MinimumLevel.Error()
+                            .MinimumLevel.Information()
                             .MinimumLevel.Override("SerilogDemo", LogEventLevel.Information)
-                            .WriteTo.File("Logs/Client.txt",
+                            .WriteTo.File("Logs/Client.log",
                                     LogEventLevel.Information, // Minimum Log level
                                     rollingInterval: RollingInterval.Day, // This will append time period to the filename like Example20180316.txt
                                     retainedFileCountLimit: null,
