@@ -45,6 +45,11 @@ namespace AgriculturalProducts.Repository
             return listStatistics;
         }
 
+        public int StatisticsOrderTotal()
+        {
+            return _applicationContext.Orders.Count();
+        }
+
         public List<object> StatisticsUser()
         {
             var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.CreatedUser).GroupBy(x => x.CreatedDate.DayOfWeek).Select(x => new

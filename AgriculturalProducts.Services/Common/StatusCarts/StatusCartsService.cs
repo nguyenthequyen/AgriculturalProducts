@@ -16,6 +16,11 @@ namespace AgriculturalProducts.Services
             _reponsitory = reponsitory;
         }
 
+        public StatusCart GetStatusCartsClient()
+        {
+            return _reponsitory.GetStatusCartsClient();
+        }
+
         public void InsertStatusCart(StatusCart statusCart)
         {
             statusCart.CreatedDate = DateTime.Now;

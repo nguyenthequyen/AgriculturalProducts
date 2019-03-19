@@ -36,5 +36,14 @@ namespace AgriculturalProducts.Services
         {
             return _reponsitory.FindProductByName(name);
         }
+
+        public void UpdateProduct(List<ProductOrder> productOrders)
+        {
+            foreach (var item in productOrders)
+            {
+                _reponsitory.UpdateProduct(item.Id, item.Quantity);
+            }
+            _unitOfWork.Commit();
+        }
     }
 }

@@ -25,14 +25,18 @@ namespace AgriculturalProducts.Web.Controllers.Api
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEmailSenderService _emailSenderService;
         private readonly IStatisticsService _statisticsService;
+        private readonly IProductClientService _productClientService;
+        private readonly IStatusCartsService _statusCartsService;
         private readonly ILogger<OrderController> _logger;
         public OrderController(
             IUnitOfWork unitOfWork,
             IOrderService orderService,
             IOrderDetailsService orderDetailsService,
             IEmailSenderService emailSenderService,
-            StatisticsService statisticsService,
             ILogger<OrderController> logger,
+            IProductClientService productClientService,
+            IStatusCartsService statusCartsService,
+            IStatisticsService  statisticsService,
             IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
@@ -42,6 +46,8 @@ namespace AgriculturalProducts.Web.Controllers.Api
             _emailSenderService = emailSenderService;
             _statisticsService = statisticsService;
             _logger = logger;
+            _productClientService = productClientService;
+            _statusCartsService = statusCartsService;
         }
         [HttpPost]
         [Route("order-now")]
@@ -53,13 +59,15 @@ namespace AgriculturalProducts.Web.Controllers.Api
                 var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
                 var userId = claimsIdentity.FirstOrDefault(x => x.Type == "UserId").Value;
                 var email = claimsIdentity.FirstOrDefault(x => x.Type == "Email").Value;
+                var statusProduct = _statusCartsService.GetStatusCartsClient();
                 var orderId = Guid.NewGuid();
                 Order order = new Order();
-                order.StatusCartsId = Guid.Parse("9C953CAC-1424-43DE-7B60-08D6A7BBDA80");
+                order.StatusCartsId = statusProduct.Id;
                 order.UserId = Guid.Parse(userId);
                 order.Id = orderId;
                 _orderService.AddOrder(order);
                 List<OrderDetails> orderDetails = new List<OrderDetails>();
+                List<ProductOrder> productOrders = new List<ProductOrder>();
                 foreach (var item in orders)
                 {
                     OrderDetails details = new OrderDetails()
@@ -70,8 +78,14 @@ namespace AgriculturalProducts.Web.Controllers.Api
                         Quantity = item.Quantity,
                         TotalCost = item.TotalCost
                     };
-                    orderDetails.Add(details);
+                    ProductOrder productOrder = new ProductOrder()
+                    {
+                        Id = item.ProductId,
+                        Quantity = item.Quantity
+                    };
+                    productOrders.Add(productOrder);
                     _orderDetailsService.AddOrderDetails(details);
+                    orderDetails.Add(details);
                 }
                 _unitOfWork.Commit();
                 HttpContext.Session.Clear();
@@ -85,6 +99,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
                     ModifyDate = DateTime.Now
                 };
                 _statisticsService.InsertStatistics(statistics);
+                _productClientService.UpdateProduct(productOrders);
                 return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = "Đặt hàng thành công", Error = null });
             }
             catch (Exception ex)

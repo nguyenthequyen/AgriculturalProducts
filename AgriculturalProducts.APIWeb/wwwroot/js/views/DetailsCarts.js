@@ -13,10 +13,11 @@ var callAjaxCartsDetails = {
         }
         else {
             $.each(result.data, function (index, value) {
+                debugger
                 var query = '<tr>' +
                     '<td class="productId" hidden>' + value.product.id + '</td>' +
                     '<td class="text-left">' +
-                    '<a href="#"><img src="images/header1/deal-img6.png" class="img-responsive" alt="img" title="img"></a>' +
+                    '<a href="#"><img src="' + value.image[0].path + '" class="img-responsive" alt="img" title="img"></a>' +
                     '<div class="name">' + value.product.name + '</div>' +
                     '</td>' +
                     '<td class="text-center">' + value.product.cost + '</td>' +
@@ -53,16 +54,17 @@ var callAjaxCartsDetails = {
             }
             arr.push(data);
         });
+        debugger
         $(renderAPI.postAPI(ORDER_NOW, true, 'post', JSON.stringify(arr), callAjaxCartsDetails.dataOrderCarts, callAjaxCartsDetails.errorOrderCarts))
     },
     dataOrderCarts: function (result) {
         alert(result.data);
-        window.location.href = "http://localhost:51277/";
+        window.location.href = DOMAIN;
     },
     errorOrderCarts: function (jqXHR, exception) {
         if (jqXHR.status == 401) {
             alert("Bạn cần đăng nhập để đặt hàng");
-            window.location.href = "http://localhost:51277/AccountViews/Login";
+            window.location.href = DOMAIN + "AccountViews/Login";
         }
     }
 }

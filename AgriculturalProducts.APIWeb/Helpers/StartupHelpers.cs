@@ -27,6 +27,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IRatesRepository, RatesRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();
+            services.AddScoped<IStatusCartsRepository, StatusCartsRepository>();
             
             //Services
             services.AddScoped<IProductClientService, ProductClientService>();
@@ -44,6 +45,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IRatesService, RatesService>();
             services.AddScoped<IRolesService, RolesService>();
+            services.AddScoped<IStatusCartsService, StatusCartsService>();
         }
     }
 }

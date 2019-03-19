@@ -8,5 +8,6 @@ namespace AgriculturalProducts.Services
     public interface IStatusCartsService: IBaseService<StatusCart>
     {
         void InsertStatusCart(StatusCart statusCart);
+        StatusCart GetStatusCartsClient();
     }
 }

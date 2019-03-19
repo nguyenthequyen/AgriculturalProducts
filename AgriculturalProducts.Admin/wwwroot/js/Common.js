@@ -10,6 +10,7 @@ var ORDER_STATISTICS = "api/homeadmin/order-cart-statistics";
 var STATISTICS_ACCESS = DOMAIN + "api/Statistic/statistics-access";
 var STATISTICS_USER = DOMAIN + "api/Statistic/statistics-user";
 var STATISTICS_ORDER = DOMAIN + "api/Statistic/statistics-order";
+var TOTAL_ORDER = DOMAIN + "api/Statistic/statistics-order-total";
 //Manager product
 var INSERT_PRODUCT = "api/productadmin/insert-product";
 var GET_PRODUCT_PAGING = "api/productadmin/getproduct-paging";

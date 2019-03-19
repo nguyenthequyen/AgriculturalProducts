@@ -116,5 +116,11 @@ namespace AgriculturalProducts.Repository
             }
             return products;
         }
+
+        public void UpdateProduct(Guid id, int quantity)
+        {
+            Product product = _applicationContext.Products.Single(x => x.Id == id);
+            product.Quantity = quantity;
+        }
     }
 }

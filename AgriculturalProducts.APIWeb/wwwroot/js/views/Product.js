@@ -24,20 +24,12 @@ var callAjaxProduct = {
                 '<div class="onhover1">' +
                 '<div class="button-group">' +
                 '<button class="icons cart-icon" type="button"><i class="icon_cart_alt"> <span hidden>' + value.id + '</span></i></button>' +
-                '<button class="btn-icon" type="button"><i class="icon_heart_alt"></i></button>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="caption text-center">' +
                 '<h4><a style="cursor:pointer;">' + value.name + '</a></h4>' +
-                '<div class="rating">' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star-half-o"></i>' +
-                '<i class="fa fa-star-o"></i>' +
-                '</div>' +
-                '<p class="price"><span>' + (value.sale / 100) * value.cost + '</span> ' + value.cost + '</p>' +
+                '<p class="price">' + formatNumber(value.cost, ',', '.') + ' VNĐ' + '</p>' +
                 '</div>' +
                 '</div>' +
                 '</div>';
@@ -63,20 +55,12 @@ var callAjaxProduct = {
                 '<div class="onhover1">' +
                 '<div class="button-group">' +
                 '<button class="icons cart-icon" type="button"><i class="icon_cart_alt"> <span hidden>' + value.id + '</span></i></button>' +
-                '<button class="btn-icon" type="button"><i class="icon_heart_alt"></i></button>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
                 '<div class="caption text-center">' +
                 '<h4><a href="#">' + value.name + '</a></h4>' +
-                '<div class="rating">' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star-half-o"></i>' +
-                '<i class="fa fa-star-o"></i>' +
-                '</div>' +
-                '<p class="price"><span>' + (value.sale / 100) * value.cost + '</span> ' + value.cost + '</p>' +
+                '<p class="price">' + formatNumber(value.cost, ',', '.') + ' VNĐ' + '</p>' +
                 '</div>' +
                 '</div>' +
                 '</div>';

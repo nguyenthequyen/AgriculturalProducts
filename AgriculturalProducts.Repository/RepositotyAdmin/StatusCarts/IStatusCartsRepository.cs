@@ -8,5 +8,6 @@ namespace AgriculturalProducts.Repository
     public interface IStatusCartsRepository : IBaseRepository<StatusCart>
     {
         void InsertStatusCarts(StatusCart statusCart);
+        StatusCart GetStatusCartsClient();
     }
 }

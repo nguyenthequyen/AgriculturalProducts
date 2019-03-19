@@ -99,16 +99,9 @@ var callAjaxDetailsProduct = {
                 '</div>' +
                 '<div class="col-sm-8 col-md-8 col-lg-8 col-xs-12">' +
                 '<h5>' + value.name + '</h5>' +
-                '<div class="rating">' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star"></i>' +
-                '<i class="fa fa-star"></i>' +
-                '</div>' +
                 '<p class="shortdes">' + value.shortDescription + '</p>' +
                 '<hr>' +
-                '<div class="price">' + value.cost + '</div>' +
+                '<div class="price">' + formatNumber(value.cost, ',', '.') + ' VNĐ' + '</div>' +
                 '<hr>' +
                 '</div>' +
                 '<div class="buttons">' +
@@ -128,15 +121,11 @@ var callAjaxDetailsProduct = {
     commentProducts: function () {
         var id = GetURLParameter('productId');
         var content = $('#comment').val();
-        debugger
         var data = {
             productId: id,
             content: content
         }
-        $(renderAPI.postAPI(COMMENT_CREATED, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterComment, callAjaxDetailsProduct.errorAfterComment));
-    },
-    dataAfterComment: function (result) {
-        alert("Bình luận thành công");
+        $(renderAPI.postAPI(COMMENT_CREATED, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.getAllComments, callAjaxDetailsProduct.errorAfterComment));
     },
     errorAfterComment: function (xhr, status) {
         if (xhr.status === 401) {
@@ -153,11 +142,7 @@ var callAjaxDetailsProduct = {
             quantity: start,
             productId: id
         }
-        $(renderAPI.postAPI(CREATED_RATE, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterRates, callAjaxDetailsProduct.errorAfterRate));
-    },
-    dataAfterRates: function (result) {
-        debugger
-        alert(result.data);
+        $(renderAPI.postAPI(CREATED_RATE, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.getAllRates, callAjaxDetailsProduct.errorAfterRate));
     },
     errorAfterRate: function (xhr, status) {
         alert("Đánh giá sản phẩm thất bại");
@@ -191,6 +176,7 @@ var callAjaxDetailsProduct = {
         $(renderAPI.postAPI(GET_ALL_RATES, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterRates, callAjaxDetailsProduct.errorAfterRates));
     },
     dataAfterRates: function (result) {
+        debugger
         $(callAjaxDetailsProduct.chartColumn('chart-rate', result.data, 'Thống kê đánh giá'))
     },
     errorAfterRates: function () {
@@ -200,7 +186,7 @@ var callAjaxDetailsProduct = {
     chartColumn: function (element, data, text) {
         var chart = new CanvasJS.Chart(element, {
             animationEnabled: true,
-
+            height: 150,
             title: {
                 text: text
             },

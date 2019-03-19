@@ -61,5 +61,19 @@ namespace AgriculturalProducts.Admin.Controllers.API
                 return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = ex.Message });
             }
         }
+        [HttpPost]
+        [Route("statistics-order-total")]
+        public async Task<IActionResult> StatisticsOrderTotal()
+        {
+            try
+            {
+                var data = _statisticsAdminService.StatisticsOrderTotal();
+                return Ok(new Result() { Data = data, Code = 200, Error = null });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = ex.Message });
+            }
+        }
     }
 }

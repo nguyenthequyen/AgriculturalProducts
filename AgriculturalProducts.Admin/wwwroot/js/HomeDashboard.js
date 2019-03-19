@@ -7,6 +7,7 @@
     $(callAjaxDashboard.usersStatistics);
     $(callAjaxDashboard.usersStatistics);
     $(callAjaxDashboard.orderStatistics);
+    $(callAjaxDashboard.orderStaticsTotal);
 });
 
 var callAjaxDashboard = {
@@ -69,6 +70,14 @@ var callAjaxDashboard = {
         }));
     },
     dataOrderStatistics: function (result) {
+        
+    },
+    orderStaticsTotal: function () {
+        $(renderAPI.postAPI(TOTAL_ORDER, true, 'post', null, callAjaxDashboard.dataTotalOrder, function (xhr, status) {
+            //window.location.href = DOMAIN + "AccountAdmin/Login";
+        }));
+    },
+    dataTotalOrder: function (result) {
         $('.cart-statistics').text(result.data);
     }
 }

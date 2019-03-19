@@ -40,6 +40,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                 var data = new UsersInfor();
                 var userId = claimsIdentity.FirstOrDefault(x => x.Type == "UserId").Value;
                 var userName = claimsIdentity.FirstOrDefault(x => x.Type == "UserName").Value;
+                comments.CreatedBy = userName;
                 comments.UserId = Guid.Parse(userId);
                 _commentService.CreatedComment(comments);
                 _logger.LogError("Tạo comment thành công");

@@ -26,6 +26,11 @@ namespace AgriculturalProducts.Services
             return _reponsitory.StatisticsOrder();
         }
 
+        public int StatisticsOrderTotal()
+        {
+            return _reponsitory.StatisticsOrderTotal();
+        }
+
         public List<object> StatisticsUser()
         {
             return _reponsitory.StatisticsUser();

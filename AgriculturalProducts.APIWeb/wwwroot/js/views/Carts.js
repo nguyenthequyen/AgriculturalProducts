@@ -16,10 +16,11 @@ var callAjaxCarts = {
         }
         else {
             $.each(result.data, function (index, value) {
+                debugger
                 var query = '<tr>' +
                     '<td class="productid" hidden>' + value.product.id + '</td>' +
                     '<td class="text-center">' +
-                    '<img src="~/images/header1/deal-img6.png" class="img-responsive" alt="img" title="img" />' +
+                    '<img src="' + value.image[0].path + '" class="img-responsive" alt="img" title="img" />' +
                     '</td>' +
                     '<td class="text-left">' +
                     '<a href="#">' + value.product.name + '</a>' +

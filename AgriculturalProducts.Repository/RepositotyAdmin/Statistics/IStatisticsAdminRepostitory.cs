@@ -10,5 +10,6 @@ namespace AgriculturalProducts.Repository
         List<object> StatisticsAccessSystem();
         List<object> StatisticsUser();
         List<object> StatisticsOrder();
+        int StatisticsOrderTotal();
     }
 }
