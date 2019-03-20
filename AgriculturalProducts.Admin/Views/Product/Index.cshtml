@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-product-manager-modal-lg">Thêm</button>
                         <button type="button" class="btn btn-primary btn-sm">Xóa toàn bộ</button>
-                        <button type="button" class="btn btn-primary btn-sm">Thêm từ file Excel</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-upload-excel-modal-lg">Thêm từ file Excel</button>
                     </div>
                 </nav>
             </div>
@@ -55,12 +55,17 @@
                         <table id="zero_config" class="table table-striped table-bordered product">
                             <thead>
                                 <tr>
+                                    <th>Hình ảnh</th>
                                     <th>Mã sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Tình trạng</th>
                                     <th>Đơn Giá</th>
                                     <th>Số lượng</th>
+                                    <th>Nhà cung cấp</th>
                                     <th>Đơn vị tính</th>
+                                    <th>Danh mục</th>
+                                    <th>Lượt xem</th>
+                                    <th>Khối lượng</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -95,6 +100,7 @@
 </div>
 @Html.Partial("_ProductPartial")
 @Html.Partial("_UploadFilePartial")
+@Html.Partial("_ImportFileExcel")
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 <!-- ============================================================== -->

@@ -20,7 +20,7 @@ var callAjaxCarts = {
                 var query = '<tr>' +
                     '<td class="productid" hidden>' + value.product.id + '</td>' +
                     '<td class="text-center">' +
-                    '<img src="' + value.image[0].path + '" class="img-responsive" alt="img" title="img" />' +
+                    '<img src="' + "" + '" class="img-responsive" alt="img" title="img" />' +
                     '</td>' +
                     '<td class="text-left">' +
                     '<a href="#">' + value.product.name + '</a>' +

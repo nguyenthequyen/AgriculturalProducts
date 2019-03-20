@@ -42,21 +42,21 @@ namespace AgriculturalProducts.Services
             _productRepository.GetAllProductPaging();
         }
 
-        public PageList<Product> GetProductPageList(PagingParams pagingParams)
+        public PageList<object> GetProductPageList(PagingParams pagingParams)
         {
             if (string.IsNullOrEmpty(pagingParams.SearchString))
             {
-                var providersdb = _productRepository.GetAllProduct().OrderByDescending(x => x.ModifyDate);
-                List<Product> providers = providersdb.ToList();
+                var providersdb = _productRepository.GetAllProductAdim().OrderByDescending(x => x.GetType().GetProperty("CreatedDate").ToString() == DateTime.Now.ToString());
+                List<object> providers = providersdb.ToList();
                 var query = providers.AsQueryable();
-                return new PageList<Product>(query, pagingParams.PageNumber, pagingParams.PageSize);
+                return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);
             }
             else
             {
-                var providersdb = _productRepository.GetAllProduct().Where(x => x.Name.Contains(pagingParams.SearchString)).OrderByDescending(x => x.ModifyDate);
-                List<Product> providers = providersdb.ToList();
+                var providersdb = _productRepository.GetAllProductAdim().Where(x => x.GetType().GetProperty("CreatedDate").ToString().Contains(pagingParams.SearchString)).OrderByDescending(x => x.GetType().GetProperty("CreatedDate").ToString() == DateTime.Now.ToString());
+                List<object> providers = providersdb.ToList();
                 var query = providers.AsQueryable();
-                return new PageList<Product>(query, pagingParams.PageNumber, pagingParams.PageSize);
+                return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);
             }
         }
 

@@ -13,3 +13,7 @@
     max-height: 300px;
     overflow-y: auto;
 }
+.img-responsive{
+    height:50px;
+    width:50px;
+}

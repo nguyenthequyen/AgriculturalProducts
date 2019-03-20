@@ -77,7 +77,6 @@ var renderAPI = {
                 xhr.setRequestHeader("Authorization", "Beare" + localStorage.getItem("access_token"));
             },
             success: function (result) {
-
                 callbackSuccess(result);
             },
             error: function (jqXHR, exception) {

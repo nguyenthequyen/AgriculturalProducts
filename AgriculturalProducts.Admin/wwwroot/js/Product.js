@@ -16,11 +16,17 @@
     $('.list-category').on('click', 'a', callAjaxProductAdmin.addDatatDropdowListCategory);
     $('.list-unit').on('click', 'a', callAjaxProductAdmin.addDataUnit);
     $('.list-status-product').on('click', 'a', callAjaxProductAdmin.addDataStatus);
-    $('.bd-upload-image-modal-lg').on('click', '#to-recover', function () {
+    $('.bd-upload-image-modal-lg').on('click', '#to-recover', callAjaxProductAdmin.showModal);
+    $('.btn-upload-img-product').click(callAjaxProductAdmin.uploadImageFile);
+    $('.btn-upload-excel-product').click(callAjaxProductAdmin.uploadExcel);
+});
+
+var callAjaxProductAdmin = {
+    showModal: function () {
         $('.bd-upload-image-modal-lg').hide();
         $('.bd-upload-image-modal-lg').removeClass("show");
-    });
-    $('.btn-upload-img-product').click(function () {
+    },
+    uploadImageFile: function () {
         var files = $('#fileInput')[0].files;
         var formData = new FormData();
         for (var i = 0; i < files.length; i++) {
@@ -35,38 +41,56 @@
             dataType: "json",
             cache: false,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("ProductId", $('.product-id').text());
+                xhr.setRequestHeader("ProductId", $('.product-id-file').text());
+                debugger
             },
             processData: false,
             async: false,
-            xhr: function () {
-                var xhr = new window.XMLHttpRequest();
-                xhr.upload.addEventListener("progress",
-                    function (evt) {
-                        if (evt.lengthComputable) {
-                            var progress = Math.round((evt.loaded / evt.total) * 100);
-                        }
-                    },
-                    false);
-                return xhr;
-            }
-        })
-            .success(function (data, textStatus, jqXhr) {
-                alert("Uploading is done");
-                $("#files").val();
-            })
-            .error(function (jqXhr, textStatus, errorThrown) {
+            success: function (result) {
+                $('.bd-upload-image-modal-lg').hide();
+                alert(result.data);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
                 if (errorThrown === "abort") {
                     alert("Uploading was aborted");
                 } else {
                     alert("Uploading failed");
                 }
-            })
-            .always(function (data, textStatus, jqXhr) { });
-    });
-});
-
-var callAjaxProductAdmin = {
+            },
+            always: function (data, textStatus, jqXhr) { }
+        })
+    },
+    uploadExcel: function () {
+        var formdata = new FormData();
+        var excel = $('#excelFile')[0].files[0];
+        formdata.append('formFile', excel);
+        $.ajax({
+            url: DOMAIN + "api/ProductAdmin/insert-product-fromexcel",
+            type: "POST",
+            contentType: false,
+            data: formdata,
+            dataType: "json",
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("ProductId", $('.product-id').text());
+            },
+            processData: false,
+            async: false,
+            success: function (data, textStatus, jqXhr) {
+                $('.bd-upload-excel-modal-lg').hide();
+                alert(result.data);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                if (errorThrown === "abort") {
+                    alert("Uploading was aborted");
+                } else {
+                    alert("Uploading failed");
+                }
+            },
+            always: function (data, textStatus, jqXhr) {
+            }
+        })
+    },
     //Thống kê sản phẩm
     insertProduct: function () {
         var productName = $("#insertProduct").find(".product-name").val();
@@ -119,17 +143,29 @@ var callAjaxProductAdmin = {
         $(renderAPI.postAPI(GET_PRODUCT_PAGING, true, 'post', JSON.stringify(pagingParams), callAjaxProductAdmin.dataProduct, callAjaxProductAdmin.errorGetProductPagingNate))
     },
     dataProduct: function (result) {
+        debugger
         $('.total-pages-product').text(result.data.paging.totalPages);
         $('.product tbody').html('');
         $.each(result.data.items, function (index, value) {
+            var img = '';
+            if (value.image.length == 0) {
+                img = "";
+            } else {
+                img = value.image[0].path;
+            }
             var query = '<tr>' +
                 '<td id="product-id" hidden>' + value.id + '</td>' +
+                '<td>' + '<img src="' + img+ '" alt="image" title="image" class="img-responsive" />' + '</td>' +
                 '<td>' + value.code + '</td>' +
                 '<td>' + value.name + '</td>' +
-                '<td>' + value.status + '</td>' +
+                '<td>' + value.statusProduct + '</td>' +
                 '<td>' + value.cost + '</td>' +
                 '<td>' + value.quantity + '</td>' +
-                '<td>' + value.unitId + '</td>' +
+                '<td>' + value.provider + '</td>' +
+                '<td>' + value.unit + '</td>' +
+                '<td>' + value.category + '</td>' +
+                '<td>' + value.view + '</td>' +
+                '<td>' + value.mass + '</td>' +
                 '<td>' +
                 '<button type="button" class="btn btn-secondary btn-sm btn-edit-product mr-1">Sửa</button>' +
                 '<button type="button" class="btn btn-success btn-sm btn-delete-product mr-1">Xóa</button>' +
@@ -155,10 +191,11 @@ var callAjaxProductAdmin = {
         $('.product tbody tr').removeClass('isWorking');
         $(renderAPI.isWorking(this));
         var checkIsWorking = $(".product tbody").find("isWorking");
+        debugger
         if (checkIsWorking) {
             $('.bd-upload-image-modal-lg').show();
             $('.bd-upload-image-modal-lg').addClass("show");
-            $('.product-id').text($('.isWorking #product-id').text());
+            $('.product-id-file').text($('.isWorking #product-id').text());
         } else {
             console.log("Lỗi product");
         }

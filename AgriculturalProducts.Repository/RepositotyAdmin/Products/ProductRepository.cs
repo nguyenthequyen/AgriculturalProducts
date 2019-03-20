@@ -1,6 +1,7 @@
 ﻿using AgriculturalProducts.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,58 @@ namespace AgriculturalProducts.Repository
         {
             return GetAllRecords();
         }
+        public List<object> GetAllProductAdim()
+        {
+            var product = _applicationContext.Products
+                .Join(_applicationContext.StatusProducts, stt => stt.StatusProductId, st => st.Id, (stt, st) => new { stt, st })
+                .Join(_applicationContext.Providers, sp => sp.stt.ProviderId, spp => spp.Id, (sp, spp) => new { sp, spp })
+                .Join(_applicationContext.Units, us => us.sp.stt.UnitId, usp => usp.Id, (us, usp) => new { us, usp })
+                .Join(_applicationContext.ProductTypes, pt => pt.us.sp.stt.ProductTypeId, ptp => ptp.Id, (pt, ptp) => new { pt, ptp })
+                .Join(_applicationContext.Categeries, ct => ct.pt.us.sp.stt.CategoryId, ctp => ctp.Id, (ct, ctp) => new { ct, ctp })
+                .Select(prd => new
+                {
+                    CreatedDate = prd.ct.pt.us.sp.stt.CreatedDate,
+                    Name = prd.ct.pt.us.sp.stt.Name,
+                    Id = prd.ct.pt.us.sp.stt.Id,
+                    Code = prd.ct.pt.us.sp.stt.Code,
+                    View = prd.ct.pt.us.sp.stt.View,
+                    Cost = prd.ct.pt.us.sp.stt.Cost,
+                    CostOld = prd.ct.pt.us.sp.stt.CostOld,
+                    Mass = prd.ct.pt.us.sp.stt.Mass,
+                    ShortDescription = prd.ct.pt.us.sp.stt.ShortDescription,
+                    FullDescription = prd.ct.pt.us.sp.stt.FullDescription,
+                    Quantity = prd.ct.pt.us.sp.stt.Quantity,
+                    Sale = prd.ct.pt.us.sp.stt.Sale,
+                    Category = prd.ctp.Name,
+                    Provider = prd.ct.pt.us.spp.Name,
+                    StatusProduct = prd.ct.pt.us.sp.st.Name,
+                    Unit = prd.ct.pt.usp.Name,
+                    Image = _applicationContext.Images.Where(p => p.ProductId == prd.ct.pt.us.sp.stt.Id).Select(img => new
+                    {
+                        Path = "data:image/png;base64, " + GetBase64StringForImage(img.Path)
+                    }).ToList()
+                }).ToList();
+            List<object> products = new List<object>();
+            foreach (var item in product)
+            {
+                products.Add(item);
+            }
+            return products;
+        }
+        private static string GetBase64StringForImage(string imgPath)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
+        }
+        protected byte[] ImageToBinary(string imagePath)
+        {
+            FileStream fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+            byte[] buffer = new byte[fileStream.Length];
+            fileStream.Read(buffer, 0, (int)fileStream.Length);
+            fileStream.Close();
+            return buffer;
+        }
 
         public void GetAllProductPaging()
         {
@@ -39,34 +92,11 @@ namespace AgriculturalProducts.Repository
         {
             _applicationContext.Products
                .Join(_applicationContext.Images, p => p.Id, img => img.ProductId, (p, img) => new { p, img })
-               .Select(prd=>new {
+               .Select(prd => new
+               {
                    ProductName = prd.p.Name,
                    Imgage = prd.img.Path.ToList()
                }).ToList();
-            //var categorizedProducts = _applicationContext.Products
-            // .Join(_applicationContext.Categeries, p => p.CategoryId, pc => pc.Id, (p, pc) => new { p, pc })
-            // .Join(_applicationContext.Units, u => u.p.UnitId, c => c.Id, (u, c) => new { u, c })
-            // .Join(_applicationContext.Providers, pv => pv.u.p.ProviderId, p => p.Id, (pv, p) => new { pv, p })
-            // .Join(_applicationContext.ProductTypes, pt => pt.pv.u.p.ProductTypeId, pts => pts.Id, (pt, pts) => new { pt, pts })
-            // .Join(_applicationContext.Images, img => img.imdt.ImageId, im => im.Id, (img, im) => new { img, im })
-            // .Select(m => new
-            // {
-            //     ProductName = m.img.imd.pt.pv.u.p.Name,
-            //     ProductCode = m.img.imd.pt.pv.u.p.Code,
-            //     ProductCost = m.img.imd.pt.pv.u.p.Cost,
-            //     ProductQuantity = m.img.imd.pt.pv.u.p.Quantity,
-            //     ProductFullDescription = m.img.imd.pt.pv.u.p.FullDescription,
-            //     ProductView = m.img.imd.pt.pv.u.p.View,
-            //     ProductStatus = m.img.imd.pt.pv.u.p.Status,
-            //     ProductMass = m.img.imd.pt.pv.u.p.Mass,
-            //     ProductShortDescription = m.img.imd.pt.pv.u.p.ShortDescription,
-            //     ProductSale = m.img.imd.pt.pv.u.p.Sale,
-            //     ProductTypesName = m.img.imd.pts.Name,
-            //     ProvidersName = m.img.imd.pt.p.Name,
-            //     CategeriesName = m.img.imd.pt.p.Name,
-            //     UnitName = m.img.imd.pt.pv.c.Name,
-            //     Path = m.im.Path
-            // }).ToList();
         }
 
         public void InsertProduct(Product product)

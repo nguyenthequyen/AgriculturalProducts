@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
+using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,13 +35,12 @@ namespace AgriculturalProducts.Admin.Controllers.API
             {
                 var productId = _httpContextAccessor.HttpContext.Request.Headers["ProductId"].ToString();
                 _imagesService.InsertImage(files, productId);
+                return Ok(new Result() { Code = 200, Data = "Thêm ảnh thành công", Error = null });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Thêm ảnh thất bại" });
             }
-            return Ok();
         }
     }
 }

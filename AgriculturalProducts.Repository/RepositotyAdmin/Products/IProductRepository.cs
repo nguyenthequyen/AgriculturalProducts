@@ -15,5 +15,6 @@ namespace AgriculturalProducts.Repository
         Task<Product> FindProductById(Guid id);
         int ProductStatistics();
         void GetAllProductPaging();
+        List<object> GetAllProductAdim();
     }
 }
