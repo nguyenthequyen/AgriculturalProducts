@@ -33,12 +33,12 @@ namespace AgriculturalProducts.Admin.Controllers.API
             try
             {
                 _statusProviderService.InsertStatusProvider(statusProvider);
-                return Ok(new Result() { Code = 200, Data = "Thêm tình trạng nhà cung cấp thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data="Thêm tình trạng nhà cung cấp thành công", Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi Thêm tình trạng nhà cung cấp thất bại: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Thêm tình trạng nhà cung cấp thất bại" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Thêm tình trạng nhà cung cấp thất bại" });
             }
         }
         [HttpPost]
@@ -53,7 +53,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi lấy dữ liệu tình trạng nhà cung cấp: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy dữ liệu tình trạng nhà cung cấp" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy dữ liệu tình trạng nhà cung cấp" });
             }
         }
     }

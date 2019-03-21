@@ -1,4 +1,4 @@
-﻿var DOMAIN = "https://localhost:44307/";
+﻿var DOMAIN = "https://localhost:44361/";
 //Product Client
 var GET_NEW_PRODUCT = "api/Product/list-new-product";
 var LIST_TOP_DISCOUNT_PRODUCT = "api/Product/list-top-discount-product";
@@ -22,7 +22,9 @@ var GET_ALL_COMMENT = DOMAIN + "api/Comment/get-comment-byproductId";
 //RATE
 var CREATED_RATE = DOMAIN + "api/Rates/created-rates";
 var GET_ALL_RATES = DOMAIN + "api/rates/get-all-rates";
-
+//Categories 
+var GET_ALL_CATEGORIES = DOMAIN + "api/Categories/get_categories"
+var GET_PRODUCT_BYCATEGORIES = DOMAIN + "api/Categories/get_productby_categories"
 function formatNumber(nStr, decSeperate, groupSeperate) {
     nStr += '';
     x = nStr.split(decSeperate);
@@ -73,6 +75,7 @@ var renderAPI = {
         $(result).parent().parent().parent().parent().addClass("isWorking");
     },
     isWorkingDropdownList: function (result) {
+        debugger
         $(result).addClass('isWorking');
     },
     isWorkingCarts: function (result) {

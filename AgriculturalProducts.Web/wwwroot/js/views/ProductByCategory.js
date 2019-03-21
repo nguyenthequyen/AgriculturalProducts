@@ -1,18 +1,20 @@
 ﻿$(document).ready(function () {
-    $(callAjaxSearchProduct.searchByName);
-})
-
-var callAjaxSearchProduct = {
-    searchByName: function () {
-        var name = GetURLParameter('name');
+    //$('.btn-get-categories').click(callAjaxCategories.getCategories);
+    //$('.list-category').on('click', 'li', callAjaxCategories.getProductByCategories);
+    $(callAjaxProductByCategiry.getProductByCategoriesViews);
+});
+var callAjaxProductByCategiry = {
+    getProductByCategoriesViews: function () {
+        var name = GetURLParameter('categoriesId');
+        debugger
         var data = {
-            name: name
+            id: name
         }
-        $(renderAPI.postAPI(SEARCH_PRODUCT, true, 'post', JSON.stringify(data), callAjaxSearchProduct.dataAfterFintProduct, callAjaxSearchProduct.errorAfterFindProduct));
+        $(renderAPI.postAPI(GET_PRODUCT_BYCATEGORIES, true, 'post', JSON.stringify(data), callAjaxProductByCategiry.dataProductByCategoriesViews, callAjaxProductByCategiry.errorProductByCategoriesViews));
     },
-    dataAfterFintProduct: function (result) {
+    dataProductByCategoriesViews: function (result) {
         $('.list-product').html('');
-        console.log(result);
+        debugger
         $.each(result.data, function (index, value) {
             var query = '<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 product">' +
                 '<div class="product-thumb">' +
@@ -35,7 +37,7 @@ var callAjaxSearchProduct = {
             $('.list-product').append(query);
         });
     },
-    errorAfterFindProduct: function (jqXHR, exception) {
-        console.log(jqXHR);
+    errorProductByCategoriesViews: function (xhr, status) {
+
     }
 }

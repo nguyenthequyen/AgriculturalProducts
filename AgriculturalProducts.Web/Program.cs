@@ -24,7 +24,6 @@ namespace AgriculturalProducts.APIWeb
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("https://localhost:44307/")
                 .UseSerilog()
                 .Build();
 

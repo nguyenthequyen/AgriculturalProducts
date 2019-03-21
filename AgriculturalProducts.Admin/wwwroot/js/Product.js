@@ -149,7 +149,7 @@ var callAjaxProductAdmin = {
         $.each(result.data.items, function (index, value) {
             var img = '';
             if (value.image.length == 0) {
-                img = "";
+                imgDOMAIN+"";
             } else {
                 img = value.image[0].path;
             }

@@ -18,14 +18,12 @@ namespace AgriculturalProducts.Web.Admin
         public static void Main(string[] args)
         {
             CreateFileLogger();
-
             BuildWebHost(args).Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("https://localhost:44300/")
                 .UseSerilog()
                 .Build();
 
@@ -38,7 +36,7 @@ namespace AgriculturalProducts.Web.Admin
                                     LogEventLevel.Information, // Minimum Log level
                                     rollingInterval: RollingInterval.Month, // This will append time period to the filename like Example20180316.txt
                                     retainedFileCountLimit: null,
-                                    rollOnFileSizeLimit:true,
+                                    rollOnFileSizeLimit: true,
                                     fileSizeLimitBytes: 50000,
                                     outputTemplate: "{Timestamp:dd-MMM-yyyy HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",  // Set custom file format
                                     shared: true // Shared between multi-process shared log files

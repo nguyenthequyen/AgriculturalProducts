@@ -39,18 +39,18 @@ namespace AgriculturalProducts.Admin.Controllers.API
                 //var userExists = _userAdminService.CheckUserExists(model.UserName);
                 //if (userExists != null)
                 //{
-                //    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "tên đăng nhập đã tồn tại" });
+                //    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, ErrorDOMAIN+"tên đăng nhập đã tồn tại" });
                 //}
                 //else
                 //{
                     _userAdminService.CreatedUserAdmin(model);
-                    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
+                    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error="Tạo tài khoản thành công" });
                 //}
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi tạo tài khoản: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi tạo tài khoản" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi tạo tài khoản" });
             }
         }
         [Route("login")]
@@ -76,17 +76,17 @@ namespace AgriculturalProducts.Admin.Controllers.API
                                 .AddClaim("sub", user.Result.RolesId.ToString())
                                 .AddRole("Users")
                                 .Build();
-                    return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = token.Value, Error = null });
+                    return Ok(new Result() { Message="success", Code = (int)HttpStatusCode.OK, Data = token.Value, Error = null });
                 }
                 else
                 {
-                    return Ok(new Result() { Message = "Forbidden", Code = (int)HttpStatusCode.Forbidden, Data = "Mật khẩu hoặc user name không đúng", Error = null });
+                    return Ok(new Result() { Message="Forbidden", Code = (int)HttpStatusCode.Forbidden, Data="Mật khẩu hoặc user name không đúng", Error = null });
                 }
             }
             catch (Exception ex)
             {
 
-                return Ok(new Result() { Message = "ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data = "Máy chủ bị lõio", Error = ex.ToString() });
+                return Ok(new Result() { Message="ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data="Máy chủ bị lõio", Error = ex.ToString() });
             }
         }
     }

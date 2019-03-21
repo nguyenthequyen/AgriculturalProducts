@@ -33,12 +33,12 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             try
             {
                 _productTypeService.InsertProductType(productType);
-                return Ok(new Result() { Code = 200, Data = "Thêm loại sản phẩm thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data="Thêm loại sản phẩm thành công", Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi thêm loại sản phẩm+ " + ex);
-                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi thêm loại sản phẩm" });
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error="Lỗi thêm loại sản phẩm" });
             }
         }
         [HttpPost]
@@ -66,7 +66,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             catch (Exception)
             {
                 _logger.LogError("Lỗi lấy danh sách loại sản phẩm");
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy danh sách loại sản phẩm" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy danh sách loại sản phẩm" });
             }
         }
         [HttpPost]
@@ -107,7 +107,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error="Lỗi lấy dữ liệu phân trang" });
             }
         }
     }

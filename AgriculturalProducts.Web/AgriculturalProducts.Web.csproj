@@ -56,13 +56,13 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\AgriculturalProducts.Models\AgriculturalProducts.Models.csproj" />
-    <ProjectReference Include="..\AgriculturalProducts.Services\AgriculturalProducts.Services.csproj" />
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="Logs\" />
+    <ProjectReference Include="..\AgriculturalProducts.Models\AgriculturalProducts.Models.csproj" />
+    <ProjectReference Include="..\AgriculturalProducts.Services\AgriculturalProducts.Services.csproj" />
   </ItemGroup>
 
 </Project>

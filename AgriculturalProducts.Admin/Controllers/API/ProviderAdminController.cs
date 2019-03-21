@@ -59,7 +59,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi lấy dữ liệu tất cả nhà cung cấp: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy dữ liệu nhà cung cấp" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy dữ liệu nhà cung cấp" });
             }
         }
         [HttpPost]

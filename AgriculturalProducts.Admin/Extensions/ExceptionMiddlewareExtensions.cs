@@ -20,7 +20,7 @@ namespace AgriculturalProducts.Admin.Extensions
                 appError.Run(async context =>
                 {
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    context.Response.ContentType = "application/json";
+                    context.Response.ContentType="application/json";
 
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
@@ -30,7 +30,7 @@ namespace AgriculturalProducts.Admin.Extensions
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             StatusCode = context.Response.StatusCode,
-                            Message = "Internal Server Error."
+                            Message="Internal Server Error."
                         }.ToString());
                     }
                 });

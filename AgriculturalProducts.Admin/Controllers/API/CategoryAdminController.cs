@@ -33,12 +33,12 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             try
             {
                 _categoryService.InsertCategory(categories);
-                return Ok(new Result() { Code = 200, Data = "Thêm danh mục sản phẩm thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data="Thêm danh mục sản phẩm thành công", Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi thêm danh mục sản phẩm: " + ex.Message);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Thêm danh mục sản phẩm thất bại" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Thêm danh mục sản phẩm thất bại" });
             }
         }
         [HttpPost]
@@ -59,7 +59,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy dữ liệu phân trang" });
             }
         }
         [HttpPost]
@@ -80,7 +80,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi xóa nhà cung cấp: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi xóa nhà cung cấp" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi xóa nhà cung cấp" });
             }
 
         }
@@ -96,7 +96,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi lấy dữ liệu danh mục sản phẩm: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy dữ liệu danh mục sản phẩm" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy dữ liệu danh mục sản phẩm" });
             }
         }
     }

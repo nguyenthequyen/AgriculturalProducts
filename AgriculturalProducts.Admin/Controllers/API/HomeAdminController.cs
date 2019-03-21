@@ -11,6 +11,7 @@ using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AgriculturalProducts.Web.Admin.Controllers
 {
@@ -26,6 +27,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IUserClientService _usersClientService;
         private readonly IEmailSenderService _emailSenderService;
+        private readonly ILogger<HomeAdminController> _logger;
         public HomeAdminController(
             IProductService productService,
             IProductTypeService productTypeService,

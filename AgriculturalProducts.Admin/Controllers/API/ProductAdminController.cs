@@ -39,12 +39,12 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             try
             {
                 _productService.InsertProduct(product);
-                return Ok(new Result() { Data = "Thêm sản phẩm thành công", Code = 200, Error = null });
+                return Ok(new Result() { Data="Thêm sản phẩm thành công", Code = 200, Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi thêm sản phẩm: " + ex);
-                return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = "Thêm sản phẩm thất bại" });
+                return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error="Thêm sản phẩm thất bại" });
             }
         }
         [HttpPost]
@@ -101,12 +101,12 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                     products.Add(provider);
                 }
                 _productService.DeleteProduct(products);
-                return Ok(new Result() { Code = 200, Data = "Xóa sản phẩm thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data="Xóa sản phẩm thành công", Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Thêm sản phẩm thất bại: " + ex);
-                return Ok(new Result() { Code = ex.GetHashCode(), Data = "Xóa sản phẩm thành công", Error = null });
+                return Ok(new Result() { Code = ex.GetHashCode(), Data="Xóa sản phẩm thành công", Error = null });
             }
         }
         [HttpPost]
@@ -134,7 +134,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error="Lỗi lấy dữ liệu phân trang" });
             }
         }
         [HttpPost]
@@ -193,11 +193,11 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                     }
                     _productService.InsertProduct(producList);
                 }
-                return Ok(new Result() { Code = 200, Data = "Thêm sản phẩm từ file excel thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data="Thêm sản phẩm từ file excel thành công", Error = null });
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Thêm sản phẩm từ file excel thất bại" });
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error="Thêm sản phẩm từ file excel thất bại" });
             }
 
         }

@@ -34,13 +34,13 @@ namespace AgriculturalProducts.Admin.Middleware
 
         private Task HandleExceptionAsync(HttpContext httpContext, Exception ex)
         {
-            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.ContentType="application/json";
             httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             return httpContext.Response.WriteAsync(new ErrorDetails()
             {
                 StatusCode = httpContext.Response.StatusCode,
-                Message = "Internal Server Error from the custom middleware."
+                Message="Internal Server Error from the custom middleware."
             }.ToString());
         }
     }

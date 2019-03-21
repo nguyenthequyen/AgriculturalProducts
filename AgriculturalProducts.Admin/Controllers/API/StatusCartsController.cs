@@ -26,11 +26,11 @@ namespace AgriculturalProducts.Admin.Controllers.API
             try
             {
                 _statusCartsService.InsertStatusCart(statusCart);
-                return Ok(new Result() { Data = "Thêm tình trạng giỏi hàng thành công thành công", Code = 200, Error = null });
+                return Ok(new Result() { Data="Thêm tình trạng giỏi hàng thành công thành công", Code = 200, Error = null });
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Data = "Thêm tình trạng giỏi hàng thành công thành công", Code = 200, Error = ex.Message });
+                return Ok(new Result() { Data="Thêm tình trạng giỏi hàng thành công thành công", Code = 200, Error = ex.Message });
             }
         }
     }

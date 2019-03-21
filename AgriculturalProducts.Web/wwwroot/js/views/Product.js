@@ -93,7 +93,6 @@ var callAjaxProduct = {
     },
     getDetailsProducts: function () {
         $('.list-product').find('.product-thumb').removeClass('isWorking');
-        debugger
         $(renderAPI.isWorkingDetailsCart(this))
         var isWorking = $('.list-product').find('isWorking');
         if (isWorking) {

@@ -8,7 +8,7 @@ namespace AgriculturalProducts.Repository
 {
     public class OrderAdminRepository : BaseRepository<Order>, IOrderAdminRepository
     {
-        private static ApplicationContext _applicationContext;
+        private readonly ApplicationContext _applicationContext;
         public OrderAdminRepository(ApplicationContext applicationContext) : base(applicationContext)
         {
         }

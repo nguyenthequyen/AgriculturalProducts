@@ -152,11 +152,11 @@
                                     <li class="dropdown topheader">
                                         <a asp-action="Index" asp-controller="Home" class="dropdown-toggle">Trang chủ</a>
                                     </li>
-                                    <li class="dropdown topheading">
+                                    <li class="dropdown topheading btn-get-categories">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Danh mục</a>
                                         <div class="dropdown-menu">
                                             <div class="dropdown-inner">
-                                                <ul class="list-unstyled">
+                                                <ul class="list-unstyled list-category">
                                                     <li>
                                                         <a href="shop.html">Shop</a>
                                                     </li>
@@ -502,6 +502,7 @@
     <!-- blog end here -->
     <script src="~/js/views/Product.js"></script>
     <script src="~/js/views/Blogs.js"></script>
+    <script src="~/js/views/Categories.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 <body>

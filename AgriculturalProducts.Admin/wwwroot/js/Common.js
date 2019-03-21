@@ -1,43 +1,43 @@
-﻿var DOMAIN = "https://localhost:44300/";
+﻿var DOMAIN = "https://localhost:44387/";
 //Statistics
-var PRODUCT_STATISTICS = "api/homeadmin/product-statistics";
-var PROVIDER_STATISTICS = "api/homeadmin/provider-statistics";
-var PRODUCT_TYPE_STATISTICS = "api/homeadmin/product-type-statistics"
-var CATEGORY_STATISTICS = "api/homeadmin/category-statistics";
-var CARTS_STATISTICS = "api/homeadmin/carts-statistics";
-var USERS_STATISTICS = "api/homeadmin/users-statistics";
-var ORDER_STATISTICS = "api/homeadmin/order-cart-statistics";
+var PRODUCT_STATISTICS = DOMAIN + "api/homeadmin/product-statistics";
+var PROVIDER_STATISTICS = DOMAIN + "api/homeadmin/provider-statistics";
+var PRODUCT_TYPE_STATISTICS = DOMAIN + "api/homeadmin/product-type-statistics"
+var CATEGORY_STATISTICS = DOMAIN + "api/homeadmin/category-statistics";
+var CARTS_STATISTICS = DOMAIN + "api/homeadmin/carts-statistics";
+var USERS_STATISTICS = DOMAIN + "api/homeadmin/users-statistics";
+var ORDER_STATISTICS = DOMAIN + "api/homeadmin/order-cart-statistics";
 var STATISTICS_ACCESS = DOMAIN + "api/Statistic/statistics-access";
 var STATISTICS_USER = DOMAIN + "api/Statistic/statistics-user";
 var STATISTICS_ORDER = DOMAIN + "api/Statistic/statistics-order";
 var TOTAL_ORDER = DOMAIN + "api/Statistic/statistics-order-total";
 //Manager product
-var INSERT_PRODUCT = "api/productadmin/insert-product";
-var GET_PRODUCT_PAGING = "api/productadmin/getproduct-paging";
+var INSERT_PRODUCT = DOMAIN + "api/productadmin/insert-product";
+var GET_PRODUCT_PAGING = DOMAIN + "api/productadmin/getproduct-paging";
 //Manager Provider
-var INSERT_PROVIDER = "api/ProviderAdmin/insert-provider";
-var GET_PROVIDER_PAGINGATE = "api/ProviderAdmin/getprovider-paging";
-var DELETE_PROVIDER = "api/ProviderAdmin/delete-provider";
-var GET_ALL_PROVIVER = "api/ProviderAdmin/get-all-provider";
+var INSERT_PROVIDER = DOMAIN + "api/ProviderAdmin/insert-provider";
+var GET_PROVIDER_PAGINGATE = DOMAIN + "api/ProviderAdmin/getprovider-paging";
+var DELETE_PROVIDER = DOMAIN + "api/ProviderAdmin/delete-provider";
+var GET_ALL_PROVIVER = DOMAIN + "api/ProviderAdmin/get-all-provider";
 //Manager Category
-var INSERT_CATEGORY = "api/CategoryAdmin/insert-category";
-var GET_CATEGORY_PAGING = "api/CategoryAdmin/get-categories-paging";
-var DELETE_CATEGORY = "api/CategoryAdmin/delete-category";
-var GET_ALL_CATEGORY = "api/CategoryAdmin/get-all-category";
+var INSERT_CATEGORY = DOMAIN + "api/CategoryAdmin/insert-category";
+var GET_CATEGORY_PAGING = DOMAIN + "api/CategoryAdmin/get-categories-paging";
+var DELETE_CATEGORY = DOMAIN + "api/CategoryAdmin/delete-category";
+var GET_ALL_CATEGORY = DOMAIN + "api/CategoryAdmin/get-all-category";
 //Manager Product type
-var INSERT_PRODUCT_TYPE = "api/ProductTypeAdmin/inssert-product-type";
-var GET_PRODUCT_TYPE_PAGING = "api/ProductTypeAdmin/get-product-type-paging";
-var DELETE_PRODUT_TYPE = "api/ProductTypeAdmin/delete-product-type";
-var GET_PRODUCT_TYPE = "api/producttypeadmin/get-all-product-type";
+var INSERT_PRODUCT_TYPE = DOMAIN + "api/ProductTypeAdmin/inssert-product-type";
+var GET_PRODUCT_TYPE_PAGING = DOMAIN + "api/ProductTypeAdmin/get-product-type-paging";
+var DELETE_PRODUT_TYPE = DOMAIN + "api/ProductTypeAdmin/delete-product-type";
+var GET_PRODUCT_TYPE = DOMAIN + "api/producttypeadmin/get-all-product-type";
 //Manager Units
-var GET_ALL_UNITS = "api/unitadmin/get-all-unit";
-var INSERT_UNIT = "api/unitadmin/insert-unit";
-var GET_UNIT_PAGING = "api/unitadmin/get-unit-paging";
+var GET_ALL_UNITS = DOMAIN + "api/unitadmin/get-all-unit";
+var INSERT_UNIT = DOMAIN + "api/unitadmin/insert-unit";
+var GET_UNIT_PAGING = DOMAIN + "api/unitadmin/get-unit-paging";
 //Manager status
-var INSERT_STATUS_PROVIDER = "api/StatusProvider/insert-status-provider";
-var GET_ALL_STATUS_PROVIDER = "api/StatusProvider/get-all-status-provider";
-var INSERT_STATUS_PRODUCT = "api/StatusProduct/insert-status-products";
-var GET_ALL_STATUS_PRODUCT = "api/StatusProduct/get-all-status-products";
+var INSERT_STATUS_PROVIDER = DOMAIN + "api/StatusProvider/insert-status-provider";
+var GET_ALL_STATUS_PROVIDER = DOMAIN + "api/StatusProvider/get-all-status-provider";
+var INSERT_STATUS_PRODUCT = DOMAIN + "api/StatusProduct/insert-status-products";
+var GET_ALL_STATUS_PRODUCT = DOMAIN + "api/StatusProduct/get-all-status-products";
 var INSERT_STATUS_CART = DOMAIN + "api/StatusCarts/insert-status-cart";
 //Roles Manager
 var INSERT_ROLES = DOMAIN + "api/RolesAdmin/insert-roles";
