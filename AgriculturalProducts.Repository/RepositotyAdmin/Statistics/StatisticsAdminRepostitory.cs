@@ -17,7 +17,7 @@ namespace AgriculturalProducts.Repository
 
         public List<object> StatisticsAccessSystem()
         {
-            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.Visitor).GroupBy(x => x.CreatedDate.DayOfWeek).Select(x => new
+            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.Visitor).GroupBy(x => x.CreatedDate.Day).Select(x => new
             {
                 label = x.Key,
                 y = x.Distinct().Count()
@@ -32,7 +32,7 @@ namespace AgriculturalProducts.Repository
 
         public List<object> StatisticsOrder()
         {
-            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.Order).GroupBy(x => x.CreatedDate.DayOfWeek).Select(x => new
+            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.Order).GroupBy(x => x.CreatedDate.Day).Select(x => new
             {
                 label = x.Key,
                 y = x.Distinct().Count()
@@ -52,7 +52,7 @@ namespace AgriculturalProducts.Repository
 
         public List<object> StatisticsUser()
         {
-            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.CreatedUser).GroupBy(x => x.CreatedDate.DayOfWeek).Select(x => new
+            var statistics = _applicationContext.Statistics.Where(x => x.Action == (int)Action.CreatedUser).GroupBy(x => x.CreatedDate.Day).Select(x => new
             {
                 label = x.Key,
                 y = x.Distinct().Count()

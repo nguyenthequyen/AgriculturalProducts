@@ -8,5 +8,6 @@ namespace AgriculturalProducts.Services
     public interface IOrderAdminService:IBaseService<Order>
     {
         int GetStatisticsOrder();
+        PageList<object> GetOrderPagingnate(PagingParams pagingParams);
     }
 }

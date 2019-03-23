@@ -16,6 +16,11 @@ namespace AgriculturalProducts.Services
             _reponsitory = reponsitory;
         }
 
+        public PageList<object> GetOrderPagingnate(PagingParams pagingParams)
+        {
+            throw new NotImplementedException();
+        }
+
         public int GetStatisticsOrder()
         {
             return _reponsitory.GetStatisticsOrders();

@@ -5,8 +5,9 @@ using System.Text;
 
 namespace AgriculturalProducts.Repository
 {
-    public interface IOrderAdminRepository:IBaseRepository<Order>
+    public interface IOrderAdminRepository : IBaseRepository<Order>
     {
         int GetStatisticsOrders();
+        List<object> GetAllOrders();
     }
 }
