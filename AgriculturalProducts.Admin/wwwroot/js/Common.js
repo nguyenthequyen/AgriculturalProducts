@@ -7,6 +7,8 @@ var CATEGORY_STATISTICS = DOMAIN + "api/homeadmin/category-statistics";
 var CARTS_STATISTICS = DOMAIN + "api/homeadmin/carts-statistics";
 var USERS_STATISTICS = DOMAIN + "api/homeadmin/users-statistics";
 var ORDER_STATISTICS = DOMAIN + "api/homeadmin/order-cart-statistics";
+var TOTAL_ACCESS = DOMAIN + "api/homeadmin/total-access";
+
 var STATISTICS_ACCESS = DOMAIN + "api/Statistic/statistics-access";
 var STATISTICS_USER = DOMAIN + "api/Statistic/statistics-user";
 var STATISTICS_ORDER = DOMAIN + "api/Statistic/statistics-order";

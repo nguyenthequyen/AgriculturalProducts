@@ -16,18 +16,16 @@ namespace AgriculturalProducts.Repository
 
         public List<object> GetAllOrders()
         {
-            var order = _applicationContext.OrderDetails
-                .Join(_applicationContext.Orders, od => od.OrderId, odt => odt.Id, (od, odt) => new { od, odt })
-                .Join(_applicationContext.Products, pr => pr.od.ProductId, prt => prt.Id, (pr, prt) => new { pr, prt })
-                .Join(_applicationContext.StatusCarts, st => st.pr.odt.StatusCartsId, stc => stc.Id, (st, stc) => new { st, stc })
-                .Join(_applicationContext.Users, u => u.st.pr.odt.UserId, us => us.Id, (u, us) => new { u, us })
-                .Select(
-                           al => new
-                           {
-                               ProductName = al.u.st.prt.Name,
-                               UserName = al.us.FirstName + al.us.LastName
-                           }
-                       ).ToList();
+            var order = _applicationContext.Orders
+                .Join(_applicationContext.OrderDetails, od => od.Id, odt => odt.OrderId, (od, odt) => new { od, odt })
+                .Select(o => new
+                {
+                    Quantity = o.odt.Quantity,
+                    TotalCost = o.odt.TotalCost,
+                    ProductName = _applicationContext.Products.Where(x => x.Id == o.odt.ProductId).Select(p => p.Name),
+                    UserName = _applicationContext.Users.Where(x => x.Id == o.od.UserId).Select(x => x.LastName + x.FirstName),
+                    StatusCart = _applicationContext.StatusCarts.Where(x => x.Id == o.od.StatusCartsId).Select(x => x.Name)
+                }).ToList();
             List<object> orders = new List<object>();
             foreach (var item in order)
             {

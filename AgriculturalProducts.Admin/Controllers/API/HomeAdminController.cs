@@ -27,6 +27,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IUserClientService _usersClientService;
         private readonly IEmailSenderService _emailSenderService;
+        private readonly IStatisticsAdminService _statisticsAdminService;
         private readonly ILogger<HomeAdminController> _logger;
         public HomeAdminController(
             IProductService productService,
@@ -35,6 +36,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             ICategoryService categoryService,
             IUserClientService userClientService,
             IEmailSenderService emailSenderService,
+            IStatisticsAdminService statisticsAdminService,
         ApplicationContext applicationContext)
         {
             _productService = productService;
@@ -44,6 +46,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             _applicationContext = applicationContext;
             _usersClientService = userClientService;
             _emailSenderService = emailSenderService;
+            _statisticsAdminService = statisticsAdminService;
         }
         [HttpPost]
         [Route("product-statistics")]
@@ -87,6 +90,13 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             //_emailSenderService.SendEmail("", "", "");
             var usersStatistics = _usersClientService.UsersStatistics();
             return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
+        }
+        [HttpPost]
+        [Route("total-access")]
+        public async Task<IActionResult> GetTotalAccess()
+        {
+            var totalAccess = _statisticsAdminService.TotalAccess();
+            return Ok(new Result() { Code = 200, Data = totalAccess, Error = null });
         }
     }
 }

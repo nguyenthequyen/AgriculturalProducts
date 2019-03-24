@@ -17,13 +17,13 @@ var callAjaxCarts = {
         else {
             $.each(result.data, function (index, value) {
                 var query = '<tr>' +
-                    '<td class="productid" hidden>' + value.product.id + '</td>' +
+                    '<td class="productid" hidden>' + value.productCart.id + '</td>' +
                     '<td class="text-center">' +
-                    '<img src="' + "" + '" class="img-responsive" alt="img" title="img" />' +
+                    '<img src="' + value.productCart.path + '" class="img-responsive" alt="img" title="img" />' +
                     '</td>' +
                     '<td class="text-left">' +
-                    '<a href="#">' + value.product.name + '</a>' +
-                    '<p>' + value.quantity + 'x' + value.product.cost + '</p>' +
+                    '<a href="#">' + value.productCart.name + '</a>' +
+                    '<p>' + value.quantity + 'x' + value.productCart.cost + '</p>' +
                     '</td>' +
                     '<td class="text-center">' +
                     '<button type="button" title="Remove" class="btn btn-danger btn-xs"><i class="icon_close"></i></button>' +
@@ -48,13 +48,13 @@ var callAjaxCarts = {
         $('.details-carts tbody').html('');
         $.each(result.data, function (index, value) {
             var query = '<tr>' +
-                '<td class="productid" hidden>' + value.product.id + '</td>' +
+                '<td class="productid" hidden>' + value.productCart.id + '</td>' +
                 '<td class="text-center">' +
                 '<img src="~/images/header1/deal-img6.png" class="img-responsive" alt="img" title="img" />' +
                 '</td>' +
                 '<td class="text-left">' +
-                '<a href="#">' + value.product.name + '</a>' +
-                '<p>' + value.quantity + 'x' + value.product.cost + '</p>' +
+                '<a href="#">' + value.productCart.name + '</a>' +
+                '<p>' + value.quantity + 'x' + value.productCart.cost + '</p>' +
                 '</td>' +
                 '<td class="text-center">' +
                 '<button type="button" title="Remove" class="btn btn-danger btn-xs"><i class="icon_close"></i></button>' +

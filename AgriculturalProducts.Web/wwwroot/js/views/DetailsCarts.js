@@ -13,14 +13,13 @@ var callAjaxCartsDetails = {
         }
         else {
             $.each(result.data, function (index, value) {
-                debugger
                 var query = '<tr>' +
-                    '<td class="productId" hidden>' + value.product.id + '</td>' +
+                    '<td class="productId" hidden>' + value.productCart.id + '</td>' +
                     '<td class="text-left">' +
-                    '<a href="#"><img src="' + "" + '" class="img-responsive" alt="img" title="img"></a>' +
-                    '<div class="name">' + value.product.name + '</div>' +
+                    '<a href="#"><img src="' + value.productCart.path + '" class="img-responsive" alt="img" title="img"></a>' +
+                    '<div class="name">' + value.productCart.name + '</div>' +
                     '</td>' +
-                    '<td class="text-center">' + value.product.cost + '</td>' +
+                    '<td class="text-center">' + value.productCart.cost + '</td>' +
                     '<td class="text-center">' +
                     '<p class="qtypara">' +
                     '<span id="minus" class="minus"><i class="fa fa-minus"></i></span>' +
@@ -29,7 +28,7 @@ var callAjaxCartsDetails = {
                     '<input type="hidden" name="product_id" value="1">' +
                     '</p>' +
                     '</td>' +
-                    '<td class="text-center totalCost">' + (value.product.cost * value.quantity) + '</td>' +
+                    '<td class="text-center totalCost">' + (value.productCart.cost * value.quantity) + '</td>' +
                     '<td class="text-center">' +
                     '<button type="button"><i class="icon_close_alt2"></i></button>' +
                     '</td>' +

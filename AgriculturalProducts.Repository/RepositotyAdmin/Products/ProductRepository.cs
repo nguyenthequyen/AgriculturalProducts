@@ -1,4 +1,5 @@
 ﻿using AgriculturalProducts.Models;
+using AgriculturalProducts.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -58,7 +59,7 @@ namespace AgriculturalProducts.Repository
                     Unit = prd.ct.pt.usp.Name,
                     Image = _applicationContext.Images.Where(p => p.ProductId == prd.ct.pt.us.sp.stt.Id).Select(img => new
                     {
-                        Path = "data:image/png;base64, " + GetBase64StringForImage(img.Path)
+                        Path = "data:image/png;base64, " + ConvertBase64.GetBase64StringForImage(img.Path)
                     }).ToList()
                 }).ToList();
             List<object> products = new List<object>();
@@ -67,20 +68,6 @@ namespace AgriculturalProducts.Repository
                 products.Add(item);
             }
             return products;
-        }
-        private static string GetBase64StringForImage(string imgPath)
-        {
-            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
-            string base64String = Convert.ToBase64String(imageBytes);
-            return base64String;
-        }
-        protected byte[] ImageToBinary(string imagePath)
-        {
-            FileStream fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
-            byte[] buffer = new byte[fileStream.Length];
-            fileStream.Read(buffer, 0, (int)fileStream.Length);
-            fileStream.Close();
-            return buffer;
         }
 
         public void GetAllProductPaging()

@@ -8,6 +8,7 @@
     $(callAjaxDashboard.usersStatistics);
     $(callAjaxDashboard.orderStatistics);
     $(callAjaxDashboard.orderStaticsTotal);
+    $(callAjaxDashboard.totalAccess);
 });
 
 var callAjaxDashboard = {
@@ -79,5 +80,13 @@ var callAjaxDashboard = {
     },
     dataTotalOrder: function (result) {
         $('.cart-statistics').text(result.data);
+    },
+    totalAccess: function () {
+        $(renderAPI.postAPI(TOTAL_ACCESS, true, 'post', null, callAjaxDashboard.dataTotalAccess, function (xhr, status) {
+            //window.location.href = DOMAIN + "AccountAdmin/Login";
+        }));
+    },
+    dataTotalAccess: function (result) {
+        $('.total-access').text(result.data);
     }
 }

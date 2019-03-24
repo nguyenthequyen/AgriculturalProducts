@@ -35,5 +35,10 @@ namespace AgriculturalProducts.Services
         {
             return _reponsitory.StatisticsUser();
         }
+
+        public int TotalAccess()
+        {
+            return _reponsitory.TotalAccess();
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace AgriculturalProducts.Services
         List<object> StatisticsUser();
         List<object> StatisticsOrder();
         int StatisticsOrderTotal();
+        int TotalAccess();
     }
 }

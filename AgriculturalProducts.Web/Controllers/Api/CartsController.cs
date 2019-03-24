@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
+using AgriculturalProducts.Models.Common;
+using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Helpers;
 using AgriculturalProducts.Web.Models;
@@ -19,11 +21,17 @@ namespace AgriculturalProducts.Web.Controllers.Api
     {
         private readonly IProductClientService _productClientService;
         private readonly ILogger<CartsController> _logger;
+        private readonly ICartsMapperService _cartsMapperService;
+        private readonly ApplicationContext _applicationContext;
         public CartsController(
             IProductClientService productClientService,
+            ICartsMapperService cartsMapperService,
+            ApplicationContext applicationContext,
             ILogger<CartsController> logger)
         {
             _productClientService = productClientService;
+            _cartsMapperService = cartsMapperService;
+            _applicationContext = applicationContext;
             _logger = logger;
         }
         [HttpPost]
@@ -34,8 +42,28 @@ namespace AgriculturalProducts.Web.Controllers.Api
             {
                 var getSession = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
                 var ids = new Guid(id.Id);
-                var product = _productClientService.GetProductDetails(ids);
-                if (product == null)
+                ProductCart products = new ProductCart();
+                var data = _applicationContext.Products.Where(x => x.Id == ids).Select(x => new
+                {
+                    Name = x.Name,
+                    Id = x.Id,
+                    Cost = x.Cost,
+                    Image = _applicationContext.Images.Where(p => p.ProductId == x.Id).Select(img => new
+                    {
+                        Path = "data:image/png;base64, " + ConvertBase64.GetBase64StringForImage(img.Path)
+                    })
+                });
+                foreach (var item in data)
+                {
+                    products.Id = item.Id;
+                    products.Name = item.Name;
+                    products.Cost = item.Cost;
+                    foreach (var image in item.Image)
+                    {
+                        products.Path = image.Path;
+                    }
+                }
+                if (products == null)
                 {
                     return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = "Không tìm thấy sản phẩm", Error = "Không tìm thấy sản phẩm" });
                 }
@@ -46,7 +74,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
                         List<Item> cart = new List<Item>();
                         cart.Add(new Item
                         {
-                            Product = product,
+                            ProductCart = products,
                             Quantity = 1
                         });
                         SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
@@ -63,7 +91,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
                         {
                             cart.Add(new Item
                             {
-                                Product = product,
+                                ProductCart = products,
                                 Quantity = 1
                             });
                         }
@@ -118,7 +146,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             for (int i = 0; i < cart.Count; i++)
             {
-                if (cart[i].Product.GetType().GetProperty("id").Equals(id))
+                if (cart[i].ProductCart.Id.Equals(id))
                 {
                     return i;
                 }

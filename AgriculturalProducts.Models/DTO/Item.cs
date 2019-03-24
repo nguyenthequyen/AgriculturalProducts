@@ -6,8 +6,7 @@ namespace AgriculturalProducts.Models
 {
     public class Item
     {
-        //public Product Product { get; set; }       
-        public object Product { get; set; }
+        public ProductCart ProductCart { get; set; }
 
         public int Quantity { get; set; }
     }
