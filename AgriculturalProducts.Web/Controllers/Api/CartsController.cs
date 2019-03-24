@@ -34,7 +34,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
             {
                 var getSession = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
                 var ids = new Guid(id.Id);
-                var product = await _productClientService.GetFirstOrDefault(ids);
+                var product = _productClientService.GetProductDetails(ids);
                 if (product == null)
                 {
                     return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = "Không tìm thấy sản phẩm", Error = "Không tìm thấy sản phẩm" });
@@ -118,7 +118,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             for (int i = 0; i < cart.Count; i++)
             {
-                if (cart[i].Product.Id.Equals(id))
+                if (cart[i].Product.GetType().GetProperty("id").Equals(id))
                 {
                     return i;
                 }

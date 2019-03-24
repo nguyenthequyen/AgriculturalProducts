@@ -83,7 +83,7 @@ namespace AgriculturalProducts.Repository
                 {
                     Path = "data:image/png;base64, " + GetBase64StringForImage(img.Path)
                 }).ToList()
-            }).Where(x => x.Id == id).ToList();
+            }).Where(x => x.Id == id);
             List<object> products = new List<object>();
             foreach (var item in product)
             {

@@ -16,7 +16,6 @@ var callAjaxCarts = {
         }
         else {
             $.each(result.data, function (index, value) {
-                debugger
                 var query = '<tr>' +
                     '<td class="productid" hidden>' + value.product.id + '</td>' +
                     '<td class="text-center">' +
