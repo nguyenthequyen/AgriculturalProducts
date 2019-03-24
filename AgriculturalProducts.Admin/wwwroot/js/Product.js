@@ -170,7 +170,7 @@ var callAjaxProductAdmin = {
                 '<button type="button" class="btn btn-secondary btn-sm btn-edit-product mr-1">Sửa</button>' +
                 '<button type="button" class="btn btn-success btn-sm btn-delete-product mr-1">Xóa</button>' +
                 '<button type="button" class="btn btn-danger btn-sm btn-view-product mr-1">Xem</button>' +
-                '<button type="button" class="btn btn-danger btn-sm btn-upload-image" data-target=".bd-upload-image-modal-lg">Thêm ảnh</button>' +
+                '<button type="button" class="btn btn-danger btn-sm btn-upload-image" data-toggle="modal" data-target=".bd-upload-image-modal-lg">Thêm ảnh</button>' +
                 '</td>' +
                 '</tr>';
             $('.product tbody').append(query);
@@ -193,8 +193,8 @@ var callAjaxProductAdmin = {
         var checkIsWorking = $(".product tbody").find("isWorking");
         debugger
         if (checkIsWorking) {
-            $('.bd-upload-image-modal-lg').show();
-            $('.bd-upload-image-modal-lg').addClass("show");
+            //$('.bd-upload-image-modal-lg').show();
+            //$('.bd-upload-image-modal-lg').addClass("show");
             $('.product-id-file').text($('.isWorking #product-id').text());
         } else {
             console.log("Lỗi product");

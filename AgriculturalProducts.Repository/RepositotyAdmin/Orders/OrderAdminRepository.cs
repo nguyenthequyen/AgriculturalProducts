@@ -24,7 +24,8 @@ namespace AgriculturalProducts.Repository
                     TotalCost = o.odt.TotalCost,
                     ProductName = _applicationContext.Products.Where(x => x.Id == o.odt.ProductId).Select(p => p.Name),
                     UserName = _applicationContext.Users.Where(x => x.Id == o.od.UserId).Select(x => x.LastName + x.FirstName),
-                    StatusCart = _applicationContext.StatusCarts.Where(x => x.Id == o.od.StatusCartsId).Select(x => x.Name)
+                    StatusCart = _applicationContext.StatusCarts.Where(x => x.Id == o.od.StatusCartsId).Select(x => x.Name),
+                    CreatedDate = o.od.CreatedDate
                 }).ToList();
             List<object> orders = new List<object>();
             foreach (var item in order)

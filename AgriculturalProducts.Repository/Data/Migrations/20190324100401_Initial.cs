@@ -332,7 +332,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     ModifyDate = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Content = table.Column<string>(nullable: true),
-                    ProductId = table.Column<Guid>(nullable: false)
+                    ProductId = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
