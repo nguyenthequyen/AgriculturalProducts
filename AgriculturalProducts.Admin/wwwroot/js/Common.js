@@ -97,3 +97,11 @@ var renderAPI = {
         $(result).addClass('isWorking');
     }
 }
+
+$(document).ready(function () {
+    $('.btn-logout').click(function () {
+        debugger
+        localStorage.removeItem("access_token");
+        window.location.href = DOMAIN + "AccountAdmin/Login";
+    })
+})
