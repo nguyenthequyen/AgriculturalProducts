@@ -15,7 +15,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Owner,Admin")]
+    //[Authorize(Roles = "Owner,Admin")]
     public class StatusProductController : ControllerBase
     {
         private readonly IStatusProductService _statusProductService;

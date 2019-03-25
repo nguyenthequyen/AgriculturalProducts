@@ -17,7 +17,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize(Roles = "Owner,Admin")]
+    //[Authorize(Roles = "Owner,Admin")]
     public class ImagesController : ControllerBase
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

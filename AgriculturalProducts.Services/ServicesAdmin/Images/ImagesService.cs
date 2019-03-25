@@ -31,7 +31,7 @@ namespace AgriculturalProducts.Services
             if (files != null && files.Count > 0)
             {
                 string webRootPath = _hostingEnvironment.WebRootPath;
-                string newPath = Path.Combine(@"F:\Upload", productId);
+                string newPath = Path.Combine(@"/home/ntquyen/Desktop/Upload", productId);
                 if (!Directory.Exists(productId))
                 {
                     Directory.CreateDirectory(newPath);

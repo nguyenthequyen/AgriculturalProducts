@@ -25,6 +25,7 @@ namespace AgriculturalProducts.APIWeb
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseSerilog()
+                .UseUrls("https://localhost:44361/")
                 .Build();
 
         public static void CreateFileLogger()

@@ -16,7 +16,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Owner")]
+    //[Authorize(Roles = "Owner")]
     public class RolesAdminController : ControllerBase
     {
         private readonly IRolesService _rolseService;

@@ -78,13 +78,10 @@ namespace AgriculturalProducts.Services
             return _productRepository.ProductStatistics();
         }
 
-        public void UpdateProduct(List<Product> product)
+        public void UpdateProduct(Product product)
         {
-            foreach (var item in product)
-            {
-                item.ModifyDate = DateTime.Now;
-                Update(item);
-            }
+            product.ModifyDate = DateTime.Now;
+            Update(product);
             _unitOfWork.Commit();
         }
     }

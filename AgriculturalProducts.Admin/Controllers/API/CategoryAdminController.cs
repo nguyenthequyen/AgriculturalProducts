@@ -15,7 +15,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Owner,Admin")]
+    //[Authorize(Roles = "Owner,Admin")]
     public class CategoryAdminController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

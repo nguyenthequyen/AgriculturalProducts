@@ -19,7 +19,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Owner,Admin")]
+    //[Authorize(Roles = "Owner,Admin")]
     public class ProductAdminController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -41,12 +41,12 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             try
             {
                 _productService.InsertProduct(product);
-                return Ok(new Result() { Data="Thêm sản phẩm thành công", Code = 200, Error = null });
+                return Ok(new Result() { Data = "Thêm sản phẩm thành công", Code = 200, Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi thêm sản phẩm: " + ex);
-                return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error="Thêm sản phẩm thất bại" });
+                return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = "Thêm sản phẩm thất bại" });
             }
         }
         [HttpPost]
@@ -70,20 +70,6 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             return Ok(new Result() { Code = 200, Data = output, Error = null });
         }
         [HttpPost]
-        [Route("update-product-type")]
-        public async Task<IActionResult> UpdateProduct(List<Guid> id)
-        {
-            List<Product> products = new List<Product>();
-            foreach (var item in id)
-            {
-                var product = await _productService.GetFirstOrDefault(item);
-                products.Add(product);
-
-            }
-            _productService.UpdateProduct(products);
-            return Ok();
-        }
-        [HttpPost]
         [Route("get-product-type")]
         public async Task<IActionResult> GetAllProduct()
         {
@@ -103,19 +89,34 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                     products.Add(provider);
                 }
                 _productService.DeleteProduct(products);
-                return Ok(new Result() { Code = 200, Data="Xóa sản phẩm thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data = "Xóa sản phẩm thành công", Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Thêm sản phẩm thất bại: " + ex);
-                return Ok(new Result() { Code = ex.GetHashCode(), Data="Xóa sản phẩm thành công", Error = null });
+                return Ok(new Result() { Code = ex.GetHashCode(), Data = null, Error = "Xóa sản phẩm thất bại" });
+            }
+        }
+        [HttpPost]
+        [Route("update-product")]
+        public async Task<IActionResult> UpdateProduct(Product product)
+        {
+            try
+            {
+                _productService.UpdateProduct(product);
+                return Ok(new Result() { Code = 200, Data = "Sửa sản phầm thành công", Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi sửa sản phẩm: " + ex);
+                return Ok(new Result() { Code = ex.GetHashCode(), Data = null, Error = "Sửa sản phẩm thất bại" });
             }
         }
         [HttpPost]
         [Route("find-product-type")]
-        public async Task<IActionResult> FindProductById(Guid id)
+        public async Task<IActionResult> FindProductById(ProductId id)
         {
-            await _productService.FindProductById(id);
+            await _productService.FindProductById(id.Id);
             return Ok();
         }
         [HttpPost]
@@ -135,7 +136,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = ex.HResult, Data = null, Error="Lỗi lấy dữ liệu phân trang" });
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
             }
         }
         [HttpPost]
@@ -145,7 +146,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             try
             {
                 string webRootPath = _hostingEnvironment.WebRootPath;
-                string newPath = Path.Combine(@"F:\Upload", "FileExcel");
+                string newPath = Path.Combine(@"/home/ntquyen/Desktop/Upload", "FileExcel");
                 if (!Directory.Exists("FileExcel"))
                 {
                     Directory.CreateDirectory(newPath);
@@ -194,11 +195,11 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                     }
                     _productService.InsertProduct(producList);
                 }
-                return Ok(new Result() { Code = 200, Data="Thêm sản phẩm từ file excel thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data = "Thêm sản phẩm từ file excel thành công", Error = null });
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = ex.HResult, Data = null, Error="Thêm sản phẩm từ file excel thất bại" });
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Thêm sản phẩm từ file excel thất bại" });
             }
 
         }
