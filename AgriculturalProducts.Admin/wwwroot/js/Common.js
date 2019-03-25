@@ -50,6 +50,9 @@ var INSERT_USER_ADMIN = DOMAIN + "api/UserAdmin/create-user";
 var CREATED_BLOGS = DOMAIN + "api/Blogs/created-blogs";
 //Orders
 var GET_ORDERS_PAGING = DOMAIN + "api/OrderAdmin/get-order-paging";
+//Manager user client
+var GET_USER_CLIENTPAGING = DOMAIN + "api/ManagerUserClient/get-userclient-infor"
+
 var renderAPI = {
     postAPI: function (url, async, method, data, callbackSuccess, callbackError) {
         $.ajax({

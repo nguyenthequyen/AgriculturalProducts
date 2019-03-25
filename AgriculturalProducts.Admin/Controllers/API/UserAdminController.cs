@@ -40,16 +40,16 @@ namespace AgriculturalProducts.Admin.Controllers.API
         {
             try
             {
-                //var userExists = _userAdminService.CheckUserExists(model.UserName);
-                //if (userExists != null)
-                //{
-                //    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, ErrorDOMAIN+"tên đăng nhập đã tồn tại" });
-                //}
-                //else
-                //{
-                _userAdminService.CreatedUserAdmin(model);
-                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
-                //}
+                var userExists = await _userAdminService.CheckUserExists(model.UserName);
+                if (userExists != null)
+                {
+                    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "tên đăng nhập đã tồn tại" });
+                }
+                else
+                {
+                    _userAdminService.CreatedUserAdmin(model);
+                    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
+                }
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
                 var user = await _userAdminService.FindAdminUser(model);
                 if (user != null)
                 {
-                    var rols =  await _userAdminService.GetRoles(user.RolesId);
+                    var rols = await _userAdminService.GetRoles(user.RolesId);
                     var token = new JwtTokenBuilder()
                                 .AddSecurityKey(JwtSecurityKey.Create("travisgatesalksdjakljdkjsadfhkjsdfhjksdlfksdljfhsjkdlf-key"))
                                 .AddIssuer("JwtRoleBasedAuth")
