@@ -59,7 +59,7 @@ var renderAPI = {
             data: data,
             async: async,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Beare" + localStorage.getItem("access_token"));
+                xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("access_token"));
             },
             success: function (result) {
                 callbackSuccess(result);
@@ -77,7 +77,7 @@ var renderAPI = {
             data: data,
             async: async,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Beare" + localStorage.getItem("access_token"));
+                xhr.setRequestHeader("Authorization", "Bearer" + localStorage.getItem("access_token"));
             },
             success: function (result) {
                 callbackSuccess(result);

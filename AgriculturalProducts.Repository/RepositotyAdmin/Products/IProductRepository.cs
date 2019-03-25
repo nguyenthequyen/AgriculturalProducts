@@ -16,5 +16,6 @@ namespace AgriculturalProducts.Repository
         int ProductStatistics();
         void GetAllProductPaging();
         List<object> GetAllProductAdim();
+        List<object> GetAllProductAdimSearchString(string name);
     }
 }

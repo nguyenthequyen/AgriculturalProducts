@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Owner,Admin")]
     public class ProductAdminController : ControllerBase
     {
         private readonly IProductService _productService;

@@ -14,8 +14,15 @@
 var callAjaxDashboard = {
     //Thống kê sản phẩm
     productStatistics: function () {
-        $(renderAPI.postAPI(PRODUCT_STATISTICS, true, 'post', null, callAjaxDashboard.dataProductStatistics, function () {
-            //window.location.href = DOMAIN+"AccountAdmin/Login";
+        $(renderAPI.postAPI(PRODUCT_STATISTICS, true, 'post', null, callAjaxDashboard.dataProductStatistics, function (xhr, status) {
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            }
         }));
     },
     dataProductStatistics: function (result) {
@@ -24,7 +31,14 @@ var callAjaxDashboard = {
     //Thống kê nhà cung cấp
     providerStatistics: function () {
         $(renderAPI.postAPI(PROVIDER_STATISTICS, true, 'post', null, callAjaxDashboard.dataProdiverStatistics, function () {
-            //window.location.href = DOMAIN+"AccountAdmin/Login";
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            }
         }));
     },
     dataProdiverStatistics: function (result) {
@@ -33,7 +47,14 @@ var callAjaxDashboard = {
     //Thống kê loại sản phẩm
     productTypeStatistics: function (result) {
         $(renderAPI.postAPI(PRODUCT_TYPE_STATISTICS, true, 'post', null, callAjaxDashboard.dataProductTypeStatistics, function () {
-            //window.location.href = DOMAIN+"AccountAdmin/Login";
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            }
         }));
     },
     dataProductTypeStatistics: function (result) {
@@ -42,7 +63,14 @@ var callAjaxDashboard = {
     //Thống kê danh mục sản phẩm
     categoryStatistics: function (result) {
         $(renderAPI.postAPI(CATEGORY_STATISTICS, true, 'post', null, callAjaxDashboard.dataCategoryStatistics, function () {
-            //window.location.href = DOMAIN+"AccountAdmin/Login";
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            }
         }));
     },
     dataCategoryStatistics: function (result) {
@@ -59,7 +87,14 @@ var callAjaxDashboard = {
     //Thống kê người dùng
     usersStatistics: function (result) {
         $(renderAPI.postAPI(USERS_STATISTICS, true, 'post', null, callAjaxDashboard.dataUsersStatistics, function () {
-            //window.location.href = DOMAIN+"AccountAdmin/Login";
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            }
         }));
     },
     dataUsersStatistics: function (result) {
@@ -67,15 +102,29 @@ var callAjaxDashboard = {
     },
     orderStatistics: function () {
         $(renderAPI.postAPI(ORDER_STATISTICS, true, 'post', null, callAjaxDashboard.dataOrderStatistics, function (xhr, status) {
-            //window.location.href = DOMAIN + "AccountAdmin/Login";
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            }
         }));
     },
     dataOrderStatistics: function (result) {
-        
+
     },
     orderStaticsTotal: function () {
         $(renderAPI.postAPI(TOTAL_ORDER, true, 'post', null, callAjaxDashboard.dataTotalOrder, function (xhr, status) {
-            //window.location.href = DOMAIN + "AccountAdmin/Login";
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            }
         }));
     },
     dataTotalOrder: function (result) {
@@ -83,7 +132,14 @@ var callAjaxDashboard = {
     },
     totalAccess: function () {
         $(renderAPI.postAPI(TOTAL_ACCESS, true, 'post', null, callAjaxDashboard.dataTotalAccess, function (xhr, status) {
-            //window.location.href = DOMAIN + "AccountAdmin/Login";
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            }
         }));
     },
     dataTotalAccess: function (result) {

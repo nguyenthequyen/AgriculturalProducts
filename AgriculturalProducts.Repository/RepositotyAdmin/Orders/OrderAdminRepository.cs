@@ -23,7 +23,28 @@ namespace AgriculturalProducts.Repository
                     Quantity = o.odt.Quantity,
                     TotalCost = o.odt.TotalCost,
                     ProductName = _applicationContext.Products.Where(x => x.Id == o.odt.ProductId).Select(p => p.Name),
-                    UserName = _applicationContext.Users.Where(x => x.Id == o.od.UserId).Select(x => x.LastName + x.FirstName),
+                    UserName = _applicationContext.Users.Where(x => x.Id == o.od.UserId).Select(x => x.LastName + " " + x.FirstName),
+                    StatusCart = _applicationContext.StatusCarts.Where(x => x.Id == o.od.StatusCartsId).Select(x => x.Name),
+                    CreatedDate = o.od.CreatedDate
+                }).ToList();
+            List<object> orders = new List<object>();
+            foreach (var item in order)
+            {
+                orders.Add(item);
+            }
+            return orders;
+        }
+
+        public List<object> GetAllOrdersSearch(string name)
+        {
+            var order = _applicationContext.Orders
+                .Join(_applicationContext.OrderDetails, od => od.Id, odt => odt.OrderId, (od, odt) => new { od, odt })
+                .Select(o => new
+                {
+                    Quantity = o.odt.Quantity,
+                    TotalCost = o.odt.TotalCost,
+                    ProductName = _applicationContext.Products.Where(x => x.Id == o.odt.ProductId).Select(p => p.Name),
+                    UserName = _applicationContext.Users.Where(x => x.LastName + " " + x.FirstName == name&& x.Id == o.od.UserId).Select(x => x.LastName + " " + x.FirstName),
                     StatusCart = _applicationContext.StatusCarts.Where(x => x.Id == o.od.StatusCartsId).Select(x => x.Name),
                     CreatedDate = o.od.CreatedDate
                 }).ToList();

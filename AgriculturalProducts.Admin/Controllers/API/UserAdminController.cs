@@ -8,6 +8,7 @@ using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Admin.Models;
 using AgriculturalProducts.Web.JwtHelpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,13 +22,16 @@ namespace AgriculturalProducts.Admin.Controllers.API
         private readonly IUserAdminService _userAdminService;
         private readonly ILogger<UserAdminController> _logger;
         private readonly ApplicationContext _applicationContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public UserAdminController(
             IUserAdminService userAdminService,
+            IHttpContextAccessor httpContextAccessor,
             ApplicationContext applicationContext,
             ILogger<UserAdminController> logger)
         {
             _userAdminService = userAdminService;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _applicationContext = applicationContext;
         }
         [Route("create-user")]
@@ -43,14 +47,14 @@ namespace AgriculturalProducts.Admin.Controllers.API
                 //}
                 //else
                 //{
-                    _userAdminService.CreatedUserAdmin(model);
-                    return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error="Tạo tài khoản thành công" });
+                _userAdminService.CreatedUserAdmin(model);
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
                 //}
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi tạo tài khoản: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi tạo tài khoản" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi tạo tài khoản" });
             }
         }
         [Route("login")]
@@ -62,31 +66,57 @@ namespace AgriculturalProducts.Admin.Controllers.API
                 {
                     return BadRequest(ModelState);
                 }
-                var user = _userAdminService.FindAdminUser(model);
+                var user = await _userAdminService.FindAdminUser(model);
                 if (user != null)
                 {
+                    var rols =  await _userAdminService.GetRoles(user.RolesId);
                     var token = new JwtTokenBuilder()
                                 .AddSecurityKey(JwtSecurityKey.Create("travisgatesalksdjakljdkjsadfhkjsdfhjksdlfksdljfhsjkdlf-key"))
                                 .AddIssuer("JwtRoleBasedAuth")
                                 .AddAudience("JwtRoleBasedAuth")
                                 .AddExpiry(1)
                                 .AddClaim("Name", model.Username)
-                                .AddClaim("LastName", user.Result.Password)
-                                .AddClaim("RolesId", user.Result.RolesId.ToString())
-                                .AddClaim("sub", user.Result.RolesId.ToString())
-                                .AddRole("Users")
+                                .AddClaim("LastName", user.Password)
+                                .AddClaim("RolesId", user.RolesId.ToString())
+                                .AddClaim("sub", user.RolesId.ToString())
+                                .AddRole(rols.Name)
                                 .Build();
-                    return Ok(new Result() { Message="success", Code = (int)HttpStatusCode.OK, Data = token.Value, Error = null });
+                    return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = token.Value, Error = null });
                 }
                 else
                 {
-                    return Ok(new Result() { Message="Forbidden", Code = (int)HttpStatusCode.Forbidden, Data="Mật khẩu hoặc user name không đúng", Error = null });
+                    return Ok(new Result() { Message = "Forbidden", Code = (int)HttpStatusCode.Forbidden, Data = "Mật khẩu hoặc user name không đúng", Error = null });
                 }
             }
             catch (Exception ex)
             {
 
-                return Ok(new Result() { Message="ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data="Máy chủ bị lõio", Error = ex.ToString() });
+                return Ok(new Result() { Message = "ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data = "Máy chủ bị lõio", Error = ex.ToString() });
+            }
+        }
+        [HttpPost]
+        [Route("get-users-infor")]
+        [Authorize]
+        public async Task<IActionResult> GetUserInfor()
+        {
+            try
+            {
+                var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
+                var data = new UsersInfor();
+                var name = claimsIdentity.FirstOrDefault(x => x.Type == "UserName").Value;
+                var lastName = claimsIdentity.FirstOrDefault(x => x.Type == "LastName").Value;
+                var firstName = claimsIdentity.FirstOrDefault(x => x.Type == "FirstName").Value;
+                var email = claimsIdentity.FirstOrDefault(x => x.Type == "Email").Value;
+                data.UserName = name;
+                data.LastName = lastName;
+                data.FirstName = firstName;
+                data.Email = email;
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy thông tin tài khoản" + ex);
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = null, Error = "Lỗi lấy thông tin tài khoản" });
             }
         }
     }

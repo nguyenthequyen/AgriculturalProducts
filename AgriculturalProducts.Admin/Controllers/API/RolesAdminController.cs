@@ -7,6 +7,7 @@ using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,6 +16,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Owner")]
     public class RolesAdminController : ControllerBase
     {
         private readonly IRolesService _rolseService;
@@ -36,12 +38,12 @@ namespace AgriculturalProducts.Admin.Controllers.API
             try
             {
                 _rolseService.InsertRoles(model);
-                return Ok(new Result() { Data="Thêm Roles thành công", Code = 200, Error = null });
+                return Ok(new Result() { Data = "Thêm Roles thành công", Code = 200, Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi thêm roles: " + ex);
-                return Ok(new Result() { Data="Thêm Roles thất bại", Code = 200, Error = null });
+                return Ok(new Result() { Data = "Thêm Roles thất bại", Code = 200, Error = null });
             }
         }
         [HttpPost]
@@ -56,7 +58,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi lấy dữ liệu tình trạng nhà cung cấp: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy dữ liệu tình trạng nhà cung cấp" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy dữ liệu tình trạng nhà cung cấp" });
             }
         }
     }

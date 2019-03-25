@@ -34,7 +34,6 @@ var callAjaxUserAdmin = {
             password: password,
             rolesId: rolesId
         }
-        debugger
         $(renderAPI.postAPI(INSERT_USER_ADMIN, true, 'post', JSON.stringify(data), callAjaxUserAdmin.dataUsersAdminPaging, callAjaxUserAdmin.errorInsertUsersAdmin))
     },
     dataUsersAdminPaging: function () {

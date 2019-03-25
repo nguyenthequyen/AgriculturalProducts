@@ -20,13 +20,19 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         {
             return View();
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult ServerInternal()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
-       
+        public IActionResult PageNotFound()
+        {
+            return View();
+        }
+        public IActionResult AccessDenine()
+        {
+            return View();
+        }
+
         public IActionResult Provider()
         {
             return View();

@@ -29,5 +29,10 @@ namespace AgriculturalProducts.Repository
         {
             return _applicationContext.UserAdmin.FirstOrDefault(x => x.UserName == login.Username && x.Password == login.Password);
         }
+
+        public async Task<Roles> GetRoles(Guid id)
+        {
+            return _applicationContext.Roles.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

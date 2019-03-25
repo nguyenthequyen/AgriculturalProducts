@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
+using Newtonsoft.Json.Linq;
 
 namespace AgriculturalProducts.Services
 {
@@ -46,14 +47,14 @@ namespace AgriculturalProducts.Services
         {
             if (string.IsNullOrEmpty(pagingParams.SearchString))
             {
-                var providersdb = _productRepository.GetAllProductAdim().OrderByDescending(x => x.GetType().GetProperty("CreatedDate").ToString() == DateTime.Now.ToString());
+                var providersdb = _productRepository.GetAllProductAdim();
                 List<object> providers = providersdb.ToList();
                 var query = providers.AsQueryable();
                 return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);
             }
             else
             {
-                var providersdb = _productRepository.GetAllProductAdim().Where(x => x.GetType().GetProperty("CreatedDate").ToString().Contains(pagingParams.SearchString)).OrderByDescending(x => x.GetType().GetProperty("CreatedDate").ToString() == DateTime.Now.ToString());
+                var providersdb = _productRepository.GetAllProductAdimSearchString(pagingParams.SearchString);
                 List<object> providers = providersdb.ToList();
                 var query = providers.AsQueryable();
                 return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);

@@ -25,6 +25,7 @@ namespace AgriculturalProducts.Web.Admin
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseSerilog()
+                .UseIISIntegration()
                 .Build();
 
         public static void CreateFileLogger()

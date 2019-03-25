@@ -19,6 +19,7 @@
     $('.bd-upload-image-modal-lg').on('click', '#to-recover', callAjaxProductAdmin.showModal);
     $('.btn-upload-img-product').click(callAjaxProductAdmin.uploadImageFile);
     $('.btn-upload-excel-product').click(callAjaxProductAdmin.uploadExcel);
+    $('.btn-get-data-product').click(callAjaxProductAdmin.getProductPaging);
 });
 
 var callAjaxProductAdmin = {
@@ -47,7 +48,7 @@ var callAjaxProductAdmin = {
             processData: false,
             async: false,
             success: function (result) {
-                $('.bd-upload-image-modal-lg').hide();
+                $('.bd-upload-image-modal-lg').modal('hide')
                 alert(result.data);
             },
             error: function (jqXhr, textStatus, errorThrown) {
@@ -79,6 +80,7 @@ var callAjaxProductAdmin = {
             success: function (data, textStatus, jqXhr) {
                 $('.bd-upload-excel-modal-lg').hide();
                 alert(result.data);
+                $(callAjaxProductAdmin.getProductPaging);
             },
             error: function (jqXhr, textStatus, errorThrown) {
                 if (errorThrown === "abort") {
@@ -143,19 +145,18 @@ var callAjaxProductAdmin = {
         $(renderAPI.postAPI(GET_PRODUCT_PAGING, true, 'post', JSON.stringify(pagingParams), callAjaxProductAdmin.dataProduct, callAjaxProductAdmin.errorGetProductPagingNate))
     },
     dataProduct: function (result) {
-        debugger
         $('.total-pages-product').text(result.data.paging.totalPages);
         $('.product tbody').html('');
         $.each(result.data.items, function (index, value) {
             var img = '';
             if (value.image.length == 0) {
-                imgDOMAIN+"";
+                img + "";
             } else {
                 img = value.image[0].path;
             }
             var query = '<tr>' +
                 '<td id="product-id" hidden>' + value.id + '</td>' +
-                '<td>' + '<img src="' + img+ '" alt="image" title="image" class="img-responsive" />' + '</td>' +
+                '<td>' + '<img src="' + img + '" alt="image" title="image" class="img-responsive" />' + '</td>' +
                 '<td>' + value.code + '</td>' +
                 '<td>' + value.name + '</td>' +
                 '<td>' + value.statusProduct + '</td>' +

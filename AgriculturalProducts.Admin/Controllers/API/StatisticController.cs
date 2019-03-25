@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Owner,Admin")]
     public class StatisticController : ControllerBase
     {
         private readonly IStatisticsAdminService _statisticsAdminService;

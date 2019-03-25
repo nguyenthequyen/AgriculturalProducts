@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize(Roles = "Owner,Admin")]
     public class ImagesController : ControllerBase
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

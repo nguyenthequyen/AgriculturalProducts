@@ -9,5 +9,6 @@ namespace AgriculturalProducts.Repository
     {
         int GetStatisticsOrders();
         List<object> GetAllOrders();
+        List<object> GetAllOrdersSearch(string name);
     }
 }

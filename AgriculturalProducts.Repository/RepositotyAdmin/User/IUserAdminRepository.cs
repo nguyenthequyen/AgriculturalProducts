@@ -11,5 +11,6 @@ namespace AgriculturalProducts.Repository
         void CreatedUserAdmin(UserAdmin user);
         Task<UserAdmin> FindAdminUser(LoginDto login);
         Task<UserAdmin> CheckUserExists(string userName);
+        Task<Roles> GetRoles(Guid id);
     }
 }

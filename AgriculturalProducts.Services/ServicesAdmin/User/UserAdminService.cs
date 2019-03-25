@@ -40,5 +40,10 @@ namespace AgriculturalProducts.Services
         {
             return await _userRepository.CheckUserExists(userName);
         }
+
+        public async Task<Roles> GetRoles(Guid id)
+        {
+            return await _userRepository.GetRoles(id);
+        }
     }
 }

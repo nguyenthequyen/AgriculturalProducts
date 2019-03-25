@@ -26,14 +26,14 @@ namespace AgriculturalProducts.Services
         {
             if (string.IsNullOrEmpty(pagingParams.SearchString))
             {
-                var providersdb = _reponsitory.GetAllOrders().OrderByDescending(x => x.GetType().GetProperty("CreatedDate").ToString() == DateTime.Now.ToString());
+                var providersdb = _reponsitory.GetAllOrders();
                 List<object> providers = providersdb.ToList();
                 var query = providers.AsQueryable();
                 return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);
             }
             else
             {
-                var providersdb = _reponsitory.GetAllOrders().Where(x => x.GetType().GetProperty("CreatedDate").ToString().Contains(pagingParams.SearchString)).OrderByDescending(x => x.GetType().GetProperty("CreatedDate").ToString() == DateTime.Now.ToString());
+                var providersdb = _reponsitory.GetAllOrdersSearch(pagingParams.SearchString);
                 List<object> providers = providersdb.ToList();
                 var query = providers.AsQueryable();
                 return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);
