@@ -42,7 +42,7 @@ namespace AgriculturalProducts.Repository
 
         public virtual void Update(TEntity entity)
         {
-            _applicationContext.Set<TEntity>().Update(entity);
+            _applicationContext.Entry(entity).State =EntityState.Modified;
         }
     }
 }

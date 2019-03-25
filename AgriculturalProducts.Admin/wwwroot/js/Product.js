@@ -1,8 +1,13 @@
 ﻿$(document).ready(function () {
+    $('.btn-insert').click(function () {
+        $('.btn-insert-product').removeAttr('hidden');
+        $('.btn-update-product').attr('hidden', true);
+    });
     $(callAjaxProductAdmin.getProductPaging);
     $('.btn-insert-product').click(callAjaxProductAdmin.insertProduct);
+    $('.btn-update-product').click(callAjaxProductAdmin.updateProduct);
     $('.btn-search-product').click(callAjaxProductAdmin.getProductPaging);
-    $('.product tbody').on('click', '.btn-edit-product', callAjaxProductAdmin.editProduct);
+    $('.product tbody').on('click', '.btn-edit-product', callAjaxProductAdmin.getProductById);
     $('.product tbody').on('click', '.btn-delete-product', callAjaxProductAdmin.deleteProduct);
     $('.product tbody').on('click', '.btn-view-product', callAjaxProductAdmin.viewProduct);
     $('.product tbody').on('click', '.btn-upload-image', callAjaxProductAdmin.uploadImage);
@@ -78,8 +83,8 @@ var callAjaxProductAdmin = {
             processData: false,
             async: false,
             success: function (data, textStatus, jqXhr) {
-                $('.bd-upload-excel-modal-lg').hide();
-                alert(result.data);
+                $('.bd-upload-excel-modal-lg').modal('hidden');
+                alert("Thêm dữ liệu thành công");
                 $(callAjaxProductAdmin.getProductPaging);
             },
             error: function (jqXhr, textStatus, errorThrown) {
@@ -88,6 +93,7 @@ var callAjaxProductAdmin = {
                 } else {
                     alert("Uploading failed");
                 }
+                alert("Thêm dữ liệu thất bại");
             },
             always: function (data, textStatus, jqXhr) {
             }
@@ -133,6 +139,39 @@ var callAjaxProductAdmin = {
     errorInsertProduct: function () {
 
     },
+    updateProduct: function () {
+        var productName = $("#insertProduct").find(".product-name").val();
+        var productCode = $("#insertProduct").find(".product-code").val();
+        var productQuanlity = $("#insertProduct").find(".product-quanlity").val();
+        var productCost = $("#insertProduct").find(".product-cost").val();
+        var productStatus = $("#insertProduct").find('.btn-status-product').attr("details-id-status-product");
+        var productMass = $("#insertProduct").find(".product-mass").val();
+        var productCategoryId = $("#insertProduct").find('.btn-category').attr("details-id-category");
+        var productTypeId = $("#insertProduct").find('.btn-product-type').attr("details-id-productType");
+        var providerId = $("#insertProduct").find('.btn-provider').attr("details-id-provider");
+        var productSale = $("#insertProduct").find(".product-sale").val();
+        var unitId = $("#insertProduct").find('.btn-unit').attr("details-id-unit");
+        var shortDescription = $("#insertProduct").find(".product-shortDescription").val();
+        var fullDescription = $("#insertProduct").find(".product-fullDescription").val();
+        var id = $('#insertProduct').find('.product-id').val();
+        var product = {
+            id: id,
+            name: productName,
+            code: productCode,
+            quantity: productQuanlity,
+            cost: productCost,
+            mass: productMass,
+            categoryId: productCategoryId,
+            providerId: providerId,
+            productTypeId: productTypeId,
+            sale: productSale,
+            unitId: unitId,
+            shortDescription: shortDescription,
+            fullDescription: fullDescription,
+            statusProductId: productStatus
+        }
+        $(renderAPI.postAPI(UPDATE_PRODUCT, true, 'post', JSON.stringify(product), callAjaxProductAdmin.successUpdateProduct, callAjaxProductAdmin.errorUpdateProduct));
+    },
     getProductPaging: function () {
         var pageSize = $('.page-size-product').val();
         var pageNumber = $('.page-number-product').val();
@@ -143,6 +182,13 @@ var callAjaxProductAdmin = {
             searchString: searchString
         }
         $(renderAPI.postAPI(GET_PRODUCT_PAGING, true, 'post', JSON.stringify(pagingParams), callAjaxProductAdmin.dataProduct, callAjaxProductAdmin.errorGetProductPagingNate))
+    },
+    successUpdateProduct: function () {
+        debugger
+        $(callAjaxProductAdmin.getProductPaging);
+    },
+    errorUpdateProduct: function (xhr, status) {
+        debugger
     },
     dataProduct: function (result) {
         $('.total-pages-product').text(result.data.paging.totalPages);
@@ -168,7 +214,7 @@ var callAjaxProductAdmin = {
                 '<td>' + value.view + '</td>' +
                 '<td>' + value.mass + '</td>' +
                 '<td>' +
-                '<button type="button" class="btn btn-secondary btn-sm btn-edit-product mr-1">Sửa</button>' +
+                '<button type="button" class="btn btn-secondary btn-sm btn-edit-product mr-1" data-toggle="modal" data-target=".bd-product-manager-modal-lg">Sửa</button>' +
                 '<button type="button" class="btn btn-success btn-sm btn-delete-product mr-1">Xóa</button>' +
                 '<button type="button" class="btn btn-danger btn-sm btn-view-product mr-1">Xem</button>' +
                 '<button type="button" class="btn btn-danger btn-sm btn-upload-image" data-toggle="modal" data-target=".bd-upload-image-modal-lg">Thêm ảnh</button>' +
@@ -178,6 +224,7 @@ var callAjaxProductAdmin = {
         });
     },
     errorGetProductPagingNate: function () {
+
     },
     viewProduct: function () {
 
@@ -185,17 +232,48 @@ var callAjaxProductAdmin = {
     deleteProduct: function () {
 
     },
-    editProduct: function () {
-
+    getProductById: function () {
+        $('.product tbody tr').removeClass('isWorking');
+        $(renderAPI.isWorking(this));
+        var checkIsWorking = $(".product tbody").find("isWorking");
+        if (checkIsWorking) {
+            var productId = $('.isWorking #product-id').text();
+            var data = {
+                id: productId
+            }
+            $(renderAPI.postAPI(GET_PRODUCT_BYID, true, 'post', JSON.stringify(data), callAjaxProductAdmin.successGetProductById, callAjaxProductAdmin.errorGetProductById))
+        } else {
+            console.log("Lỗi product");
+        }
+    },
+    successGetProductById: function (result) {
+        var product = result.data;
+        debugger
+        $('.product-name').val(product.name);
+        $('.product-id').val(product.id);
+        $('.product-code').val(product.code);
+        $('.product-quanlity').val(product.quantity);
+        $('.product-cost').val(product.cost);
+        $('.product-mass').val(product.mass);
+        $('.product-shortDescription').val(product.shortDescription);
+        $('.product-fullDescription').val(product.fullDescription);
+        $('.product-sale').val(product.sale);
+        $('.btn-provider').attr('details-id-provider', product.providerId);
+        $('.btn-unit').attr('details-id-unit', product.unitId);
+        $('.btn-status-product').attr('details-id-status-product', product.statusProductId);
+        $('.btn-category').attr('details-id-category', product.categoryId);
+        $('.btn-product-type').attr('details-id-producttype', product.productTypeId);
+        $('.btn-insert-product').attr('hidden', true);
+        $('.btn-update-product').removeAttr('hidden');
+    },
+    errorGetProductById: function (xhr, status) {
+        debugger
     },
     uploadImage: function () {
         $('.product tbody tr').removeClass('isWorking');
         $(renderAPI.isWorking(this));
         var checkIsWorking = $(".product tbody").find("isWorking");
-        debugger
         if (checkIsWorking) {
-            //$('.bd-upload-image-modal-lg').show();
-            //$('.bd-upload-image-modal-lg').addClass("show");
             $('.product-id-file').text($('.isWorking #product-id').text());
         } else {
             console.log("Lỗi product");

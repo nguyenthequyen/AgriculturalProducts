@@ -98,6 +98,21 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
         }
         [HttpPost]
+        [Route("get-product-byid")]
+        public async Task<IActionResult> FindProductById(ProductId id)
+        {
+            try
+            {
+                var product = await _productService.FindProductById(id.Id);
+                return Ok(new Result() { Code = 200, Data = product, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Tìm sản phẩm thất bại: " + ex);
+                return Ok(new Result() { Code = ex.GetHashCode(), Data = null, Error = "Tìm sản phẩm thất bại" });
+            }
+        }
+        [HttpPost]
         [Route("update-product")]
         public async Task<IActionResult> UpdateProduct(Product product)
         {
@@ -111,13 +126,6 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                 _logger.LogError("Lỗi sửa sản phẩm: " + ex);
                 return Ok(new Result() { Code = ex.GetHashCode(), Data = null, Error = "Sửa sản phẩm thất bại" });
             }
-        }
-        [HttpPost]
-        [Route("find-product-type")]
-        public async Task<IActionResult> FindProductById(ProductId id)
-        {
-            await _productService.FindProductById(id.Id);
-            return Ok();
         }
         [HttpPost]
         [Route("get-product-paging")]
@@ -146,7 +154,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             try
             {
                 string webRootPath = _hostingEnvironment.WebRootPath;
-                string newPath = Path.Combine(@"/home/ntquyen/Desktop/Upload", "FileExcel");
+                string newPath = Path.Combine(@"F:\Upload", "FileExcel");
                 if (!Directory.Exists("FileExcel"))
                 {
                     Directory.CreateDirectory(newPath);

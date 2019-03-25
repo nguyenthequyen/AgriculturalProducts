@@ -16,6 +16,8 @@ var TOTAL_ORDER = DOMAIN + "api/Statistic/statistics-order-total";
 //Manager product
 var INSERT_PRODUCT = DOMAIN + "api/productadmin/insert-product";
 var GET_PRODUCT_PAGING = DOMAIN + "api/productadmin/getproduct-paging";
+var UPDATE_PRODUCT = DOMAIN + "api/productadmin/update-product";
+var GET_PRODUCT_BYID = DOMAIN + "api/productadmin/get-product-byid";
 //Manager Provider
 var INSERT_PROVIDER = DOMAIN + "api/ProviderAdmin/insert-provider";
 var GET_PROVIDER_PAGINGATE = DOMAIN + "api/ProviderAdmin/getprovider-paging";
