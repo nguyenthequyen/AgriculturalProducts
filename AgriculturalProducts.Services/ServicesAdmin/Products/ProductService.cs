@@ -19,12 +19,9 @@ namespace AgriculturalProducts.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void DeleteProduct(List<Product> product)
+        public void DeleteProduct(Product product)
         {
-            foreach (var item in product)
-            {
-                Delete(item);
-            }
+            Delete(product);
             _unitOfWork.Commit();
         }
 

@@ -8,5 +8,7 @@ namespace AgriculturalProducts.Repository
     public interface IImagesRepository : IBaseRepository<Image>
     {
         void InsertImage(Image image);
+        void DeleteImage(Image image);
+        IEnumerable<Image> FindImageById(Guid id);
     }
 }

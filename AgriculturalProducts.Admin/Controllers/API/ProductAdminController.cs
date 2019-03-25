@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
+using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -25,14 +26,20 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         private readonly IProductService _productService;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly ILogger _logger;
+        private readonly IImagesService _imagesService;
+        private readonly IUnitOfWork _unitOfWork;
         public ProductAdminController(
             IProductService productService,
+            IImagesService imagesService,
+            IUnitOfWork unitOfWork,
             IHostingEnvironment hostingEnvironment,
             ILogger<ProductAdminController> logger)
         {
             _logger = logger;
             _productService = productService;
             _hostingEnvironment = hostingEnvironment;
+            _imagesService = imagesService;
+            _unitOfWork = unitOfWork;
         }
         [HttpPost]
         [Route("insert-product")]
@@ -50,12 +57,6 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
         }
         [HttpPost]
-        //[Route("getproduct-paging")]
-        //public async Task<IActionResult> GetProductPagingnate(string sortOrder, string curentFilter, string searchString, int? page)
-        //{
-        //    return Ok();
-        //}
-        [HttpPost]
         [Route("getproduct-paging")]
         public async Task<IActionResult> GetProductPageList(PagingParams pagingParams)
         {
@@ -70,26 +71,27 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             return Ok(new Result() { Code = 200, Data = output, Error = null });
         }
         [HttpPost]
-        [Route("get-product-type")]
-        public async Task<IActionResult> GetAllProduct()
-        {
-            var provider = _productService.GetAllProduct();
-            return Ok();
-        }
-        [HttpPost]
-        [Route("delete-product-type")]
-        public async Task<IActionResult> DeleteProduct(List<ProductId> id)
+        [Route("delete-productbyid")]
+        public async Task<IActionResult> DeleteProduct(ProductId id)
         {
             try
             {
-                List<Product> products = new List<Product>();
-                foreach (var item in id)
+                var product = await _productService.FindProductById(id.Id);
+                if (product != null)
                 {
-                    var provider = await _productService.FindProductById(item.Id);
-                    products.Add(provider);
+                    var image = _imagesService.FindImageById(id.Id);
+                    foreach (var item in image)
+                    {
+                        _imagesService.DeleteImage(item);
+                    }
+                    _unitOfWork.Commit();
+                    _productService.DeleteProduct(product);
+                    return Ok(new Result() { Code = 200, Data = "Xóa sản phẩm thành công", Error = null });
                 }
-                _productService.DeleteProduct(products);
-                return Ok(new Result() { Code = 200, Data = "Xóa sản phẩm thành công", Error = null });
+                else
+                {
+                    return Ok(new Result() { Code = 200, Data = null, Error = "Không tìm thấy sản phẩm" });
+                }
             }
             catch (Exception ex)
             {

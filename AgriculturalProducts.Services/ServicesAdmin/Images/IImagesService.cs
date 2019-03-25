@@ -9,5 +9,7 @@ namespace AgriculturalProducts.Services
     public interface IImagesService : IBaseService<Image>
     {
         void InsertImage(List<IFormFile> files, string productId);
+        void DeleteImage(Image image);
+        IEnumerable<Image> FindImageById(Guid id);
     }
 }

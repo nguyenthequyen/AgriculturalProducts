@@ -26,6 +26,16 @@ namespace AgriculturalProducts.Services
             _hostingEnvironment = hostingEnvironment;
         }
 
+        public void DeleteImage(Image image)
+        {
+            Delete(image);
+        }
+
+        public IEnumerable<Image> FindImageById(Guid id)
+        {
+            return _reponsitory.FindImageById(id);
+        }
+
         public void InsertImage(List<IFormFile> files, string productId)
         {
             if (files != null && files.Count > 0)

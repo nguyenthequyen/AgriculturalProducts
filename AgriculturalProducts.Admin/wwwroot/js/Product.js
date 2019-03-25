@@ -230,7 +230,25 @@ var callAjaxProductAdmin = {
 
     },
     deleteProduct: function () {
-
+        $('.product tbody tr').removeClass('isWorking');
+        $(renderAPI.isWorking(this));
+        var checkIsWorking = $(".product tbody").find("isWorking");
+        if (checkIsWorking) {
+            debugger
+            var productId = $('.isWorking #product-id').text();
+            var data = {
+                id: productId
+            }
+            $(renderAPI.postAPI(DELETE_PRODUCT, true, 'post', JSON.stringify(data), callAjaxProductAdmin.successDeleteProduct, callAjaxProductAdmin.errorDeleteProduct))
+        } else {
+            console.log("Lỗi product");
+        }
+    },
+    successDeleteProduct: function (result) {
+        $(callAjaxProductAdmin.getProductPaging);
+    },
+    errorDeleteProduct: function (xhr, status) {
+        console.log(xhr);
     },
     getProductById: function () {
         $('.product tbody tr').removeClass('isWorking');

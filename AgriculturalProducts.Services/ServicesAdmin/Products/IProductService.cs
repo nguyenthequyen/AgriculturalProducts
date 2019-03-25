@@ -12,7 +12,7 @@ namespace AgriculturalProducts.Services
         void InsertProduct(List<Product> product);
         void UpdateProduct(Product product);
         IEnumerable<Product> GetAllProduct();
-        void DeleteProduct(List<Product> product);
+        void DeleteProduct(Product product);
         Task<Product> FindProductById(Guid id);
         int ProductStatistics();
         PageList<object> GetProductPageList(PagingParams pagingParams);
