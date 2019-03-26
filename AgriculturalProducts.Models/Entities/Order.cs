@@ -12,5 +12,6 @@ namespace AgriculturalProducts.Models
         public Guid StatusCartsId { get; set; }
         public StatusCart StatusCarts { get; set; }
         public User User { get; set; }
+        public int TotalQuantity { get; set; }
     }
 }

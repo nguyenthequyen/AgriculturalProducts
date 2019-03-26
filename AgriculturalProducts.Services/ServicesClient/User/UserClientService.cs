@@ -22,11 +22,11 @@ namespace AgriculturalProducts.Services
             return await _reponsitory.CheckUserExists(userName);
         }
 
-        public void CreatedUserCliet(UserModel model)
+        public void CreatedUserCliet(UserModel model, Guid id)
         {
             var user = new User
             {
-                Id = Guid.NewGuid(),
+                Id = id,
                 CreatedDate = DateTime.Now,
                 ModifyDate = DateTime.Now,
                 RolesId = model.RolesId,

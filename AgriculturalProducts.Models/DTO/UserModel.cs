@@ -21,5 +21,8 @@ namespace AgriculturalProducts.Models
         [Compare("Password")]
         public string Confirmpassword { get; set; }
         public Guid RolesId { get; set; }
+        public DateTime Birthday { get; set; }
+        public int Gender { get; set; }
+        public string Address { get; set; }
     }
 }

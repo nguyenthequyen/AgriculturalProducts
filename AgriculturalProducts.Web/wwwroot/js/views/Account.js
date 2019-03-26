@@ -12,13 +12,19 @@ var callAjaxAccount = {
         var email = $('#input-mail').val();
         var password = $('#input-password').val();
         var confirmpassword = $('#input-confirmpassword').val();
+        var birthday = $('#input-BirthDay').val();
+        var gender = $('#input-gender').val();
+        var address = $('#input-address').val();
         var data = {
             firstName: firstname,
             lastName: lastname,
             userName: userName,
             email: email,
             password: password,
-            confirmpassword: confirmpassword
+            confirmpassword: confirmpassword,
+            birthday: birthday,
+            gender: gender,
+            address: Address
         }
         debugger
         $(renderAPI.postAPILogin(REGISTER, true, 'post', JSON.stringify(data), callAjaxAccount.createdUserSuccess, callAjaxAccount.errorCreatedUser));

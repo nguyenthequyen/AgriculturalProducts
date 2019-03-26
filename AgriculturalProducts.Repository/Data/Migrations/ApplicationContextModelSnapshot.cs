@@ -124,6 +124,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
                     b.Property<Guid>("StatusCartsId");
 
+                    b.Property<int>("TotalQuantity");
+
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");

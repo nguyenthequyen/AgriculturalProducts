@@ -30,6 +30,7 @@ namespace AgriculturalProducts.API.Controllers
         private readonly IEmailSenderService _emailSenderService;
         private readonly IStatisticsService _statisticsService;
         private readonly IRolesService _rolesService;
+        private readonly IUserInforService _userInfroService;
         public AccountController(
             IUserClientService userClientService,
             ApplicationContext applicationContext,
@@ -37,6 +38,7 @@ namespace AgriculturalProducts.API.Controllers
             IEmailSenderService emailSenderService,
             IStatisticsService statisticsService,
             IRolesService rolesService,
+            IUserInforService userInforService,
             ILogger<AccountController> logger)
         {
 
@@ -47,6 +49,7 @@ namespace AgriculturalProducts.API.Controllers
             _emailSenderService = emailSenderService;
             _statisticsService = statisticsService;
             _rolesService = rolesService;
+            _userInfroService = userInforService;
         }
         [Route("create-user")]
         [HttpPost]
@@ -55,8 +58,13 @@ namespace AgriculturalProducts.API.Controllers
             try
             {
                 var roles = _rolesService.GetRolesClient();
+                if (roles == null)
+                {
+                    _logger.LogError("Roles Null");
+                }
                 model.RolesId = roles.Id;
-                _userClientService.CreatedUserCliet(model);
+                var id = new Guid();
+                _userClientService.CreatedUserCliet(model, id);
                 _emailSenderService.SendEmail(model.Email, Constants.SubjectCreatedAccount, Constants.BodyCreatedAccount);
                 Statistics statistics = new Statistics()
                 {
@@ -67,6 +75,14 @@ namespace AgriculturalProducts.API.Controllers
                     ModifyDate = DateTime.Now
                 };
                 _statisticsService.InsertStatistics(statistics);
+                var userInfor = new UserInfor()
+                {
+                    Address = model.Address,
+                    BirthDay = model.Birthday,
+                    Gender = model.Gender,
+                    UserId = id
+                };
+                _userInfroService.CreatedUserInfor(userInfor);
                 _logger.LogError("Đăng ký tài khoản thành công");
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
             }

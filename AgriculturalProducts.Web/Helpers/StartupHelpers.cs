@@ -30,6 +30,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IStatusCartsRepository, StatusCartsRepository>();
             services.AddScoped<ICategoriesClientRepository, CategoriesClientRepository>();
             services.AddScoped<ICartsMapperRepository, CartsMapperRepository>();
+            services.AddScoped<IUserInforRepository, UserInforRepository>();
 
             //Services
             services.AddScoped<IProductClientService, ProductClientService>();

@@ -48,7 +48,7 @@ var callAjaxProductAdmin = {
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("ProductId", $('.product-id-file').text());
-                debugger
+                xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("access_token"));
             },
             processData: false,
             async: false,
@@ -78,7 +78,7 @@ var callAjaxProductAdmin = {
             dataType: "json",
             cache: false,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("ProductId", $('.product-id').text());
+                xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("access_token"));
             },
             processData: false,
             async: false,

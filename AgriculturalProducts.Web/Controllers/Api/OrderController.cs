@@ -36,7 +36,7 @@ namespace AgriculturalProducts.Web.Controllers.Api
             ILogger<OrderController> logger,
             IProductClientService productClientService,
             IStatusCartsService statusCartsService,
-            IStatisticsService  statisticsService,
+            IStatisticsService statisticsService,
             IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
@@ -65,9 +65,9 @@ namespace AgriculturalProducts.Web.Controllers.Api
                 order.StatusCartsId = statusProduct.Id;
                 order.UserId = Guid.Parse(userId);
                 order.Id = orderId;
-                _orderService.AddOrder(order);
                 List<OrderDetails> orderDetails = new List<OrderDetails>();
                 List<ProductOrder> productOrders = new List<ProductOrder>();
+                var total = 0;
                 foreach (var item in orders)
                 {
                     OrderDetails details = new OrderDetails()
@@ -83,10 +83,13 @@ namespace AgriculturalProducts.Web.Controllers.Api
                         Id = item.ProductId,
                         Quantity = item.Quantity
                     };
+                    total += item.Quantity;
                     productOrders.Add(productOrder);
                     _orderDetailsService.AddOrderDetails(details);
                     orderDetails.Add(details);
                 }
+                order.TotalQuantity = total;
+                _orderService.AddOrder(order);
                 _unitOfWork.Commit();
                 HttpContext.Session.Clear();
                 _emailSenderService.SendEmail(email, Constants.SubjectOrder, Constants.BodyOrder);

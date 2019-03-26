@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriculturalProducts.Repository.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190324100401_Initial")]
+    [Migration("20190326153841_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,6 +125,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.Property<DateTime>("ModifyDate");
 
                     b.Property<Guid>("StatusCartsId");
+
+                    b.Property<int>("TotalQuantity");
 
                     b.Property<Guid>("UserId");
 

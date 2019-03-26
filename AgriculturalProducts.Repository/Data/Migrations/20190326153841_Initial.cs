@@ -222,7 +222,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
-                    StatusCartsId = table.Column<Guid>(nullable: false)
+                    StatusCartsId = table.Column<Guid>(nullable: false),
+                    TotalQuantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
