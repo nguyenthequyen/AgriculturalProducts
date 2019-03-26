@@ -8,6 +8,7 @@ using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AgriculturalProducts.Admin.Controllers.API
 {
@@ -17,9 +18,14 @@ namespace AgriculturalProducts.Admin.Controllers.API
     public class StatisticController : ControllerBase
     {
         private readonly IStatisticsAdminService _statisticsAdminService;
-        public StatisticController(IStatisticsAdminService statisticsAdminService)
+        private readonly ILogger<StatisticController> _logger;
+        public StatisticController(
+            IStatisticsAdminService statisticsAdminService,
+            ILogger<StatisticController> logger
+            )
         {
             _statisticsAdminService = statisticsAdminService;
+            _logger = logger;
         }
         [HttpPost]
         [Route("statistics-access")]
@@ -32,6 +38,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê biều đồ lượt truy cập: " + ex);
                 return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = ex.Message });
             }
         }
@@ -46,6 +53,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê biều đồ tài khoản: " + ex);
                 return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = ex.Message });
             }
         }
@@ -60,6 +68,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê biều đồ đơn hàng: " + ex);
                 return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = ex.Message });
             }
         }
@@ -74,6 +83,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê tổng đơn hàng: " + ex);
                 return Ok(new Result() { Data = null, Code = (int)HttpStatusCode.InternalServerError, Error = ex.Message });
             }
         }

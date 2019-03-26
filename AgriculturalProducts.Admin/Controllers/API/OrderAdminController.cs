@@ -8,6 +8,7 @@ using AgriculturalProducts.Web.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AgriculturalProducts.Admin.Controllers.API
 {
@@ -17,11 +18,14 @@ namespace AgriculturalProducts.Admin.Controllers.API
     public class OrderAdminController : ControllerBase
     {
         private readonly IOrderAdminService _orderAdminService;
+        private readonly ILogger<OrderAdminController> _logger;
         public OrderAdminController(
-            IOrderAdminService orderAdminService
+            IOrderAdminService orderAdminService,
+            ILogger<OrderAdminController> logger
             )
         {
             _orderAdminService = orderAdminService;
+            _logger = logger;
         }
         [HttpPost]
         [Route("get-order-paging")]
@@ -40,6 +44,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi lấy dữ liệu đơn hàng: " + ex);
                 return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
             }
         }

@@ -22,6 +22,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace AgriculturalProducts.Web.Admin
 {
@@ -29,6 +30,11 @@ namespace AgriculturalProducts.Web.Admin
     {
         public Startup(IConfiguration configuration)
         {
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Error()
+            .Enrich.FromLogContext()
+            .WriteTo.Seq("http://localhost:5341")
+            .CreateLogger();
             Configuration = configuration;
         }
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -62,6 +68,7 @@ namespace AgriculturalProducts.Web.Admin
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = "JwtRoleBasedAuth",
                         ValidAudience = "JwtRoleBasedAuth",
+                        RequireExpirationTime = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("travisgatesalksdjakljdkjsadfhkjsdfhjksdlfksdljfhsjkdlf-key"))
                     };
                 });
@@ -84,8 +91,10 @@ namespace AgriculturalProducts.Web.Admin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // Add Serilog to the logging pipeline
+            loggerFactory.AddSerilog();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

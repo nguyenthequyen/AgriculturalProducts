@@ -19,7 +19,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
     public class ProductTypeAdminController : ControllerBase
     {
         private readonly IProductTypeService _productTypeService;
-        private readonly ILogger _logger;
+        private readonly ILogger<ProductTypeAdminController> _logger;
         public ProductTypeAdminController(
             IProductTypeService productTypeService,
             ILogger<ProductTypeAdminController> logger
@@ -35,26 +35,34 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             try
             {
                 _productTypeService.InsertProductType(productType);
-                return Ok(new Result() { Code = 200, Data="Thêm loại sản phẩm thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data = "Thêm loại sản phẩm thành công", Error = null });
             }
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi thêm loại sản phẩm+ " + ex);
-                return Ok(new Result() { Code = ex.HResult, Data = null, Error="Lỗi thêm loại sản phẩm" });
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi thêm loại sản phẩm" });
             }
         }
         [HttpPost]
         [Route("update-product-type")]
         public async Task<IActionResult> UpdateProductType(List<Guid> id)
         {
-            List<ProductType> products = new List<ProductType>();
-            foreach (var item in id)
+            try
             {
-                var product = await _productTypeService.FindProductTypeById(item);
-                products.Add(product);
+                List<ProductType> products = new List<ProductType>();
+                foreach (var item in id)
+                {
+                    var product = await _productTypeService.FindProductTypeById(item);
+                    products.Add(product);
+                }
+                _productTypeService.UpdateProductType(products);
+                return Ok(new Result() { Code = 200, Data = "Sửa loại sản phẩm thành công", Error = null });
             }
-            _productTypeService.UpdateProductType(products);
-            return Ok();
+            catch (Exception ex)
+            {
+                _logger.LogError("Sửa loại sản phẩm thất bại: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("get-all-product-type")]
@@ -65,31 +73,47 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                 var productType = _productTypeService.GetAllProductType();
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = productType, Error = null });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _logger.LogError("Lỗi lấy danh sách loại sản phẩm");
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy danh sách loại sản phẩm" });
+                _logger.LogError("Lỗi lấy danh sách loại sản phẩm : " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy danh sách loại sản phẩm" });
             }
         }
         [HttpPost]
         [Route("delete-product-type")]
         public async Task<IActionResult> DeleteProductType(List<ProductTypeId> id)
         {
-            List<ProductType> productTypes = new List<ProductType>();
-            foreach (var item in id)
+            try
             {
-                var provider = await _productTypeService.FindProductTypeById(item.Id);
-                productTypes.Add(provider);
+                List<ProductType> productTypes = new List<ProductType>();
+                foreach (var item in id)
+                {
+                    var provider = await _productTypeService.FindProductTypeById(item.Id);
+                    productTypes.Add(provider);
+                }
+                _productTypeService.DeleteProductType(productTypes);
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = "Xóa loại sản phẩm thành công", Error = null });
             }
-            _productTypeService.DeleteProductType(productTypes);
-            return Ok();
+            catch (Exception ex)
+            {
+                _logger.LogError("Xóa lọai sản phẩm thất bại: " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy danh sách loại sản phẩm" });
+            }
         }
         [HttpPost]
         [Route("find-product-type")]
         public async Task<IActionResult> FindProductTypeById(Guid id)
         {
-            await _productTypeService.FindProductTypeById(id);
-            return Ok();
+            try
+            {
+                var data = await _productTypeService.FindProductTypeById(id);
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Tìm kiếm loại sản phẩm thất bại: " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("get-product-type-paging")]
@@ -109,7 +133,8 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = ex.HResult, Data = null, Error="Lỗi lấy dữ liệu phân trang" });
+                _logger.LogError("Lấy dữ liệu phân trang loại sản phẩm thất bại: " + ex);
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
             }
         }
     }

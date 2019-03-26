@@ -35,11 +35,12 @@ namespace AgriculturalProducts.Admin.Controllers.API
             try
             {
                 _unitService.InsertUnit(units);
-                return Ok(new Result() { Code = 200, Data="Thêm đơn vị thành công", Error = null });
+                return Ok(new Result() { Code = 200, Data = "Thêm đơn vị thành công", Error = null });
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = ex.GetHashCode(), Data = null, Error="Thất bại" });
+                _logger.LogError("Thêm đơn vị tính thất bại: " + ex);
+                return Ok(new Result() { Code = ex.GetHashCode(), Data = null, Error = "Thất bại" });
             }
         }
         [HttpPost]
@@ -54,7 +55,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi lấy đơn vị tính: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy đơn vị tính" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy đơn vị tính" });
             }
         }
         [HttpPost]
@@ -75,7 +76,8 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy dữ liệu phân trang" });
+                _logger.LogError("Lấy dữ liệu phân trang đơn vị tính thất bại: " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
             }
         }
     }

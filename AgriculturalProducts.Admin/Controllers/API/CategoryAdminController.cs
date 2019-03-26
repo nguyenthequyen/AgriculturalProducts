@@ -39,7 +39,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Lỗi thêm danh mục sản phẩm: " + ex.Message);
+                _logger.LogError("Lỗi thêm danh mục sản phẩm: " + ex);
                 return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Thêm danh mục sản phẩm thất bại" });
             }
         }
@@ -61,6 +61,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi thêm danh mục sản phẩm: " + ex);
                 return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy dữ liệu phân trang" });
             }
         }

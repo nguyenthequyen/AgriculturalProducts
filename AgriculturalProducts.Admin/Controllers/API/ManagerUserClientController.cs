@@ -46,6 +46,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi lấy thông tin tài khoản người dùng: " + ex);
                 return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy thông tin tài khoản" }); throw;
             }
         }

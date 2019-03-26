@@ -25,7 +25,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
     {
         private readonly IProductService _productService;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly ILogger _logger;
+        private readonly ILogger<ProductAdminController> _logger;
         private readonly IImagesService _imagesService;
         private readonly IUnitOfWork _unitOfWork;
         public ProductAdminController(
@@ -60,15 +60,23 @@ namespace AgriculturalProducts.Web.Admin.Controllers
         [Route("getproduct-paging")]
         public async Task<IActionResult> GetProductPageList(PagingParams pagingParams)
         {
-            var data = _productService.GetProductPageList(pagingParams);
-            _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
-            Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
-            var output = new OutPutModel<object>
+            try
             {
-                Paging = data.GetHeader(),
-                Items = data.List.ToList(),
-            };
-            return Ok(new Result() { Code = 200, Data = output, Error = null });
+                var data = _productService.GetProductPageList(pagingParams);
+                _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
+                Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
+                var output = new OutPutModel<object>
+                {
+                    Paging = data.GetHeader(),
+                    Items = data.List.ToList(),
+                };
+                return Ok(new Result() { Code = 200, Data = output, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu phân trang sản phẩm: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = "Lỗi lấy dữ liệu phân trang sản phẩm" });
+            }
         }
         [HttpPost]
         [Route("delete-productbyid")]
@@ -146,6 +154,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi lấy dữ liệu phân trang: " + ex);
                 return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
             }
         }
@@ -209,6 +218,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Thêm sản phẩm từ file excel thất bại: " + ex);
                 return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Thêm sản phẩm từ file excel thất bại" });
             }
 

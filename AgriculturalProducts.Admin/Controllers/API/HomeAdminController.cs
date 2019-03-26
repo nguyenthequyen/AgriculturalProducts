@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace AgriculturalProducts.Web.Admin.Controllers
 {
@@ -37,6 +38,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             IUserClientService userClientService,
             IEmailSenderService emailSenderService,
             IStatisticsAdminService statisticsAdminService,
+            ILogger<HomeAdminController> logger,
         ApplicationContext applicationContext)
         {
             _productService = productService;
@@ -47,56 +49,113 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             _usersClientService = userClientService;
             _emailSenderService = emailSenderService;
             _statisticsAdminService = statisticsAdminService;
+            _logger = logger;
         }
         [HttpPost]
         [Route("product-statistics")]
         public async Task<IActionResult> ProductStatistics()
         {
-            var productStatistics = _productService.ProductStatistics();
-            return Ok(new Result() { Code = 200, Data = productStatistics, Error = null });
+            try
+            {
+                var productStatistics = _productService.ProductStatistics();
+                _logger.LogError("Đã có log");
+                return Ok(new Result() { Code = 200, Data = productStatistics, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê sản phẩm: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("provider-statistics")]
         public async Task<IActionResult> ProviderStatistics()
         {
-            var providerStatistics = _providerService.ProviderStatistics();
-            return Ok(new Result() { Code = 200, Data = providerStatistics, Error = null });
+            try
+            {
+                var providerStatistics = _providerService.ProviderStatistics();
+                return Ok(new Result() { Code = 200, Data = providerStatistics, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê nhà cung cấp: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("product-type-statistics")]
         public async Task<IActionResult> ProductTypeStatistics()
         {
-            var productTypeStatistics = _productTypeService.ProductTypeStatistics();
-            return Ok(new Result() { Code = 200, Data = productTypeStatistics, Error = null });
+            try
+            {
+                var productTypeStatistics = _productTypeService.ProductTypeStatistics();
+                return Ok(new Result() { Code = 200, Data = productTypeStatistics, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê loại sản phẩm: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("category-statistics")]
         public async Task<IActionResult> CategoryStatistics()
         {
-            var categoryStatistics = _categoryService.CategoryStatistics();
-            return Ok(new Result() { Code = 200, Data = categoryStatistics, Error = null });
+            try
+            {
+                var categoryStatistics = _categoryService.CategoryStatistics();
+                return Ok(new Result() { Code = 200, Data = categoryStatistics, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê danh mục sản phẩm: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("users-statistics")]
         public async Task<IActionResult> UsersStatistics()
         {
-            var usersStatistics = _usersClientService.UsersStatistics();
-            return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
+            try
+            {
+                var usersStatistics = _usersClientService.UsersStatistics();
+                return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê người dùng: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("order-cart-statistics")]
         public async Task<IActionResult> GetOrdersStatistics()
         {
-            //_emailSenderService.SendEmail("", "", "");
-            var usersStatistics = _usersClientService.UsersStatistics();
-            return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
+            try
+            {
+                var usersStatistics = _usersClientService.UsersStatistics();
+                return Ok(new Result() { Code = 200, Data = usersStatistics, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê đơn hàng: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("total-access")]
         public async Task<IActionResult> GetTotalAccess()
         {
-            var totalAccess = _statisticsAdminService.TotalAccess();
-            return Ok(new Result() { Code = 200, Data = totalAccess, Error = null });
+            try
+            {
+                var totalAccess = _statisticsAdminService.TotalAccess();
+                return Ok(new Result() { Code = 200, Data = totalAccess, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê lượt truy cập: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
         }
     }
 }

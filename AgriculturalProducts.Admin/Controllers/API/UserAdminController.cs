@@ -90,8 +90,8 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
-
-                return Ok(new Result() { Message = "ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data = "Máy chủ bị lõio", Error = ex.ToString() });
+                _logger.LogError("Lỗi đăng nhập tài khoản: " + ex);
+                return Ok(new Result() { Message = "ServerInternal", Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = ex.ToString() });
             }
         }
         [HttpPost]

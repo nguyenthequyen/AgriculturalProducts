@@ -18,7 +18,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace AgriculturalProducts.APIWeb
 {
@@ -26,6 +28,11 @@ namespace AgriculturalProducts.APIWeb
     {
         public Startup(IConfiguration configuration)
         {
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Error()
+            .Enrich.FromLogContext()
+            .WriteTo.Seq("http://localhost:5341")
+            .CreateLogger();
             Configuration = configuration;
         }
 
@@ -56,6 +63,7 @@ namespace AgriculturalProducts.APIWeb
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = "JwtRoleBasedAuth",
                         ValidAudience = "JwtRoleBasedAuth",
+                        RequireExpirationTime=true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("travisgatesalksdjakljdkjsadfhkjsdfhjksdlfksdljfhsjkdlf-key"))
                     };
                 });
@@ -76,8 +84,9 @@ namespace AgriculturalProducts.APIWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddSerilog();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

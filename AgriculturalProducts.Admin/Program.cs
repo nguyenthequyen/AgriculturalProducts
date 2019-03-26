@@ -17,7 +17,6 @@ namespace AgriculturalProducts.Web.Admin
     {
         public static void Main(string[] args)
         {
-            CreateFileLogger();
             BuildWebHost(args).Run();
         }
 

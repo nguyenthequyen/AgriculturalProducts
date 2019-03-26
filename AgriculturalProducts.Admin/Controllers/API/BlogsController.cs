@@ -33,11 +33,11 @@ namespace AgriculturalProducts.Admin.Controllers.API
             try
             {
                 _blogsService.CreatedBlogs(blogs);
-                _logger.LogInformation("Index method called!!!");
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = "Tạo bài viết thành công", Error = null });
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi thêm danh mục sản phẩm: " + ex);
                 return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = "Tạo bài viết thất bại", Error = ex.Message });
             }
         }

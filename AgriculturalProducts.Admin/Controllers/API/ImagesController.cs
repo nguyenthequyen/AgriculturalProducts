@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AgriculturalProducts.Admin.Controllers.API
 {
@@ -21,13 +22,16 @@ namespace AgriculturalProducts.Admin.Controllers.API
     public class ImagesController : ControllerBase
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IImagesService _imagesService; 
+        private readonly ILogger<ImagesController> _logger;
+        private readonly IImagesService _imagesService;
         public ImagesController(
-            IHttpContextAccessor httpContextAccessor, 
+            IHttpContextAccessor httpContextAccessor,
+            ILogger<ImagesController> logger,
             IImagesService imagesService)
         {
             _httpContextAccessor = httpContextAccessor;
             _imagesService = imagesService;
+            _logger = logger;
         }
         [HttpPost]
         [Route("upload-images")]
@@ -41,6 +45,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lỗi upload hình ảnh: " + ex);
                 return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Thêm ảnh thất bại" });
             }
         }

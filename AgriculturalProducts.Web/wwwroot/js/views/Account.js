@@ -67,6 +67,7 @@ var callAjaxAccount = {
     },
     getUserInfor: function () {
         var local = localStorage.getItem("access_token");
+        debugger
         if (local === null) {
             return false;
         } else {

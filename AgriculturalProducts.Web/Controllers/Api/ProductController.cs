@@ -56,7 +56,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         {
             try
             {
-
+                _logger.LogError("Trang chủ đã có log");
                 var data = _productService.GetTopNewPoduct();
                 Statistics statistics = new Statistics()
                 {
@@ -109,59 +109,6 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                 _logger.LogError("Lỗi lấy chi tiết sản phẩm: " + ex);
                 return Ok(new Result() { Code = 200, Data = null, Error = "Lỗi lấy danh sách sản phẩm mới nhất" });
             }
-        }
-        [HttpPost]
-        [Route("update-product")]
-        public async Task<IActionResult> UpdateProvider(Product provider)
-        {
-            _productService.Update(provider);
-            return Ok();
-        }
-        [HttpPost]
-        [Route("get-image-display-web")]
-        public async Task<IActionResult> GetImageFile([FromBody]ProductId id)
-        {
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            var folderName = @"E:\AgriculturalProducts\Upload" + @"\" + id.Id;
-            List<ImageResult> imageResults = new List<ImageResult>();
-            foreach (var files in Directory.GetFiles(folderName))
-            {
-                ImageResult imageResult = new ImageResult();
-                FileInfo info = new FileInfo(files);
-                var fileName = Path.GetFileName(info.FullName);
-                imageResult.Path = folderName + "\\" + fileName;
-                imageResults.Add(imageResult);
-            }
-            return Ok(new Result() { Data = imageResults, Code = 200, Error = null });
-        }
-        [HttpPost]
-        [Route("details-products")]
-        public async Task<IActionResult> GetDetailsProduct([FromBody]ProductId id)
-        {
-            _productService.GetProductDetails(id.Id);
-            return Ok();
-        }
-        [HttpPost]
-        [Route("delete-product")]
-        public async Task<IActionResult> DeleteProvider(Product provider)
-        {
-            _productService.Delete(provider);
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("get-product")]
-        public async Task<IActionResult> GetAllProvider()
-        {
-            var provider = _productService.GetAllRecords();
-            return Ok();
-        }
-        [HttpPost]
-        [Route("find-product")]
-        public async Task<IActionResult> FindProductById(Guid id)
-        {
-            await _productService.GetFirstOrDefault(id);
-            return Ok();
         }
         [Route("find-product-by-name")]
         [HttpPost]

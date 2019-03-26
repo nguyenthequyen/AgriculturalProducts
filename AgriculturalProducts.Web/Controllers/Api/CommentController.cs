@@ -63,6 +63,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
             }
             catch (Exception ex)
             {
+                _logger.LogError("Lấy dữ liệu comment thất bại: " + ex);
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Lấy bình luận thất bại" });
             }
 

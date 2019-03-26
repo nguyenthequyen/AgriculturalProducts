@@ -61,42 +61,67 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi lấy dữ liệu tất cả nhà cung cấp: " + ex);
-                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error="Lỗi lấy dữ liệu nhà cung cấp" });
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = ex.Message });
             }
         }
         [HttpPost]
         [Route("delete-provider")]
         public async Task<IActionResult> DeleteProvider([FromBody] List<ProviderId> id)
         {
-            List<Provider> providers = new List<Provider>();
-            foreach (var item in id)
+            try
             {
-                var provider = await _providerService.FindProviderById(item.Id);
-                providers.Add(provider);
+                List<Provider> providers = new List<Provider>();
+                foreach (var item in id)
+                {
+                    var provider = await _providerService.FindProviderById(item.Id);
+                    providers.Add(provider);
+                }
+                _providerService.DeleteProvider(providers);
+                return Ok(new Result() { Code = 200, Data = "Xóa nhà cung cấp thành công", Error = null });
             }
-            _providerService.DeleteProvider(providers);
-            return Ok();
+            catch (Exception ex)
+            {
+                _logger.LogError("Xóa nhà cung cấp thất bại: " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("find-provider")]
         public async Task<IActionResult> FindProductById(Guid id)
         {
-            await _providerService.FindProviderById(id);
-            return Ok();
+            try
+            {
+                var data = await _providerService.FindProviderById(id);
+                return Ok(new Result() { Code = 200, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError("Tìm kiếm nhà cung cấp thất bại: " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = ex.Message });
+            }
         }
         [HttpPost]
         [Route("getprovider-paging")]
         public async Task<IActionResult> GetProviderPageList(PagingParams pagingParams)
         {
-            var data = _providerService.GetProviderPageList(pagingParams);
-            _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
-            Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
-            var output = new OutPutModel<Provider>
+            try
             {
-                Paging = data.GetHeader(),
-                Items = data.List.ToList(),
-            };
-            return Ok(new Result() { Code = 200, Data = output, Error = null });
+                var data = _providerService.GetProviderPageList(pagingParams);
+                _logger.LogInformation("dữ liệu vào: " + pagingParams.SearchString);
+                Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
+                var output = new OutPutModel<Provider>
+                {
+                    Paging = data.GetHeader(),
+                    Items = data.List.ToList(),
+                };
+                return Ok(new Result() { Code = 200, Data = output, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lấy dữ liệu phân trang nhà cung cấp thất bại: " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = ex.Message });
+            }
         }
     }
 }

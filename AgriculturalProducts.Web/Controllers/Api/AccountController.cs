@@ -11,6 +11,7 @@ using AgriculturalProducts.Web.JwtHelpers;
 using AgriculturalProducts.Web.Models;
 using AutoMapper;
 using AutoMapper.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -127,6 +128,7 @@ namespace AgriculturalProducts.API.Controllers
         }
         [HttpPost]
         [Route("get-users-infor")]
+        [Authorize]
         public async Task<IActionResult> GetUserInfor()
         {
             try
@@ -141,6 +143,7 @@ namespace AgriculturalProducts.API.Controllers
                 data.LastName = lastName;
                 data.FirstName = firstName;
                 data.Email = email;
+                _logger.LogError("Lấy thông tin tài khoản thành công");
                 return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
             }
             catch (Exception ex)
