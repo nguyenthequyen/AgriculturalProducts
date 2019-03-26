@@ -24,9 +24,8 @@ var callAjaxAccount = {
             confirmpassword: confirmpassword,
             birthday: birthday,
             gender: gender,
-            address: Address
+            address: address
         }
-        debugger
         $(renderAPI.postAPILogin(REGISTER, true, 'post', JSON.stringify(data), callAjaxAccount.createdUserSuccess, callAjaxAccount.errorCreatedUser));
     },
     createdUserSuccess: function () {
@@ -55,7 +54,6 @@ var callAjaxAccount = {
 
     },
     errorLoginUser: function (jqXHR, exception) {
-        debugger
         console.log(jqXHR);
     },
     dataUserInfor: function (result) {
@@ -73,7 +71,6 @@ var callAjaxAccount = {
     },
     getUserInfor: function () {
         var local = localStorage.getItem("access_token");
-        debugger
         if (local === null) {
             return false;
         } else {

@@ -63,7 +63,7 @@ namespace AgriculturalProducts.API.Controllers
                     _logger.LogError("Roles Null");
                 }
                 model.RolesId = roles.Id;
-                var id = new Guid();
+                var id = Guid.NewGuid();
                 _userClientService.CreatedUserCliet(model, id);
                 _emailSenderService.SendEmail(model.Email, Constants.SubjectCreatedAccount, Constants.BodyCreatedAccount);
                 Statistics statistics = new Statistics()

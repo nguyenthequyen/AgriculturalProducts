@@ -51,6 +51,7 @@ namespace AgriculturalProducts.APIWeb.Helpers
             services.AddScoped<IStatusCartsService, StatusCartsService>();
             services.AddScoped<ICategoriesClientService, CategoriesClientService>();
             services.AddScoped<ICartsMapperService, CartsMapperService>();
+            services.AddScoped<IUserInforService, UserInforService>();
         }
     }
 }
