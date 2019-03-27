@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriculturalProducts.Repository.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190326153841_Initial")]
+    [Migration("20190327074504_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -124,15 +124,15 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
                     b.Property<DateTime>("ModifyDate");
 
-                    b.Property<Guid>("StatusCartsId");
+                    b.Property<int>("Processed");
+
+                    b.Property<float>("TotalCost");
 
                     b.Property<int>("TotalQuantity");
 
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StatusCartsId");
 
                     b.HasIndex("UserId");
 
@@ -154,6 +154,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
                     b.Property<int>("Quantity");
 
+                    b.Property<Guid>("StatusCartId");
+
                     b.Property<float>("TotalCost");
 
                     b.HasKey("Id");
@@ -161,6 +163,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("StatusCartId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -509,11 +513,6 @@ namespace AgriculturalProducts.Repository.Data.Migrations
 
             modelBuilder.Entity("AgriculturalProducts.Models.Order", b =>
                 {
-                    b.HasOne("AgriculturalProducts.Models.StatusCart", "StatusCarts")
-                        .WithMany()
-                        .HasForeignKey("StatusCartsId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("AgriculturalProducts.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -530,6 +529,11 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     b.HasOne("AgriculturalProducts.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AgriculturalProducts.Models.StatusCart", "StatusCart")
+                        .WithMany()
+                        .HasForeignKey("StatusCartId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

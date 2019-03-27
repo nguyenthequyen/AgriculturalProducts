@@ -15,5 +15,7 @@ namespace AgriculturalProducts.Models
         [Required]
         public Guid OrderId { get; set; }
         public Order Order { get; set; }
+        public Guid StatusCartId { get; set; }
+        public StatusCart StatusCart { get; set; }
     }
 }

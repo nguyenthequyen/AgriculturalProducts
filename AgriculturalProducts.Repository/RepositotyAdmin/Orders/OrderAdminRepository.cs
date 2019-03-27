@@ -17,16 +17,19 @@ namespace AgriculturalProducts.Repository
         public List<object> GetAllOrders()
         {
             var order = _applicationContext.Orders
-                .Join(_applicationContext.OrderDetails, od => od.Id, odt => odt.OrderId, (od, odt) => new { od, odt })
-                .Select(o => new
+                .Join(_applicationContext.UserInfors, od => od.UserId, us => us.UserId, (od, us) => new { od, us })
+                .Join(_applicationContext.Users, od => od.od.UserId, us => us.Id, (od, us) => new { od, us })
+                .Select(sl => new
                 {
-                    Quantity = o.odt.Quantity,
-                    TotalCost = o.odt.TotalCost,
-                    ProductName = _applicationContext.Products.Where(x => x.Id == o.odt.ProductId).Select(p => p.Name),
-                    UserName = _applicationContext.Users.Where(x => x.Id == o.od.UserId).Select(x => x.LastName + " " + x.FirstName),
-                    StatusCart = _applicationContext.StatusCarts.Where(x => x.Id == o.od.StatusCartsId).Select(x => x.Name),
-                    CreatedDate = o.od.CreatedDate
-                }).ToList();
+                    Custommer = sl.us.LastName + sl.us.FirstName,
+                    TotalQuantity = sl.od.od.TotalQuantity,
+                    TotalCost = sl.od.od.TotalCost,
+                    Processor = sl.od.od.Processed,
+                    Address = sl.od.us.Address,
+                    Email = sl.us.Email,
+                    Created = sl.od.od.CreatedDate,
+                    Id = sl.od.od.Id
+                });
             List<object> orders = new List<object>();
             foreach (var item in order)
             {
@@ -38,16 +41,19 @@ namespace AgriculturalProducts.Repository
         public List<object> GetAllOrdersSearch(string name)
         {
             var order = _applicationContext.Orders
-                .Join(_applicationContext.OrderDetails, od => od.Id, odt => odt.OrderId, (od, odt) => new { od, odt })
-                .Select(o => new
+                .Join(_applicationContext.UserInfors, od => od.UserId, us => us.UserId, (od, us) => new { od, us })
+                .Join(_applicationContext.Users, od => od.od.UserId, us => us.Id, (od, us) => new { od, us })
+                .Where(x => (x.us.LastName + " " + x.us.FirstName).StartsWith(name) || x.us.Email.StartsWith(name))
+                .Select(sl => new
                 {
-                    Quantity = o.odt.Quantity,
-                    TotalCost = o.odt.TotalCost,
-                    ProductName = _applicationContext.Products.Where(x => x.Id == o.odt.ProductId).Select(p => p.Name),
-                    UserName = _applicationContext.Users.Where(x => x.LastName + " " + x.FirstName == name&& x.Id == o.od.UserId).Select(x => x.LastName + " " + x.FirstName),
-                    StatusCart = _applicationContext.StatusCarts.Where(x => x.Id == o.od.StatusCartsId).Select(x => x.Name),
-                    CreatedDate = o.od.CreatedDate
-                }).ToList();
+                    Custommer = sl.us.LastName + sl.us.FirstName,
+                    TotalQuantity = sl.od.od.TotalQuantity,
+                    TotalCost = sl.od.od.TotalCost,
+                    Processed = sl.od.od.Processed,
+                    Address = sl.od.us.Address,
+                    Email = sl.us.Email,
+                    CreatedDate = sl.od.od.CreatedDate
+                });
             List<object> orders = new List<object>();
             foreach (var item in order)
             {
@@ -55,10 +61,51 @@ namespace AgriculturalProducts.Repository
             }
             return orders;
         }
-
+        public List<object> GetAllOrdersDetails(Guid id)
+        {
+            var orderdetails = _applicationContext.OrderDetails.Where(x => x.OrderId == id)
+                .Join(_applicationContext.Products, od => od.ProductId, p => p.Id, (od, p) => new { od, p })
+                .Join(_applicationContext.StatusCarts, sc => sc.od.StatusCartId, sct => sct.Id, (sc, sct) => new { sc, sct })
+                .Select(rs => new
+                {
+                    ProductName = rs.sc.p.Name,
+                    TotalCost = rs.sc.od.TotalCost,
+                    Quantity = rs.sc.od.Quantity,
+                    StatusCart = rs.sct.Name,
+                    Id = rs.sc.od.Id
+                });
+            List<object> lOrderdetails = new List<object>();
+            foreach (var item in orderdetails)
+            {
+                lOrderdetails.Add(item);
+            }
+            return lOrderdetails;
+        }
         public int GetStatisticsOrders()
         {
             return _applicationContext.Orders.Count();
+        }
+
+        public List<object> GetAllOrdersDetailsSearch(string name, Guid id)
+        {
+            var orderdetails = _applicationContext.OrderDetails.Where(x => x.OrderId == id)
+                .Join(_applicationContext.Products, od => od.ProductId, p => p.Id, (od, p) => new { od, p })
+                .Join(_applicationContext.StatusCarts, sc => sc.od.StatusCartId, sct => sct.Id, (sc, sct) => new { sc, sct })
+                .Where(s => s.sct.Name.Contains(name) || s.sc.p.Name.Contains(name))
+                .Select(rs => new
+                {
+                    ProductName = rs.sc.p.Name,
+                    TotalCost = rs.sc.od.TotalCost,
+                    Quantity = rs.sc.od.Quantity,
+                    StatusCart = rs.sct.Name,
+                    Id = rs.sc.od.Id
+                });
+            List<object> lOrderdetails = new List<object>();
+            foreach (var item in orderdetails)
+            {
+                lOrderdetails.Add(item);
+            }
+            return lOrderdetails;
         }
     }
 }

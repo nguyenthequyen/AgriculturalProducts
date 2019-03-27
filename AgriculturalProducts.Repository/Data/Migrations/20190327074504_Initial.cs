@@ -222,18 +222,13 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifyDate = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
-                    StatusCartsId = table.Column<Guid>(nullable: false),
-                    TotalQuantity = table.Column<int>(nullable: false)
+                    TotalQuantity = table.Column<int>(nullable: false),
+                    TotalCost = table.Column<float>(nullable: false),
+                    Processed = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_StatusCarts_StatusCartsId",
-                        column: x => x.StatusCartsId,
-                        principalTable: "StatusCarts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
@@ -385,7 +380,8 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                     Quantity = table.Column<int>(nullable: false),
                     TotalCost = table.Column<float>(nullable: false),
                     ProductId = table.Column<Guid>(nullable: false),
-                    OrderId = table.Column<Guid>(nullable: false)
+                    OrderId = table.Column<Guid>(nullable: false),
+                    StatusCartId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -400,6 +396,12 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                         name: "FK_OrderDetails_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_StatusCarts_StatusCartId",
+                        column: x => x.StatusCartId,
+                        principalTable: "StatusCarts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -458,9 +460,9 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_StatusCartsId",
-                table: "Orders",
-                column: "StatusCartsId");
+                name: "IX_OrderDetails_StatusCartId",
+                table: "OrderDetails",
+                column: "StatusCartId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
@@ -553,10 +555,10 @@ namespace AgriculturalProducts.Repository.Data.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "StatusCarts");
 
             migrationBuilder.DropTable(
-                name: "StatusCarts");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Users");

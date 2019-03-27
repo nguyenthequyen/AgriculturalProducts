@@ -55,6 +55,7 @@ var callAjaxProductAdmin = {
             success: function (result) {
                 $('.bd-upload-image-modal-lg').modal('hide')
                 alert(result.data);
+                $(callAjaxProductAdmin.getProductPaging);
             },
             error: function (jqXhr, textStatus, errorThrown) {
                 if (errorThrown === "abort") {
@@ -82,9 +83,9 @@ var callAjaxProductAdmin = {
             },
             processData: false,
             async: false,
-            success: function (data, textStatus, jqXhr) {
-                $('.bd-upload-excel-modal-lg').modal('hidden');
-                alert("Thêm dữ liệu thành công");
+            success: function (result) {
+                alert(result.data);
+                location.reload();
                 $(callAjaxProductAdmin.getProductPaging);
             },
             error: function (jqXhr, textStatus, errorThrown) {

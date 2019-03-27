@@ -9,6 +9,7 @@ namespace AgriculturalProducts.Services
     {
         int GetStatisticsOrder();
         PageList<object> GetOrderPagingnate(PagingParams pagingParams);
+        PageList<object> GetOrderDetailsPagingnate(PagingParamsOrderId pagingParams);
         List<object> GetAllOrders();
     }
 }

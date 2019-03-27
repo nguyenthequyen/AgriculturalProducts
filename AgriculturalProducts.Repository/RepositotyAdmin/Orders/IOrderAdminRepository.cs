@@ -10,5 +10,7 @@ namespace AgriculturalProducts.Repository
         int GetStatisticsOrders();
         List<object> GetAllOrders();
         List<object> GetAllOrdersSearch(string name);
+        List<object> GetAllOrdersDetails(Guid id);
+        List<object> GetAllOrdersDetailsSearch(string name, Guid id);
     }
 }

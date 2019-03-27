@@ -12,5 +12,9 @@ namespace AgriculturalProducts.Admin.Controllers
         {
             return View();
         }
+        public IActionResult OrdersDetails()
+        {
+            return View();
+        }
     }
 }

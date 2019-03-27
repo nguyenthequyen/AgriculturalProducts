@@ -53,6 +53,7 @@ var INSERT_USER_ADMIN = DOMAIN + "api/UserAdmin/create-user";
 var CREATED_BLOGS = DOMAIN + "api/Blogs/created-blogs";
 //Orders
 var GET_ORDERS_PAGING = DOMAIN + "api/OrderAdmin/get-order-paging";
+var DETAILS_ORDER = DOMAIN + "api/OrderAdmin/order-details"
 //Manager user client
 var GET_USER_CLIENTPAGING = DOMAIN + "api/ManagerUserClient/get-userclient-infor"
 

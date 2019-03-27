@@ -62,12 +62,11 @@ namespace AgriculturalProducts.Web.Controllers.Api
                 var statusProduct = _statusCartsService.GetStatusCartsClient();
                 var orderId = Guid.NewGuid();
                 Order order = new Order();
-                order.StatusCartsId = statusProduct.Id;
                 order.UserId = Guid.Parse(userId);
                 order.Id = orderId;
                 List<OrderDetails> orderDetails = new List<OrderDetails>();
                 List<ProductOrder> productOrders = new List<ProductOrder>();
-                var total = 0;
+                var total = 0; var totalCost = 0f;
                 foreach (var item in orders)
                 {
                     OrderDetails details = new OrderDetails()
@@ -76,19 +75,17 @@ namespace AgriculturalProducts.Web.Controllers.Api
                         OrderId = orderId,
                         ProductId = item.ProductId,
                         Quantity = item.Quantity,
-                        TotalCost = item.TotalCost
+                        TotalCost = item.TotalCost,
+                        StatusCartId = statusProduct.Id
                     };
-                    ProductOrder productOrder = new ProductOrder()
-                    {
-                        Id = item.ProductId,
-                        Quantity = item.Quantity
-                    };
+                    totalCost += item.TotalCost;
                     total += item.Quantity;
-                    productOrders.Add(productOrder);
                     _orderDetailsService.AddOrderDetails(details);
                     orderDetails.Add(details);
                 }
                 order.TotalQuantity = total;
+                order.TotalCost = totalCost;
+                order.Processed = 0;
                 _orderService.AddOrder(order);
                 _unitOfWork.Commit();
                 HttpContext.Session.Clear();
@@ -102,7 +99,6 @@ namespace AgriculturalProducts.Web.Controllers.Api
                     ModifyDate = DateTime.Now
                 };
                 _statisticsService.InsertStatistics(statistics);
-                _productClientService.UpdateProduct(productOrders);
                 return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = "Đặt hàng thành công", Error = null });
             }
             catch (Exception ex)

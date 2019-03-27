@@ -48,5 +48,27 @@ namespace AgriculturalProducts.Admin.Controllers.API
                 return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
             }
         }
+        [HttpPost]
+        [Route("order-details")]
+        [ValidateModel]
+        public async Task<IActionResult> GetDetailsOrder([FromBody] PagingParamsOrderId pagingParams)
+        {
+            try
+            {
+                var data = _orderAdminService.GetOrderDetailsPagingnate(pagingParams);
+                Response.Headers.Add("X-Pagination", data.GetHeader().ToJson());
+                var output = new OutPutModel<object>
+                {
+                    Paging = data.GetHeader(),
+                    Items = data.List.ToList(),
+                };
+                return Ok(new Result() { Code = 200, Data = output, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu chi tiết đơn hàng: " + ex);
+                return Ok(new Result() { Code = ex.HResult, Data = null, Error = "Lỗi lấy dữ liệu phân trang" });
+            }
+        }
     }
 }

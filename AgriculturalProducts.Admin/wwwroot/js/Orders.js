@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $(callAjaxOrders.getOrderPaging);
-    $('.list-order tbody').on('click', '.btn-edit-order', callAjaxOrders.updateOrders);
+    $('.list-order tbody').on('click', '.btn-view-order', callAjaxOrders.getDetailsOrders);
 });
 var callAjaxOrders = {
     getOrderPaging: function () {
@@ -19,17 +19,16 @@ var callAjaxOrders = {
         $('.list-order tbody').html('');
         $.each(result.data.items, function (index, value) {
             var query = '<tr>' +
-                '<th class="ordersId" hidden></th>' +
-                '<th class="orderDetailsId" hidden></th>' +
-                '<th>' + value.userName + '</th>' +
-                '<th>' + value.productName[0] + '</th>' +
-                '<th>' + value.quantity + '</th>' +
+                '<th class="ordersId" hidden>' + value.id + '</th>' +
+                '<th>' + value.custommer + '</th>' +
+                '<th>' + value.email + '</th>' +
+                '<th>' + value.address + '</th>' +
+                '<th>' + value.totalQuantity + '</th>' +
                 '<th>' + value.totalCost + '</th>' +
-                '<th>' + value.createdDate + '</th>' +
-                '<th class="text-danger">' + value.statusCart[0] + '</th>' +
+                '<th>' + value.processor + '</th>' +
+                '<th>' + value.created + '</th>' +
                 '<td>' +
-                '<button type="button" class="btn btn-secondary btn-sm btn-edit-order mr-1" data-toggle="modal" data-target=".bd-order-modal-lg">Cập nhật đơn hàng</button>' +
-                '<button type="button" class="btn btn-danger btn-sm btn-view-order mr-1">Xem</button>' +
+                '<button type="button" class="btn btn-danger btn-sm btn-view-order mr-1">Chi tiết đơn hàng</button>' +
                 '</td>' +
                 '</tr>';
             $('.list-order tbody').append(query);
@@ -38,7 +37,19 @@ var callAjaxOrders = {
     errorOrders: function (xhr, status) {
 
     },
-    updateOrders: function () {
-        debugger
+    getDetailsOrders: function () {
+        $('.list-order tbody tr').removeClass('isWorking');
+        $(renderAPI.isWorking(this));
+        var checkIsWorking = $(".list-order tbody").find("isWorking");
+        if (checkIsWorking) {
+            debugger
+            var productId = $('.isWorking .ordersId').text();
+            var data = {
+                id: productId
+            }
+            $(renderAPI.postAPI(DETAILS_ORDER, true, 'post', JSON.stringify(data), callAjaxOrders.successDetailsOrders, callAjaxOrders.errorDetailsOrders))
+        } else {
+            console.log("Lỗi product");
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace AgriculturalProducts.Web.Models
     public class OrderDTo
     {
         public int Quantity { get; set; }
-        public int TotalCost { get; set; }
+        public float TotalCost { get; set; }
         public Guid ProductId { get; set; }
     }
 }

@@ -39,7 +39,23 @@ namespace AgriculturalProducts.Services
                 return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);
             }
         }
-
+        public PageList<object> GetOrderDetailsPagingnate(PagingParamsOrderId pagingParams)
+        {
+            if (string.IsNullOrEmpty(pagingParams.SearchString))
+            {
+                var providersdb = _reponsitory.GetAllOrdersDetails(pagingParams.Id);
+                List<object> providers = providersdb.ToList();
+                var query = providers.AsQueryable();
+                return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
+            else
+            {
+                var providersdb = _reponsitory.GetAllOrdersDetailsSearch(pagingParams.SearchString, pagingParams.Id);
+                List<object> providers = providersdb.ToList();
+                var query = providers.AsQueryable();
+                return new PageList<object>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            }
+        }
         public int GetStatisticsOrder()
         {
             return _reponsitory.GetStatisticsOrders();
