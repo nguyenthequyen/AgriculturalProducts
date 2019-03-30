@@ -9,6 +9,7 @@ using AgriculturalProducts.Repository;
 using AgriculturalProducts.Services;
 using AgriculturalProducts.Web.Helpers;
 using AgriculturalProducts.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,15 +24,18 @@ namespace AgriculturalProducts.Web.Controllers.Api
         private readonly ILogger<CartsController> _logger;
         private readonly ICartsMapperService _cartsMapperService;
         private readonly ApplicationContext _applicationContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public CartsController(
             IProductClientService productClientService,
             ICartsMapperService cartsMapperService,
             ApplicationContext applicationContext,
+            IHttpContextAccessor httpContextAccessor,
             ILogger<CartsController> logger)
         {
             _productClientService = productClientService;
             _cartsMapperService = cartsMapperService;
             _applicationContext = applicationContext;
+            _httpContextAccessor = httpContextAccessor;
             _logger = logger;
         }
         [HttpPost]
@@ -138,6 +142,25 @@ namespace AgriculturalProducts.Web.Controllers.Api
             {
                 _logger.LogError("Xóa sản phẩm khỏi giỏ hàng thất bại: " + ex);
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Xóa sản phẩm khỏi giỏ hàng thất bại" });
+            }
+        }
+        [Route("get-carts")]
+        [Authorize(Roles = "Users")]
+        [HttpPost]
+        public async Task<IActionResult> CartDetailsFromUser()
+        {
+            try
+            {
+                var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
+                var data = new UsersInfor();
+                var id = claimsIdentity.FirstOrDefault(x => x.Type == "UserId").Value;
+                data.UserName = id;
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy thông đơn hàng" + ex);
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = null, Error = "Lỗi lấy thông tin tài khoản" });
             }
         }
         #region private

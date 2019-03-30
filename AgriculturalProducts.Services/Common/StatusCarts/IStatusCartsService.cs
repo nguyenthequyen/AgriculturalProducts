@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
@@ -9,5 +10,6 @@ namespace AgriculturalProducts.Services
     {
         void InsertStatusCart(StatusCart statusCart);
         StatusCart GetStatusCartsClient();
+        List<StatusCart> GetStatusCart(Guid id);
     }
 }

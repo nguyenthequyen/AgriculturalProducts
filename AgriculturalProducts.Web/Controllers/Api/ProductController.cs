@@ -56,7 +56,6 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         {
             try
             {
-                _logger.LogError("Trang chủ đã có log");
                 var data = _productService.GetTopNewPoduct();
                 Statistics statistics = new Statistics()
                 {
@@ -124,13 +123,6 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                 _logger.LogError("Lỗi tìm kiếm sản phẩm theo tên: " + ex);
                 return Ok(new Result() { Code = 200, Data = null, Error = "Lỗi tìm kiếm sản phẩm" });
             }
-        }
-        [Route("get-carts")]
-        [Authorize(Roles = "Users")]
-        [HttpPost]
-        public async Task<IActionResult> CartDetailsFromUser()
-        {
-            return Ok();
         }
     }
 }

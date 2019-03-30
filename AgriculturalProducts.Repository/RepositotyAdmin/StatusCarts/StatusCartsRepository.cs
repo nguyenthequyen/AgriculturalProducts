@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Repository
 {
@@ -12,6 +13,11 @@ namespace AgriculturalProducts.Repository
         public StatusCartsRepository(ApplicationContext applicationContext) : base(applicationContext)
         {
             _applicationContext = applicationContext;
+        }
+
+        public List<StatusCart> GetStatusCart(Guid id)
+        {
+            return _applicationContext.StatusCarts.Where(x => x.Id == id).ToList();
         }
 
         public StatusCart GetStatusCartsClient()

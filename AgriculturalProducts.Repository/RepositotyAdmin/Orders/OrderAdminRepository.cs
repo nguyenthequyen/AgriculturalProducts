@@ -72,7 +72,10 @@ namespace AgriculturalProducts.Repository
                     TotalCost = rs.sc.od.TotalCost,
                     Quantity = rs.sc.od.Quantity,
                     StatusCart = rs.sct.Name,
-                    Id = rs.sc.od.Id
+                    Id = rs.sc.od.Id,
+                    OrderId = id,
+                    ProductId = rs.sc.p.Id,
+                    StatusCartId = rs.sct.Id
                 });
             List<object> lOrderdetails = new List<object>();
             foreach (var item in orderdetails)
@@ -98,7 +101,10 @@ namespace AgriculturalProducts.Repository
                     TotalCost = rs.sc.od.TotalCost,
                     Quantity = rs.sc.od.Quantity,
                     StatusCart = rs.sct.Name,
-                    Id = rs.sc.od.Id
+                    Id = rs.sc.od.Id,
+                    OrderId = id,
+                    ProductId = rs.sc.p.Id,
+                    StatusCartId = rs.sct.Id
                 });
             List<object> lOrderdetails = new List<object>();
             foreach (var item in orderdetails)

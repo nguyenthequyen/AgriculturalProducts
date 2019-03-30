@@ -145,7 +145,12 @@ var callAjaxDetailsProduct = {
         $(renderAPI.postAPI(CREATED_RATE, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.getAllRates, callAjaxDetailsProduct.errorAfterRate));
     },
     errorAfterRate: function (xhr, status) {
-        alert("Đánh giá sản phẩm thất bại");
+        if (xhr.status === 401) {
+            alert("Bạn phải đăng nhập để đánh giá");
+            window.location.href = DOMAIN + "AccountViews/Login";
+        } else {
+            console.log("Có lỗi xảy ra");
+        }
     },
     getAllComments: function () {
         var id = GetURLParameter('productId');

@@ -102,6 +102,7 @@ namespace AgriculturalProducts.API.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+                var roles = _rolesService.GetRolesClient();
                 var user = await _userClientService.FindClientUser(model);
                 if (user != null)
                 {
@@ -116,7 +117,7 @@ namespace AgriculturalProducts.API.Controllers
                                 .AddClaim("FirstName", user.FirstName)
                                 .AddClaim("RolesId", user.RolesId.ToString())
                                 .AddClaim("UserId", user.Id.ToString())
-                                .AddRole("Users")
+                                .AddRole(roles.Name)
                                 .Build();
                     Statistics statistics = new Statistics()
                     {
@@ -144,7 +145,7 @@ namespace AgriculturalProducts.API.Controllers
         }
         [HttpPost]
         [Route("get-users-infor")]
-        [Authorize]
+        [Authorize(Roles = "Users")]
         public async Task<IActionResult> GetUserInfor()
         {
             try

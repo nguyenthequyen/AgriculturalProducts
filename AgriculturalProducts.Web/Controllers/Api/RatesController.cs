@@ -32,7 +32,7 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
         [HttpPost]
         [Route("created-rates")]
         [Authorize(Roles = "Users")]
-        public async Task<IActionResult> CreatedComment(Rate rate)
+        public async Task<IActionResult> CreatedRate(Rate rate)
         {
             try
             {
@@ -41,7 +41,6 @@ namespace AgriculturalProducts.APIWeb.Controllers.Api
                 var userId = claimsIdentity.FirstOrDefault(x => x.Type == "UserId").Value;
                 rate.UserId = Guid.Parse(userId);
                 _ratesService.CreatedRate(rate);
-                _logger.LogError("Tạo comment thành công");
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = "Thêm bình luận thành công", Error = null });
             }
             catch (Exception ex)

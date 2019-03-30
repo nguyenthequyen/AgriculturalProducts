@@ -17,5 +17,6 @@ namespace AgriculturalProducts.Services
         int ProductStatistics();
         PageList<object> GetProductPageList(PagingParams pagingParams);
         void GetAllProductPaging();
+        void UpdateProductOrder(Product product);
     }
 }

@@ -286,7 +286,7 @@ var callAjaxProductAdmin = {
         $('.btn-update-product').removeAttr('hidden');
     },
     errorGetProductById: function (xhr, status) {
-        debugger
+        console.log(xhr);
     },
     uploadImage: function () {
         $('.product tbody tr').removeClass('isWorking');

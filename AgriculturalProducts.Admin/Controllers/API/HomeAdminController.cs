@@ -58,7 +58,6 @@ namespace AgriculturalProducts.Web.Admin.Controllers
             try
             {
                 var productStatistics = _productService.ProductStatistics();
-                _logger.LogError("Đã có log");
                 return Ok(new Result() { Code = 200, Data = productStatistics, Error = null });
             }
             catch (Exception ex)

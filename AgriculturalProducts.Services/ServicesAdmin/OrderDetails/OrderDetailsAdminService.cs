@@ -3,24 +3,23 @@ using AgriculturalProducts.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
-    public class OrderDetailsService : BaseService<OrderDetails>, IOrderDetailsService
+    public class OrderDetailsAdminService : BaseService<OrderDetails>, IOrderDetailsAdminService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderDetailsAdminRepository _reponsitory;
-        public OrderDetailsService(IUnitOfWork unitOfWork, IOrderDetailsAdminRepository reponsitory) : base(unitOfWork, reponsitory)
+        public OrderDetailsAdminService(IUnitOfWork unitOfWork, IOrderDetailsAdminRepository reponsitory) : base(unitOfWork, reponsitory)
         {
             _unitOfWork = unitOfWork;
             _reponsitory = reponsitory;
         }
 
-        public void AddOrderDetails(OrderDetails orderDetails)
+        public async Task<OrderDetails> GetOrderDetailsById(Guid id)
         {
-            orderDetails.CreatedDate = DateTime.Now;
-            orderDetails.ModifyDate = DateTime.Now;
-            Add(orderDetails);
+            return await GetFirstOrDefault(id);
         }
     }
 }

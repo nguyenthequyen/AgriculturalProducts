@@ -8,22 +8,54 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <h2>Upload hình ảnh sản phẩm</h2>
-                    <form>
-                        <div class="form-group">
-                            <label hidden class="product-id-file"></label>
-                            <label>Bạn có thể chọn nhiều ảnh</label>
-                            <input type="file" class="form-control" id="fileInput" multiple>
+                <div class="form-horizontal m-t-20" id="update-order">
+                    <div class="col-12">
+                        <input type="text" hidden class="form-control form-control-lg product-id" readonly aria-label="ProductName" aria-describedby="basic-addon1" required="">
+                        <input type="text" hidden class="form-control form-control-lg order-detailsid" readonly aria-label="ProductName" aria-describedby="basic-addon1" required="">
+                        <input type="text" hidden class="form-control form-control-lg orderId" readonly aria-label="ProductName" aria-describedby="basic-addon1" required="">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Tên sản phẩm</i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg product-name" readonly aria-label="ProductName" aria-describedby="basic-addon1" required="">
                         </div>
-                    </form>
+                    </div>
+                    <div class="col-12">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Số lượng</i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg product-quantity" readonly placeholder="Mô tả ngắn" aria-label="ProductName" aria-describedby="basic-addon1" required="">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Tổng tiền</i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg product-cost" readonly placeholder="Mô tả ngắn" aria-label="ProductName" aria-describedby="basic-addon1" required="">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user">Tình trạng</i></span>
+                            </div>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-light dropdown-toggle btn-status-cart" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu height-dropdown list-status-cart">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row border-top border-secondary">
                     <div class="col-12">
                         <div class="form-group">
                             <div class="p-t-20">
                                 <button class="btn btn-info" id="to-recover" data-dismiss="modal" type="button"><i class="fa fa-lock m-r-5"></i>Hủy bỏ</button>
-                                <button class="btn btn-success float-right btn-upload-img-product">Thêm</button>
+                                <button class="btn btn-success float-right btn-update-order">Thêm</button>
                             </div>
                         </div>
                     </div>

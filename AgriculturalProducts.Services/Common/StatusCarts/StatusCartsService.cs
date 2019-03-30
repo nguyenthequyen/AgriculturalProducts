@@ -3,6 +3,7 @@ using AgriculturalProducts.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AgriculturalProducts.Services
 {
@@ -14,6 +15,11 @@ namespace AgriculturalProducts.Services
         {
             _unitOfWork = unitOfWork;
             _reponsitory = reponsitory;
+        }
+
+        public List<StatusCart> GetStatusCart(Guid id)
+        {
+            return _reponsitory.GetStatusCart(id);
         }
 
         public StatusCart GetStatusCartsClient()

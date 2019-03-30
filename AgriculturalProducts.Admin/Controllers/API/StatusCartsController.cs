@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AgriculturalProducts.Models;
 using AgriculturalProducts.Services;
@@ -40,6 +41,21 @@ namespace AgriculturalProducts.Admin.Controllers.API
             {
                 _logger.LogError("Thêm trạng thái giỏ hàng thất bại: " + ex);
                 return Ok(new Result() { Data = "Thêm tình trạng giỏi hàng thành công thành công", Code = 200, Error = ex.Message });
+            }
+        }
+        [HttpPost]
+        [Route("get-statuscart")]
+        public async Task<IActionResult> GetAllProductType()
+        {
+            try
+            {
+                var productType = _statusCartsService.GetAllRecords();
+                return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = productType, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy danh sách loại sản phẩm : " + ex);
+                return Ok(new Result() { Code = (int)HttpStatusCode.InternalServerError, Data = null, Error = "Lỗi lấy danh sách loại sản phẩm" });
             }
         }
     }

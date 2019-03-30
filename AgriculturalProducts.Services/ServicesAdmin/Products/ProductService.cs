@@ -81,5 +81,10 @@ namespace AgriculturalProducts.Services
             Update(product);
             _unitOfWork.Commit();
         }
+        public void UpdateProductOrder(Product product)
+        {
+            product.ModifyDate = DateTime.Now;
+            Update(product);
+        }
     }
 }

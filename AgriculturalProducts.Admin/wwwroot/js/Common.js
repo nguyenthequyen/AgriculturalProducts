@@ -44,6 +44,7 @@ var GET_ALL_STATUS_PROVIDER = DOMAIN + "api/StatusProvider/get-all-status-provid
 var INSERT_STATUS_PRODUCT = DOMAIN + "api/StatusProduct/insert-status-products";
 var GET_ALL_STATUS_PRODUCT = DOMAIN + "api/StatusProduct/get-all-status-products";
 var INSERT_STATUS_CART = DOMAIN + "api/StatusCarts/insert-status-cart";
+var GET_STATUS_CART = DOMAIN + "api/StatusCarts/get-statuscart";
 //Roles Manager
 var INSERT_ROLES = DOMAIN + "api/RolesAdmin/insert-roles";
 var GET_ALL_ROLES = DOMAIN + "api/RolesAdmin/get-all-roles"
@@ -53,7 +54,8 @@ var INSERT_USER_ADMIN = DOMAIN + "api/UserAdmin/create-user";
 var CREATED_BLOGS = DOMAIN + "api/Blogs/created-blogs";
 //Orders
 var GET_ORDERS_PAGING = DOMAIN + "api/OrderAdmin/get-order-paging";
-var DETAILS_ORDER = DOMAIN + "api/OrderAdmin/order-details"
+var DETAILS_ORDER = DOMAIN + "api/OrderAdmin/order-details";
+var UPDATE_ORDER = DOMAIN + "api/orderadmin/update-details-order";
 //Manager user client
 var GET_USER_CLIENTPAGING = DOMAIN + "api/ManagerUserClient/get-userclient-infor"
 
@@ -109,3 +111,13 @@ $(document).ready(function () {
         window.location.href = DOMAIN + "AccountAdmin/Login";
     })
 })
+function GetURLParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
+    }
+}

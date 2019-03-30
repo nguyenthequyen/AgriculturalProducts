@@ -11,5 +11,6 @@ namespace AgriculturalProducts.Web.Admin.Models
         public string Error { get; set; }
         public object Data { get; set; }
         public string Message { get; set; }
+        public Guid OrderId { get; set; }
     }
 }
