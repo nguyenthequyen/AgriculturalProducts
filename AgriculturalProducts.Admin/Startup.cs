@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using AgriculturalProducts.Admin.Extensions;
+﻿using System.Text;
 using AgriculturalProducts.Admin.Middleware;
 using AgriculturalProducts.APIWeb.Helpers;
-using AgriculturalProducts.Models;
 using AgriculturalProducts.Repository;
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,8 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.Elasticsearch;
 
 namespace AgriculturalProducts.Web.Admin
 {
@@ -35,7 +23,9 @@ namespace AgriculturalProducts.Web.Admin
             Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Error()
             .Enrich.FromLogContext()
-            .WriteTo.Seq("http://localhost:5341")
+            .WriteTo.Seq(
+                "http://localhost:5341",
+                bufferBaseFilename: @"E:\Logs\AgriculturalProducts")
             .CreateLogger();
             Configuration = configuration;
         }

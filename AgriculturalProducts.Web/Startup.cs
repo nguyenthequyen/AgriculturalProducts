@@ -31,7 +31,9 @@ namespace AgriculturalProducts.APIWeb
             Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Error()
             .Enrich.FromLogContext()
-            .WriteTo.Seq("http://localhost:5341")
+            .WriteTo.Seq(
+                "http://localhost:5341",
+                bufferBaseFilename: @"E:\Logs\AgriculturalProducts")
             .CreateLogger();
             Configuration = configuration;
         }

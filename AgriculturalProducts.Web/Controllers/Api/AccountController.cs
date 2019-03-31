@@ -83,7 +83,6 @@ namespace AgriculturalProducts.API.Controllers
                     UserId = id
                 };
                 _userInfroService.CreatedUserInfor(userInfor);
-                _logger.LogError("Đăng ký tài khoản thành công");
                 return Ok(new Result() { Code = (int)HttpStatusCode.OK, Data = null, Error = "Tạo tài khoản thành công" });
             }
             catch (Exception ex)
@@ -128,7 +127,6 @@ namespace AgriculturalProducts.API.Controllers
                         ModifyDate = DateTime.Now
                     };
                     _statisticsService.InsertStatistics(statistics);
-                    _logger.LogError("Đăng nhập thành công");
                     return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = token.Value, Error = null });
                 }
                 else
@@ -160,7 +158,6 @@ namespace AgriculturalProducts.API.Controllers
                 data.LastName = lastName;
                 data.FirstName = firstName;
                 data.Email = email;
-                _logger.LogError("Lấy thông tin tài khoản thành công");
                 return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
             }
             catch (Exception ex)
