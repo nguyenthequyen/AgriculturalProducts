@@ -16,7 +16,6 @@ namespace AgriculturalProducts.Web.Admin
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseSerilog()
-                .UseUrls("https://localhost:44387/")
                 .UseIISIntegration()
                 .Build();
 
