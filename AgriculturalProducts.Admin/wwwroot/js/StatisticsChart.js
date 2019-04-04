@@ -12,7 +12,16 @@ var callAjaxStatisticsChart = {
         $(callAjaxStatisticsChart.chartColumn("flot-line-chart", result.data, 'Thống kê truy cập theo ngày'));
     },
     errorChartStatisticsAccess: function (xhr, status) {
-        console.log("Lỗi lấy dữ liệu thống kê biểu đồ");
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     renderChartStatisticsUser: function () {
         $(renderAPI.postAPI(STATISTICS_USER, true, 'post', null, callAjaxStatisticsChart.dataChartStatisticsUser, callAjaxStatisticsChart.errorChartStatisticsUser))
@@ -21,7 +30,16 @@ var callAjaxStatisticsChart = {
         $(callAjaxStatisticsChart.chartColumn("flot-line-chart-user", result.data, 'Thống kê tình hình đăng ký tài khoản theo ngày'));
     },
     errorChartStatisticsUser: function (xhr, status) {
-        console.log("Lỗi lấy dữ liệu thống kê đăng ký tài khoản");
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     renderChartStatisticsOrder: function () {
         $(renderAPI.postAPI(STATISTICS_ORDER, true, 'post', null, callAjaxStatisticsChart.dataChartStatisticsOrder, callAjaxStatisticsChart.errorChartStatisticsOrder))
@@ -30,7 +48,16 @@ var callAjaxStatisticsChart = {
         $(callAjaxStatisticsChart.chartLine("flot-line-chart-order", result.data, "Thống kê đơn hàng theo ngày"));
     },
     errorChartStatisticsOrder: function (xhr, status) {
-        console.log("Lỗi lấy dữ liệu thống kê đơn hàng");
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     chartColumn: function (element, data, text) {
         var chart = new CanvasJS.Chart(element, {

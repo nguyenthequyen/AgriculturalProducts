@@ -137,8 +137,17 @@ var callAjaxProductAdmin = {
     dataProductStatistics: function (result) {
         $('.product-statistics').text(result.data);
     },
-    errorInsertProduct: function () {
-
+    errorInsertProduct: function (xhr, status) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     updateProduct: function () {
         var productName = $("#insertProduct").find(".product-name").val();
@@ -185,11 +194,19 @@ var callAjaxProductAdmin = {
         $(renderAPI.postAPI(GET_PRODUCT_PAGING, true, 'post', JSON.stringify(pagingParams), callAjaxProductAdmin.dataProduct, callAjaxProductAdmin.errorGetProductPagingNate))
     },
     successUpdateProduct: function () {
-        debugger
         $(callAjaxProductAdmin.getProductPaging);
     },
     errorUpdateProduct: function (xhr, status) {
-        debugger
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     dataProduct: function (result) {
         $('.total-pages-product').text(result.data.paging.totalPages);
@@ -224,8 +241,17 @@ var callAjaxProductAdmin = {
             $('.product tbody').append(query);
         });
     },
-    errorGetProductPagingNate: function () {
-
+    errorGetProductPagingNate: function (xhr, status) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     viewProduct: function () {
 
@@ -249,7 +275,16 @@ var callAjaxProductAdmin = {
         $(callAjaxProductAdmin.getProductPaging);
     },
     errorDeleteProduct: function (xhr, status) {
-        console.log(xhr);
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     getProductById: function () {
         $('.product tbody tr').removeClass('isWorking');
@@ -286,7 +321,16 @@ var callAjaxProductAdmin = {
         $('.btn-update-product').removeAttr('hidden');
     },
     errorGetProductById: function (xhr, status) {
-        console.log(xhr);
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     uploadImage: function () {
         $('.product tbody tr').removeClass('isWorking');
@@ -308,8 +352,17 @@ var callAjaxProductAdmin = {
             $('.list-provider').append(query);
         });
     },
-    errorLoadAllProvider: function (jqXHR, exception) {
-
+    errorLoadAllProvider: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     loadAllCategory: function () {
         $(renderAPI.postAPI(GET_ALL_CATEGORY, true, 'post', null, callAjaxProductAdmin.dataLoadAllCategory, callAjaxProductAdmin.errorLoadAllCategory))
@@ -321,8 +374,17 @@ var callAjaxProductAdmin = {
             $('.list-category').append(query);
         });
     },
-    errorLoadAllCategory: function (jqXHR, exception) {
-
+    errorLoadAllCategory: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     loadAllProductType: function () {
         $(renderAPI.postAPI(GET_PRODUCT_TYPE, true, 'post', null, callAjaxProductAdmin.dataLoadAllProductType, callAjaxProductAdmin.errorLoadAllProductType))
@@ -334,8 +396,17 @@ var callAjaxProductAdmin = {
             $('.list-product-type').append(query);
         });
     },
-    errorLoadAllProductType: function (jqXHR, exception) {
-
+    errorLoadAllProductType: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     loadAllUnit: function () {
         $(renderAPI.postAPI(GET_ALL_UNITS, true, 'post', null, callAjaxProductAdmin.dataLoadAllUnit, callAjaxProductAdmin.errorLoadAllUnit))
@@ -347,8 +418,17 @@ var callAjaxProductAdmin = {
             $('.list-unit').append(query);
         });
     },
-    errorLoadAllUnit: function () {
-
+    errorLoadAllUnit: function (xhr, status) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     loadDataStatusProduct: function () {
         $(renderAPI.postAPI(GET_ALL_STATUS_PRODUCT, true, 'post', null, callAjaxProductAdmin.dataLoadStatusProduct, callAjaxProductAdmin.errorLoadAllStatusProduct))
@@ -360,8 +440,17 @@ var callAjaxProductAdmin = {
             $('.list-status-product').append(query);
         });
     },
-    errorLoadAllStatusProduct: function () {
-
+    errorLoadAllStatusProduct: function (xhr, status) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     addDatatDropdowListProductType: function () {
         $(renderAPI.isWorkingDropdownList(this));

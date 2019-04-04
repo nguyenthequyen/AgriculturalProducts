@@ -1,4 +1,4 @@
-﻿var DOMAIN = "https://localhost:44387/";
+﻿var DOMAIN = "https://localhost:44335/";
 //Statistics
 var PRODUCT_STATISTICS = DOMAIN + "api/homeadmin/product-statistics";
 var PROVIDER_STATISTICS = DOMAIN + "api/homeadmin/provider-statistics";
@@ -8,6 +8,7 @@ var CARTS_STATISTICS = DOMAIN + "api/homeadmin/carts-statistics";
 var USERS_STATISTICS = DOMAIN + "api/homeadmin/users-statistics";
 var ORDER_STATISTICS = DOMAIN + "api/homeadmin/order-cart-statistics";
 var TOTAL_ACCESS = DOMAIN + "api/homeadmin/total-access";
+var TOTAL_REVENUE = DOMAIN + "api/homeadmin/total-revenue";
 
 var STATISTICS_ACCESS = DOMAIN + "api/Statistic/statistics-access";
 var STATISTICS_USER = DOMAIN + "api/Statistic/statistics-user";
@@ -50,6 +51,7 @@ var INSERT_ROLES = DOMAIN + "api/RolesAdmin/insert-roles";
 var GET_ALL_ROLES = DOMAIN + "api/RolesAdmin/get-all-roles"
 //User Admin Manager
 var INSERT_USER_ADMIN = DOMAIN + "api/UserAdmin/create-user";
+var GET_USER_ADMIN = DOMAIN + "api/UserAdmin/get-all-user";
 //Blogs
 var CREATED_BLOGS = DOMAIN + "api/Blogs/created-blogs";
 //Orders
@@ -120,4 +122,15 @@ function GetURLParameter(sParam) {
             return sParameterName[1];
         }
     }
+}
+function formatNumber(nStr, decSeperate, groupSeperate) {
+    nStr += '';
+    x = nStr.split(decSeperate);
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+    }
+    return x1 + x2;
 }

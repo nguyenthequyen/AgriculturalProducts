@@ -96,7 +96,6 @@ namespace AgriculturalProducts.Admin.Controllers.API
         }
         [HttpPost]
         [Route("get-users-infor")]
-        [Authorize]
         public async Task<IActionResult> GetUserInfor()
         {
             try
@@ -116,6 +115,21 @@ namespace AgriculturalProducts.Admin.Controllers.API
             catch (Exception ex)
             {
                 _logger.LogError("Lỗi lấy thông tin tài khoản" + ex);
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = null, Error = "Lỗi lấy thông tin tài khoản" });
+            }
+        }
+        [HttpPost]
+        [Route("get-all-user")]
+        public async Task<IActionResult> GetAllUser()
+        {
+            try
+            {
+               var data = _userAdminService.GetAllUser();
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy danh sách tài khoản quản trị hệ thống" + ex);
                 return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = null, Error = "Lỗi lấy thông tin tài khoản" });
             }
         }

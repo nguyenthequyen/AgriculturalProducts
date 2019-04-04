@@ -52,8 +52,8 @@ namespace AgriculturalProducts.Admin.Controllers.API
         {
             try
             {
-                var statusProducts = _rolseService.GetAllRoles();
-                return Ok(new Result() { Code = 200, Data = statusProducts, Error = null });
+                var roles = _rolseService.GetAllRoles();
+                return Ok(new Result() { Code = 200, Data = roles, Error = null });
             }
             catch (Exception ex)
             {

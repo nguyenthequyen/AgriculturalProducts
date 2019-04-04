@@ -9,6 +9,7 @@
     $(callAjaxDashboard.orderStatistics);
     $(callAjaxDashboard.orderStaticsTotal);
     $(callAjaxDashboard.totalAccess);
+    $(callAjaxDashboard.getTotalRevene);
 });
 
 var callAjaxDashboard = {
@@ -22,6 +23,8 @@ var callAjaxDashboard = {
                 window.location.href = DOMAIN + "Home/ServerInternal";
             } else if (xhr.status == 403) {
                 window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
             }
         }));
     },
@@ -38,6 +41,8 @@ var callAjaxDashboard = {
                 window.location.href = DOMAIN + "Home/ServerInternal";
             } else if (xhr.status == 403) {
                 window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
             }
         }));
     },
@@ -54,6 +59,8 @@ var callAjaxDashboard = {
                 window.location.href = DOMAIN + "Home/ServerInternal";
             } else if (xhr.status == 403) {
                 window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
             }
         }));
     },
@@ -70,6 +77,8 @@ var callAjaxDashboard = {
                 window.location.href = DOMAIN + "Home/ServerInternal";
             } else if (xhr.status == 403) {
                 window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
             }
         }));
     },
@@ -94,6 +103,8 @@ var callAjaxDashboard = {
                 window.location.href = DOMAIN + "Home/ServerInternal";
             } else if (xhr.status == 403) {
                 window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
             }
         }));
     },
@@ -109,6 +120,8 @@ var callAjaxDashboard = {
                 window.location.href = DOMAIN + "Home/ServerInternal";
             } else if (xhr.status == 403) {
                 window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
             }
         }));
     },
@@ -124,6 +137,8 @@ var callAjaxDashboard = {
                 window.location.href = DOMAIN + "Home/ServerInternal";
             } else if (xhr.status == 403) {
                 window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
             }
         }));
     },
@@ -139,10 +154,30 @@ var callAjaxDashboard = {
                 window.location.href = DOMAIN + "Home/ServerInternal";
             } else if (xhr.status == 403) {
                 window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
             }
         }));
     },
     dataTotalAccess: function (result) {
         $('.total-access').text(result.data);
-    }
+    },
+    //Thống kê tổng doanh thu
+    getTotalRevene: function () {
+        $(renderAPI.postAPI(TOTAL_REVENUE, true, 'post', null, callAjaxDashboard.dataTotalRevene, function (xhr, status) {
+            if (xhr.status === 401) {
+                window.location.href = DOMAIN + "AccountAdmin/Login";
+            }
+            else if (xhr.status == 500) {
+                window.location.href = DOMAIN + "Home/ServerInternal";
+            } else if (xhr.status == 403) {
+                window.location.href = DOMAIN + "Home/AccessDenine";
+            } else {
+                console.log(xhr);
+            }
+        }));
+    },
+    dataTotalRevene: function (result) {
+        $('.total-revenue').text(formatNumber(result.data, ',', '.') + ' VNĐ');
+    },
 }

@@ -49,10 +49,28 @@ var callAjaxCategory = {
         });
     },
     errorInsertCategory: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     errorGetCategoryPaging: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     editCategory: function () {
         $('.category tbody tr').removeClass('isWorking');
@@ -79,6 +97,15 @@ var callAjaxCategory = {
         $(renderAPI.isWorking(this))
     },
     errorDeleteCategory: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     }
 }

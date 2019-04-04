@@ -3,6 +3,7 @@
     $('.btn-roles').click(callAjaxUserAdmin.loadDataRoles);
     $('.list-roles').on('click', 'a', callAjaxUserAdmin.addDataRoles);
     $('.btn-add-user').click(callAjaxUserAdmin.insertUserAdmin);
+    $(callAjaxUserAdmin.dataUsersAdminPaging);
 });
 var callAjaxUserAdmin = {
     loadDataRoles: function () {
@@ -16,7 +17,16 @@ var callAjaxUserAdmin = {
         });
     },
     errorLoadRoles: function (xhr, status) {
-        debugger
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     addDataRoles: function () {
         $(renderAPI.isWorkingDropdownList(this));
@@ -37,9 +47,43 @@ var callAjaxUserAdmin = {
         $(renderAPI.postAPI(INSERT_USER_ADMIN, true, 'post', JSON.stringify(data), callAjaxUserAdmin.dataUsersAdminPaging, callAjaxUserAdmin.errorInsertUsersAdmin))
     },
     dataUsersAdminPaging: function () {
-        console.log("Thêm thành công");
+        $(renderAPI.postAPI(GET_USER_ADMIN, true, 'post', null, callAjaxUserAdmin.successUsersAdminPaging, callAjaxUserAdmin.errorUsersAdminPaging))
     },
     errorInsertUsersAdmin: function (xhr, status) {
-
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
+    },
+    successUsersAdminPaging: function (result) {
+        $('.user-admin tbody').html('');
+        $.each(result.data, function (index, value) {
+            var html = '<tr>' +
+                '<th>' + value.userName + '</th>' +
+                '<th>' + value.roleName + '</th>' +
+                '<th>' +
+                '<button type="button" class="btn btn-secondary btn-sm btn-edit-stproduct mr-1" data-toggle="modal" data-target=".bd-stproduct-manager-modal-lg">Sửa</button>' +
+                '</th>' +
+                '</tr>';
+            $('.user-admin tbody').append(html);
+        });
+    },
+    errorUsersAdminPaging: function (xhr, status) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     }
 }

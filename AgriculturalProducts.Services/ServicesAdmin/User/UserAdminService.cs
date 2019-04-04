@@ -45,5 +45,10 @@ namespace AgriculturalProducts.Services
         {
             return await _userRepository.GetRoles(id);
         }
+
+        public List<object> GetAllUser()
+        {
+            return _userRepository.GetAllUser();
+        }
     }
 }

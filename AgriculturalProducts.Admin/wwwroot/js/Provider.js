@@ -29,8 +29,17 @@ var callAjaxProvider = {
         providers.push(provider)
         $(renderAPI.postAPI(INSERT_PROVIDER, true, 'post', JSON.stringify(providers), callAjaxProvider.getProviderPaggingnate, callAjaxProvider.errorInsertProvider))
     },
-    errorInsertProvider: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+    errorInsertProvider: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     getProviderPaggingnate: function (result) {
         var pageSize = $('.page-size-provider').val();
@@ -65,8 +74,17 @@ var callAjaxProvider = {
             $('.provider tbody').append(query);
         });
     },
-    errorGetPagingNate: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+    errorGetPagingNate: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     editProvider: function () {
         $('.provider tbody tr').removeClass('isWorking');
@@ -94,8 +112,17 @@ var callAjaxProvider = {
             console.log("Lỗi provider");
         }
     },
-    errorDeleteProvider: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+    errorDeleteProvider: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     viewProvider: function () {
         $('.provider tbody tr').removeClass('isWorking');
@@ -117,8 +144,17 @@ var callAjaxProvider = {
             $('.list-status-provider').append(query);
         });
     },
-    errorLoadAllStatusProvider: function () {
-
+    errorLoadAllStatusProvider: function (xhr, status) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     addDataStatusProvider: function () {
         (renderAPI.isWorkingDropdownList(this));

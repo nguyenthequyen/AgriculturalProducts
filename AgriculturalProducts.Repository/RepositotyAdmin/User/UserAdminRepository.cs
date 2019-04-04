@@ -30,6 +30,25 @@ namespace AgriculturalProducts.Repository
             return _applicationContext.UserAdmin.FirstOrDefault(x => x.UserName == login.Username && x.Password == login.Password);
         }
 
+        public List<object> GetAllUser()
+        {
+            var user = _applicationContext.UserAdmin
+                .Join(_applicationContext.Roles, ua => ua.RolesId, r => r.Id, (ua, r) => new { ua, r })
+                .Select(s => new
+                {
+                    UserName = s.ua.UserName,
+                    UserId = s.ua.Id,
+                    RolesId = s.ua.RolesId,
+                    RoleName = s.r.Name
+                }).ToList();
+            List<object> ob = new List<object>();
+            foreach (var item in user)
+            {
+                ob.Add(item);
+            }
+            return ob;
+        }
+
         public async Task<Roles> GetRoles(Guid id)
         {
             return _applicationContext.Roles.FirstOrDefault(x => x.Id == id);

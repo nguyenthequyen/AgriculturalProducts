@@ -44,7 +44,16 @@ var callAjaxUnit = {
             $('.unit tbody').append(query);
         });
     },
-    errorInsertUnit: function () {
-
+    errorInsertUnit: function (xhr, status) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     }
 }

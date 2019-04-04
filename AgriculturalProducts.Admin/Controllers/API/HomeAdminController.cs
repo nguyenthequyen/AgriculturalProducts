@@ -156,5 +156,20 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                 return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
             }
         }
+        [HttpPost]
+        [Route("total-revenue")]
+        public async Task<IActionResult> GetTotalRevenue()
+        {
+            try
+            {
+                var totalRevenue = _applicationContext.OrderDetails.Sum(x => x.TotalCost);
+                return Ok(new Result() { Code = 200, Data = totalRevenue, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Lỗi lấy dữ liệu thống kê doanh thu: " + ex);
+                return Ok(new Result() { Code = 200, Data = null, Error = ex.Message });
+            }
+        }
     }
 }

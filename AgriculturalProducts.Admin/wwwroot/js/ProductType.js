@@ -31,8 +31,17 @@ var callAjaxProductType = {
         }
         $(renderAPI.postAPI(GET_PRODUCT_TYPE_PAGING, true, 'post', JSON.stringify(pagingParams), callAjaxProductType.dataProductTypePaging, callAjaxProductType.errorGetProductTypePaging))
     },
-    errorInsertProductType: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+    errorInsertProductType: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     dataProductTypePaging: function (result) {
         $('.product-type tbody').html('');
@@ -51,8 +60,17 @@ var callAjaxProductType = {
             $('.product-type tbody').append(query);
         })
     },
-    errorGetProductTypePaging: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+    errorGetProductTypePaging: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     editProductType: function () {
         $('.product-type tbody tr').removeClass('isWorking');
@@ -90,7 +108,16 @@ var callAjaxProductType = {
             console.log("Lỗi provider");
         }
     },
-    errorDeleteProductType: function (jqXHR, exception) {
-        console.log("error: " + jqXHR + "exception: " + exception);
+    errorDeleteProductType: function (xhr, exception) {
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     }
 }

@@ -40,7 +40,16 @@ var callAjaxOrders = {
         });
     },
     errorOrders: function (xhr, status) {
-
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     getDetailsOrders: function () {
         $('.list-order tbody tr').removeClass('isWorking');
@@ -60,7 +69,16 @@ var callAjaxOrders = {
         window.location.href = DOMAIN + "Carts/OrdersDetails?orderId=" + result.orderId
     },
     errorDetailsOrders: function (xhr, status) {
-        alert("Lỗi xem chi tiết đơn hàng");
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     getDetailsOrderPaging: function () {
         var orderId = GetURLParameter('orderId');
@@ -119,8 +137,16 @@ var callAjaxOrders = {
         });
     },
     errorStatusCart: function (xhr, status) {
-        debugger
-        console.log(xhr);
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     addDataStatusCart: function () {
         $(renderAPI.isWorkingDropdownList(this));
@@ -150,6 +176,15 @@ var callAjaxOrders = {
         alert(result.data);
     },
     errorUpdateOrder: function (xhr, status) {
-
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     }
 }

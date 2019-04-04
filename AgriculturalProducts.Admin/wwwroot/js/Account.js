@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
     $('.btn-login').click(callAjaxAccount.accountLogin);
 });
-var DOMAIN = "https://localhost:44387/"
 var LOGIN_USER = DOMAIN + "api/UserAdmin/login";
 var GET_USER_INFOR = DOMAIN + "api/UserAdmin/get-users-infor";
 var callAjaxAccount = {
@@ -22,13 +21,31 @@ var callAjaxAccount = {
         }
     },
     errorLogin: function (xhr, status) {
-        console.log(xhr);
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     dataUserInfor: function (result) {
         debugger
     },
     errorGetUserInfor: function (xhr, status) {
-        console.log(xhr);
+        if (xhr.status === 401) {
+            window.location.href = DOMAIN + "AccountAdmin/Login";
+        }
+        else if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status == 403) {
+            window.location.href = DOMAIN + "Home/AccessDenine";
+        } else {
+            console.log(xhr);
+        }
     },
     postAPILogin: function (url, async, method, data, callbackSuccess, callbackError) {
         $.ajax({
