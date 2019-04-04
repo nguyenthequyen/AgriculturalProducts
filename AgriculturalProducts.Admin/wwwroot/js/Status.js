@@ -36,7 +36,6 @@ var callAjaxStatusAdmin = {
     successGetStatusProvider: function (result) {
         $('.status-provider tbody').html('');
         $.each(result.data, function (index, value) {
-            debugger
             var html = '<tr>' +
                 '<th>' + value.name + '</th>' +
                 '<th>' +

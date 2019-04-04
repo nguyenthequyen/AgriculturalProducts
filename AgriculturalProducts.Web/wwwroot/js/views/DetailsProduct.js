@@ -2,7 +2,6 @@
 $(document).ready(function () {
     $(callAjaxDetailsProduct.detailsProducts);
     $('.btn-comment').click(callAjaxDetailsProduct.commentProducts);
-
     /**
      * Đánh giá 5 sao
      */
@@ -60,6 +59,7 @@ $(document).ready(function () {
     $('.btn-rate').click(callAjaxDetailsProduct.rateProduct);
     $(callAjaxDetailsProduct.getAllComments);
     $(callAjaxDetailsProduct.getAllRates);
+    $(callAjaxDetailsProduct.getRelatedProducts);
 })
 function responseMessage(msg) {
     $('.success-box').fadeIn(200);
@@ -75,7 +75,6 @@ var callAjaxDetailsProduct = {
     },
     dataAfterDetailsProduct: function (result) {
         $('.details-products').html('');
-        console.log(result.data);
         $.each(result.data, function (index, value) {
             var query = '<div class="row">' +
                 '<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">' +
@@ -84,22 +83,26 @@ var callAjaxDetailsProduct = {
                 '<a class="thumbnail" href="#"><img src="' + value.image[0].path + '" title="img" alt="img"></a>' +
                 '<ul class="thumbnails list-inline">' +
                 '<li class="image-additional">' +
-                '<a class="thumbnail" href="#"><img src="' + value.image[0].path + '" title="img" alt="img"></a>' +
-                '</li>' +
-                '<li class="image-additional">' +
                 '<a class="thumbnail" href="#"><img src="' + value.image[1].path + '" title="img" alt="img"></a>' +
                 '</li>' +
                 '<li class="image-additional">' +
                 '<a class="thumbnail" href="#"><img src="' + value.image[2].path + '" title="img" alt="img"></a>' +
                 '</li>' +
                 '<li class="image-additional">' +
-                '<a class="thumbnail" href="#"><img src="' + value.image[2].path + '" title="img" alt="img"></a>' +
+                '<a class="thumbnail" href="#"><img src="' + value.image[3].path + '" title="img" alt="img"></a>' +
+                '</li>' +
+                '<li class="image-additional">' +
+                '<a class="thumbnail" href="#"><img src="' + value.image[0].path + '" title="img" alt="img"></a>' +
                 '</li>' +
                 '</ul>' +
                 '</div>' +
                 '<div class="col-sm-8 col-md-8 col-lg-8 col-xs-12">' +
                 '<h5>' + value.name + '</h5>' +
                 '<p class="shortdes">' + value.shortDescription + '</p>' +
+                '<hr>' +
+                '<p class="shortdes">Tình trạng: ' + value.status[0] + '</p>' +
+                '<hr>' +
+                '<p class="shortdes">Nhà cung cấp: ' + value.provider[0] + '</p>' +
                 '<hr>' +
                 '<div class="price">' + formatNumber(value.cost, ',', '.') + ' VNĐ' + '</div>' +
                 '<hr>' +
@@ -113,10 +116,14 @@ var callAjaxDetailsProduct = {
                 '</div>';
             $('.details-products').append(query);
             $('.full-description p').append(value.fullDescription);
-        })
+        });
     },
-    errorAfterAddCarts: function (jqXHR, exception) {
-        console.log(jqXHR);
+    errorAfterAddCarts: function (xhr, exception) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
     commentProducts: function () {
         var id = GetURLParameter('productId');
@@ -145,7 +152,9 @@ var callAjaxDetailsProduct = {
         $(renderAPI.postAPI(CREATED_RATE, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.getAllRates, callAjaxDetailsProduct.errorAfterRate));
     },
     errorAfterRate: function (xhr, status) {
-        if (xhr.status === 401) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else if (xhr.status === 401) {
             alert("Bạn phải đăng nhập để đánh giá");
             window.location.href = DOMAIN + "AccountViews/Login";
         } else {
@@ -170,8 +179,11 @@ var callAjaxDetailsProduct = {
         });
     },
     errorAfterComments: function (xhr, status) {
-        alert("Lấy bình luận thất bại");
-        console.log(xhr);
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
     getAllRates: function () {
         var id = GetURLParameter('productId');
@@ -181,12 +193,14 @@ var callAjaxDetailsProduct = {
         $(renderAPI.postAPI(GET_ALL_RATES, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterRates, callAjaxDetailsProduct.errorAfterRates));
     },
     dataAfterRates: function (result) {
-        debugger
         $(callAjaxDetailsProduct.chartColumn('chart-rate', result.data, 'Thống kê đánh giá'))
     },
-    errorAfterRates: function () {
-        alert("Lấy đánh giá thất bại");
-        console.log(xhr);
+    errorAfterRates: function (xhr, status) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
     chartColumn: function (element, data, text) {
         var chart = new CanvasJS.Chart(element, {
@@ -209,5 +223,44 @@ var callAjaxDetailsProduct = {
             }]
         });
         chart.render();
+    },
+    getRelatedProducts: function () {
+        var id = GetURLParameter('productId');
+        var data = {
+            id: id
+        }
+        $(renderAPI.postAPI(GET_PRODUCT_RELATED, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.successGetRelatedProducts, callAjaxDetailsProduct.errorGetRelatedProducts));
+    },
+    successGetRelatedProducts: function (result) {
+        $('.list-product-related').html('');
+        var data = result.data;
+        $.each(data, function (index, value) {
+            var query = '<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 product">' +
+                '<div class="product-thumb">' +
+                '<div class="image">' +
+                '<a>' +
+                '<img src="' + value.image[0].path + '" alt="image" title="image" class="img-responsive" />' +
+                '</a>' +
+                '<div class="onhover1">' +
+                '<div class="button-group">' +
+                '<button class="icons cart-icon" type="button"><i class="icon_cart_alt"> <span hidden>' + value.id + '</span></i></button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="caption text-center">' +
+                '<h4><a href="#">' + value.name + '</a></h4>' +
+                '<p class="price">' + formatNumber(value.cost, ',', '.') + ' VNĐ' + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+            $('.list-product-related').append(query);
+        });
+    },
+    errorGetRelatedProducts: function (xhr, status) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     }
 }

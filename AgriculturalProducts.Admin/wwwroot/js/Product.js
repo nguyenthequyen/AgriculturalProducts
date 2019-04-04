@@ -261,7 +261,6 @@ var callAjaxProductAdmin = {
         $(renderAPI.isWorking(this));
         var checkIsWorking = $(".product tbody").find("isWorking");
         if (checkIsWorking) {
-            debugger
             var productId = $('.isWorking #product-id').text();
             var data = {
                 id: productId
@@ -302,7 +301,6 @@ var callAjaxProductAdmin = {
     },
     successGetProductById: function (result) {
         var product = result.data;
-        debugger
         $('.product-name').val(product.name);
         $('.product-id').val(product.id);
         $('.product-code').val(product.code);

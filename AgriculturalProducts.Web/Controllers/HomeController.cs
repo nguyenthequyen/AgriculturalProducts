@@ -12,5 +12,9 @@ namespace AgriculturalProducts.API.Controllers
         {
             return View();
         }
+        public IActionResult Securety()
+        {
+            return View();
+        }
     }
 }

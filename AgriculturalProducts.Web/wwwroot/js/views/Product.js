@@ -36,8 +36,12 @@ var callAjaxProduct = {
             $('.list-product').append(query);
         });
     },
-    errorNewProduct: function () {
-
+    errorNewProduct: function (xhr) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
     callAjaxDiscountProducts: function () {
         $(renderAPI.postAPI(LIST_TOP_DISCOUNT_PRODUCT, true, 'post', null, callAjaxProduct.dataDiscountProduct, callAjaxProduct.errorDiscountProduct));
@@ -67,8 +71,12 @@ var callAjaxProduct = {
             $('.product-discount').append(query);
         });
     },
-    errorDiscountProduct: function () {
-
+    errorDiscountProduct: function (xhr) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
     addProductToCart: function () {
         $('.list-product').find('.product-thumb').removeClass('isWorking');
@@ -88,8 +96,12 @@ var callAjaxProduct = {
     dataAfterAddCarts: function (result) {
         console.log(result);
     },
-    errorAfterAddCarts: function (jqXHR, exception) {
-        console.log(jqXHR);
+    errorAfterAddCarts: function (xhr, exception) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
     getDetailsProducts: function () {
         $('.list-product').find('.product-thumb').removeClass('isWorking');
@@ -118,9 +130,15 @@ var callAjaxProduct = {
         $(renderAPI.postAPI(SEARCH_PRODUCT, true, 'post', JSON.stringify(data), callAjaxProduct.dataAfterSearch, callAjaxProduct.errorSearchProduct));
     },
     dataAfterSearch: function (result) {
-        var name = $('.txt-text-search').val()
-        $.each(result.data, function (index, value) {
-            window.location.href = DOMAIN + "Product/SearchProduct?name=" + name;
-        })
+        var name = $('.txt-text-search').val();
+        localStorage.setItem('name_product', name);
+        window.location.href = DOMAIN + "Product/SearchProduct?name=" + name;
+    },
+    errorSearchProduct: function (xhr, status) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     }
 }

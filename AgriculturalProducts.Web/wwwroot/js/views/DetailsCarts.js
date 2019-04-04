@@ -37,8 +37,12 @@ var callAjaxCartsDetails = {
             })
         }
     },
-    errorViewsCartsDetails: function (jqXHR, exception) {
-        console.log(jqXHR);
+    errorViewsCartsDetails: function (xhr, exception) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
     orderCarts: function () {
         var arr = [];
@@ -53,7 +57,6 @@ var callAjaxCartsDetails = {
             }
             arr.push(data);
         });
-        debugger
         $(renderAPI.postAPI(ORDER_NOW, true, 'post', JSON.stringify(arr), callAjaxCartsDetails.dataOrderCarts, callAjaxCartsDetails.errorOrderCarts))
     },
     dataOrderCarts: function (result) {

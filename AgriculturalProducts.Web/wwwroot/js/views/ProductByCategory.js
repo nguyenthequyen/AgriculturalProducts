@@ -6,7 +6,6 @@
 var callAjaxProductByCategiry = {
     getProductByCategoriesViews: function () {
         var name = GetURLParameter('categoriesId');
-        debugger
         var data = {
             id: name
         }
@@ -14,7 +13,6 @@ var callAjaxProductByCategiry = {
     },
     dataProductByCategoriesViews: function (result) {
         $('.list-product').html('');
-        debugger
         $.each(result.data, function (index, value) {
             var query = '<div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 product">' +
                 '<div class="product-thumb">' +
@@ -38,6 +36,10 @@ var callAjaxProductByCategiry = {
         });
     },
     errorProductByCategoriesViews: function (xhr, status) {
-
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     }
 }

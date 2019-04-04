@@ -45,5 +45,10 @@ namespace AgriculturalProducts.Services
             }
             _unitOfWork.Commit();
         }
+
+        public List<object> GetProductByCategory(Guid id)
+        {
+            return _reponsitory.GetProductByCategory(id);
+        }
     }
 }

@@ -59,7 +59,7 @@ var callAjaxAccount = {
         $('.li-logout').show();
     },
     errorGetUserInforInforAutoLoad: function (jqXHR, exception) {
-        console.log(jqXHR);
+        localStorage.removeItem("access_token");
     },
     logoutAccount: function () {
         localStorage.removeItem('access_token');

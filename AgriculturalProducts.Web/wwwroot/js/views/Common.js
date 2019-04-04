@@ -4,6 +4,7 @@ var GET_NEW_PRODUCT = "api/Product/list-new-product";
 var LIST_TOP_DISCOUNT_PRODUCT = "api/Product/list-top-discount-product";
 var PRODUCT_DETAILS = DOMAIN + "api/product/get-product-details";
 var SEARCH_PRODUCT = DOMAIN + "api/product/find-product-by-name";
+var GET_PRODUCT_RELATED = DOMAIN + "api/product/related-products";
 //Account
 var REGISTER = DOMAIN + "api/account/create-user";
 var LOGIN = DOMAIN + "api/account/login";
@@ -23,20 +24,12 @@ var GET_ALL_COMMENT = DOMAIN + "api/Comment/get-comment-byproductId";
 var CREATED_RATE = DOMAIN + "api/Rates/created-rates";
 var GET_ALL_RATES = DOMAIN + "api/rates/get-all-rates";
 //Categories 
-var GET_ALL_CATEGORIES = DOMAIN + "api/Categories/get_categories"
-var GET_PRODUCT_BYCATEGORIES = DOMAIN + "api/Categories/get_productby_categories"
-function formatNumber(nStr, decSeperate, groupSeperate) {
-    nStr += '';
-    x = nStr.split(decSeperate);
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
-    }
-    return x1 + x2;
-}
+var GET_ALL_CATEGORIES = DOMAIN + "api/Categories/get_categories";
+var GET_PRODUCT_BYCATEGORIES = DOMAIN + "api/Categories/get_productby_categories";
+//Market
+var GET_MARKET = DOMAIN + "api/MarketApi/get-market-product";
 
+var nameProduct = "";
 var renderAPI = {
     postAPI: function (url, async, method, data, callbackSuccess, callbackError) {
         $.ajax({
@@ -75,7 +68,6 @@ var renderAPI = {
         $(result).parent().parent().parent().parent().addClass("isWorking");
     },
     isWorkingDropdownList: function (result) {
-        debugger
         $(result).addClass('isWorking');
     },
     isWorkingCarts: function (result) {
@@ -94,4 +86,15 @@ function GetURLParameter(sParam) {
             return sParameterName[1];
         }
     }
+}
+function formatNumber(nStr, decSeperate, groupSeperate) {
+    nStr += '';
+    x = nStr.split(decSeperate);
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+    }
+    return x1 + x2;
 }

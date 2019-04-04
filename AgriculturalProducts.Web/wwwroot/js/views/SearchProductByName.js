@@ -1,10 +1,9 @@
 ﻿$(document).ready(function () {
     $(callAjaxSearchProduct.searchByName);
 })
-
 var callAjaxSearchProduct = {
     searchByName: function () {
-        var name = GetURLParameter('name');
+        var name = localStorage.getItem("name_product");
         var data = {
             name: name
         }
@@ -35,6 +34,10 @@ var callAjaxSearchProduct = {
         });
     },
     errorAfterFindProduct: function (jqXHR, exception) {
-        console.log(jqXHR);
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     }
 }

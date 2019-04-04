@@ -13,5 +13,6 @@ namespace AgriculturalProducts.Services
         List<object> GetProductDetails(Guid id);
         List<object> FindProductByName(string name);
         void UpdateProduct(List<ProductOrder> productOrders);
+        List<object> GetProductByCategory(Guid id);
     }
 }

@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Market";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .paging ul li {
+        display: inline-block;
+    }
+</style>
+<div class="mycart">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="table-responsive">
+                        <table class="table market">
+                            <thead>
+                                <tr>
+                                    <td class="text-left">STT</td>
+                                    <td class="text-left">Sản phẩm</td>
+                                    <td class="text-center">Giá bán hôm nay</td>
+                                    <td class="text-center">Giá bán hôm qua</td>
+                                    <td class="text-center">Thay đổi</td>
+                                    <td class="text-center">Biến động</td>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </form>
+                <div class="paging">
+                    <ul>
+                        <li>
+                            <span class="float-left pr-1">Trang</span>
+                        </li>
+                        <li>
+                            <input type="text" class="float-left form-control page-number-market text-pagin" value="1" placeholder="1">
+                        </li>
+                        <li>
+                            <span class="pl-1">trên</span> <span class="total-pages pr-1"></span>
+                        </li>
+                        <li>
+                            <input type="text" class="form-control page-size-market text-pagin" value="10" placeholder="col-md-1">
+                        </li>
+                        <li>
+                            <button type="button" class="ml-2 mr-3 btn btn-info btn-sm pt-0 pb-0 btn-get-data-market">Lấy dữ liệu</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/views/Market.js"></script>
+}

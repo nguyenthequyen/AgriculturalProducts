@@ -33,7 +33,6 @@ var callAjaxAccount = {
         }
     },
     dataUserInfor: function (result) {
-        debugger
     },
     errorGetUserInfor: function (xhr, status) {
         if (xhr.status === 401) {

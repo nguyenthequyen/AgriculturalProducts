@@ -33,8 +33,12 @@ var callAjaxCarts = {
             })
         }
     },
-    errorViewsCarts: function (jqXHR, exception) {
-        console.log(jqXHR);
+    errorViewsCarts: function (xhr, exception) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
     removeCarts: function () {
         $(renderAPI.isWorkingCarts(this));
@@ -63,7 +67,11 @@ var callAjaxCarts = {
             $('.details-carts tbody').append(query);
         })
     },
-    errorAfterRemove: function (jqXHR, exception) {
-        console(jqXHR);
+    errorAfterRemove: function (xhr, exception) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     }
 }

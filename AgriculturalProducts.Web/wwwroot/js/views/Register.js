@@ -29,6 +29,10 @@ var callAjaxAccount = {
         window.location.href = DOMAIN + "AccountViews/Login";
     },
     errorCreatedUser: function (jqXHR, exception) {
-        console.log(jqXHR);
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     },
 }

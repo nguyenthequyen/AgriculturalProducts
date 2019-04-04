@@ -33,6 +33,10 @@ var callAjaxBlogs = {
         })
     },
     errorGerBlogs: function (xhr, status) {
-        console.log(xhr);
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
     }
 }
