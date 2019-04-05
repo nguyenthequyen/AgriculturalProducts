@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AgriculturalProducts.Models.Common
+namespace AgriculturalProducts.Models
 {
     public static class ConvertBase64
     {

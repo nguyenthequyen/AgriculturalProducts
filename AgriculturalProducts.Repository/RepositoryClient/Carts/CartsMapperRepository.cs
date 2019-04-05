@@ -1,5 +1,4 @@
 ﻿using AgriculturalProducts.Models;
-using AgriculturalProducts.Models.Common;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

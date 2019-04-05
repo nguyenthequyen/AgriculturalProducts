@@ -212,7 +212,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                             StatusProductId = Guid.Parse(workSheet.Cells[i, 16].Value.ToString()),
                         });
                     }
-                    _productService.InsertProduct(producList);
+                    _productService.InsertProductExcel(producList);
                 }
                 return Ok(new Result() { Code = 200, Data = "Thêm sản phẩm từ file excel thành công", Error = null });
             }

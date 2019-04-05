@@ -107,5 +107,23 @@ namespace AgriculturalProducts.Web.Controllers.Api
                 return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = null, Error = "Đặt hàng thất bại" });
             }
         }
+        [HttpPost]
+        [Route("manager-order")]
+        [Authorize]
+        public async Task<IActionResult> ManagerOrder()
+        {
+            try
+            {
+                var claimsIdentity = _httpContextAccessor.HttpContext.User.Claims;
+                var userId = claimsIdentity.FirstOrDefault(x => x.Type == "UserId").Value;
+                var data = _orderService.GetListOrder(Guid.Parse(userId));
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = data, Error = null });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Đặt hàng thất bại: " + ex);
+                return Ok(new Result() { Message = "success", Code = (int)HttpStatusCode.OK, Data = null, Error = "Lấy danh sách đơn hàng thất bại" });
+            }
+        }
     }
 }

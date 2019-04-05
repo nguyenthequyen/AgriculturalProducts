@@ -69,6 +69,17 @@ namespace AgriculturalProducts.Services
             }
             _unitOfWork.Commit();
         }
+        public void InsertProductExcel (List<Product> product)
+        {
+            foreach (var item in product)
+            {
+                item.Id = Guid.NewGuid();
+                item.ModifyDate = DateTime.Now;
+                item.CreatedDate = DateTime.Now;
+                Add(item);
+            }
+            _unitOfWork.Commit();
+        }
 
         public int ProductStatistics()
         {

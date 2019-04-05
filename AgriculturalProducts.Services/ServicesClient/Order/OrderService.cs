@@ -23,5 +23,10 @@ namespace AgriculturalProducts.Services
             Add(order);
             _unitOfWork.Commit();
         }
+
+        public List<object> GetListOrder(Guid userId)
+        {
+            return _reponsitory.GetListOrder(userId);
+        }
     }
 }

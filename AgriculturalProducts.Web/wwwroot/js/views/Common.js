@@ -17,6 +17,7 @@ var REMOVE_CARTS_SESION = DOMAIN + "api/Carts/remove-carts";
 //Order
 var ORDER_NOW = DOMAIN + "api/Order/order-now";
 var GET_BLOGS = DOMAIN + "api/BlogsClient/get-top-blogs";
+var GET_ORDER_BY_USER_ID = DOMAIN + "api/order/manager-order"
 //COMMENT
 var COMMENT_CREATED = DOMAIN + "api/comment/created-comment";
 var GET_ALL_COMMENT = DOMAIN + "api/Comment/get-comment-byproductId";

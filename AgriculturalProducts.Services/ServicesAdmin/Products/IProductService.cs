@@ -10,6 +10,7 @@ namespace AgriculturalProducts.Services
     public interface IProductService : IBaseService<Product>
     {
         void InsertProduct(List<Product> product);
+        void InsertProductExcel(List<Product> product);
         void UpdateProduct(Product product);
         IEnumerable<Product> GetAllProduct();
         void DeleteProduct(Product product);

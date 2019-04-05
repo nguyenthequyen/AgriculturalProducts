@@ -20,5 +20,9 @@ namespace AgriculturalProducts.Web.Controllers
         {
             return View();
         }
+        public IActionResult AccountInfor()
+        {
+            return View();
+        }
     }
 }

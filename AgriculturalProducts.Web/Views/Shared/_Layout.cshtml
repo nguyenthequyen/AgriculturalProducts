@@ -21,6 +21,12 @@
     <link href="~/css/style.css" rel="stylesheet" type="text/css" />
     @RenderSection("Styles", required: false)
     @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">*@
+    <style>
+        .imge-rerize {
+            height: 260px;
+            width: 254px;
+        }
+    </style>
 </head>
 <body class="header3">
     <!--top start here -->
@@ -57,7 +63,7 @@
                                     <a href="#"><i class="icon_profile"></i>Thông tin tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="icon_archive"></i>Quản lý đơn hàng</a>
+                                    <a asp-action="Order" asp-controller="ManagerOrder"><i class="icon_archive"></i>Quản lý đơn hàng</a>
                                 </li>
                                 <li>
                                     <a href="#"><i class="icon_heart"></i>Sản phẩm yêu thích</a>

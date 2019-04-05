@@ -8,5 +8,6 @@ namespace AgriculturalProducts.Services
     public interface IOrderService : IBaseService<Order>
     {
         void AddOrder(Order order);
+        List<object> GetListOrder(Guid userId);
     }
 }

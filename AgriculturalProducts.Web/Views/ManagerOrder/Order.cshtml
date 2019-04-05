@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .height-image {
+        height: 40px;
+        width: 40px;
+    }
+</style>
+<div class="mycart">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="table-responsive">
+                        <table class="table list-order">
+                            <thead>
+                                <tr>
+                                    <td class="text-left">Sản phẩm</td>
+                                    <td class="text-center">Số lượng</td>
+                                    <td class="text-center">Tổng tiền</td>
+                                    <td class="text-center">Tình trạng</td>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/views/ManagerOrder.js"></script>
+}

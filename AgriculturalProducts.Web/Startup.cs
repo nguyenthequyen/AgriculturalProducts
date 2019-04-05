@@ -75,9 +75,10 @@ namespace AgriculturalProducts.APIWeb
 
             services.AddSession(options =>
             {
-                // Set a short timeout for easy testing.
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromMinutes(100);
+                options.IOTimeout = TimeSpan.FromMinutes(100);
                 options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
             Mapper.Initialize(cfg =>
             {

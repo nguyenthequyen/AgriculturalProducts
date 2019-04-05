@@ -19,7 +19,7 @@ var callAjaxProduct = {
                 '<div class="product-thumb">' +
                 '<div class="image">' +
                 '<a>' +
-                '<img src="' + value.image[0].path + '" alt="image" title="image" class="img-responsive" />' +
+                '<img src="' + value.image[0].path + '" alt="image" title="image" class="img-responsive imge-rerize" />' +
                 '</a>' +
                 '<div class="onhover1">' +
                 '<div class="button-group">' +
@@ -54,7 +54,7 @@ var callAjaxProduct = {
                 '<div class="product-thumb">' +
                 '<div class="image">' +
                 '<a>' +
-                '<img src="' + value.image[0].path + '" alt="image" title="image" class="img-responsive" />' +
+                '<img src="' + value.image[0].path + '" alt="image" title="image" class="img-responsive imge-rerize"/>' +
                 '</a>' +
                 '<div class="onhover1">' +
                 '<div class="button-group">' +

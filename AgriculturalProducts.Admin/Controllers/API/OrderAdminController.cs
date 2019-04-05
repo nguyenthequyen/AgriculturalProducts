@@ -93,7 +93,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
                 var product = await _productService.FindProductById(orderParam.ProductId);
                 var order = await _orderAdminService.GetFirstOrDefault(orderParam.OrderId);
                 var statusProduct = await _statusCartsService.GetFirstOrDefault(orderParam.StatusCartId);
-                if (orderParam.StatusCart == "Chờ xử lý")
+                if (orderParam.StatusCart != "Chờ xử lý")
                 {
                     if (orderDetails != null && order != null && product != null)
                     {
