@@ -60,6 +60,9 @@ $(document).ready(function () {
     $(callAjaxDetailsProduct.getAllComments);
     $(callAjaxDetailsProduct.getAllRates);
     $(callAjaxDetailsProduct.getRelatedProducts);
+    $('.list-product-related').on('click', '.icons.cart-icon', callAjaxProduct.addProductToCart);
+    $('.details-products').on('click', '.btn-default', callAjaxDetailsProduct.addProductToCart);
+    $('.list-product-related').on('click', '.caption.text-center', callAjaxProduct.getDetailsProducts);
 })
 function responseMessage(msg) {
     $('.success-box').fadeIn(200);
@@ -248,7 +251,7 @@ var callAjaxDetailsProduct = {
                 '</div>' +
                 '</div>' +
                 '<div class="caption text-center">' +
-                '<h4><a href="#">' + value.name + '</a></h4>' +
+                '<h4><a style="cursor:pointer;">' + value.name + '</a></h4>' +
                 '<p class="price">' + formatNumber(value.cost, ',', '.') + ' VNĐ' + '</p>' +
                 '</div>' +
                 '</div>' +
@@ -262,5 +265,22 @@ var callAjaxDetailsProduct = {
         } else {
             console.log(xhr);
         }
-    }
+    },
+    addProductToCart: function () {
+        var id = GetURLParameter('productId');
+        var data = {
+            id: id
+        }
+        $(renderAPI.postAPI(ADD_TO_CARTS, true, 'post', JSON.stringify(data), callAjaxDetailsProduct.dataAfterAddCarts, callAjaxDetailsProduct.errorAfterAddCarts));
+    },
+    dataAfterAddCarts: function (result) {
+        console.log(result);
+    },
+    errorAfterAddCarts: function (xhr, exception) {
+        if (xhr.status == 500) {
+            window.location.href = DOMAIN + "Home/ServerInternal";
+        } else {
+            console.log(xhr);
+        }
+    },
 }

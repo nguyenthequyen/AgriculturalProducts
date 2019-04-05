@@ -15,7 +15,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Owner,Admin")]
+    [Authorize(Roles = "Owner,Admin")]
     public class ProviderAdminController : ControllerBase
     {
         private readonly IProviderService _providerService;

@@ -3,8 +3,9 @@
     $(callAjaxProduct.callAjaxDiscountProducts);
     $('.list-product').on('click', '.icons.cart-icon', callAjaxProduct.addProductToCart);
     $('.list-product').on('click', '.caption.text-center', callAjaxProduct.getDetailsProducts);
+    $('.product-discount').on('click', '.caption.text-center', callAjaxProduct.getDetailsProducts);
+    $('.product-discount').on('click', '.icons.cart-icon', callAjaxProduct.addProductToCart);
     $('.btn-search').on('click', callAjaxProduct.searchProducctByName);
-
 });
 
 var callAjaxProduct = {

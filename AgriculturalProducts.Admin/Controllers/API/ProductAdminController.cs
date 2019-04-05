@@ -20,7 +20,7 @@ namespace AgriculturalProducts.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Owner,Admin")]
+    [Authorize(Roles = "Owner,Admin")]
     public class ProductAdminController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -90,6 +90,11 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                     var image = _imagesService.FindImageById(id.Id);
                     foreach (var item in image)
                     {
+                        //DirectoryInfo di = new DirectoryInfo(item.Path);
+                        //foreach (FileInfo file in di.GetFiles())
+                        //{
+                        //    file.Delete();
+                        //}
                         _imagesService.DeleteImage(item);
                     }
                     _unitOfWork.Commit();

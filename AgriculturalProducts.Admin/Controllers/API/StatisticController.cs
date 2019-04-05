@@ -14,7 +14,7 @@ namespace AgriculturalProducts.Admin.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Owner,Admin")]
+    [Authorize(Roles = "Owner,Admin")]
     public class StatisticController : ControllerBase
     {
         private readonly IStatisticsAdminService _statisticsAdminService;
