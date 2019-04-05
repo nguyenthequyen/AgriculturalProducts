@@ -73,7 +73,6 @@ namespace AgriculturalProducts.Services
         {
             foreach (var item in product)
             {
-                item.Id = Guid.NewGuid();
                 item.ModifyDate = DateTime.Now;
                 item.CreatedDate = DateTime.Now;
                 Add(item);

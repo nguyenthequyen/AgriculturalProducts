@@ -194,25 +194,40 @@ namespace AgriculturalProducts.Web.Admin.Controllers
                     {
                         producList.Add(new Product
                         {
-                            Name = workSheet.Cells[i, 1].Value.ToString(),
-                            Code = workSheet.Cells[i, 2].Value.ToString(),
-                            View = int.Parse(workSheet.Cells[i, 3].Value.ToString()),
-                            Status = int.Parse(workSheet.Cells[i, 4].Value.ToString()),
-                            CostOld = int.Parse(workSheet.Cells[i, 5].Value.ToString()),
-                            Cost = int.Parse(workSheet.Cells[i, 6].Value.ToString()),
-                            Mass = int.Parse(workSheet.Cells[i, 7].Value.ToString()),
-                            ShortDescription = workSheet.Cells[i, 8].Value.ToString(),
-                            FullDescription = workSheet.Cells[i, 9].Value.ToString(),
-                            Quantity = int.Parse(workSheet.Cells[i, 10].Value.ToString()),
-                            Sale = int.Parse(workSheet.Cells[i, 11].Value.ToString()),
-                            CategoryId = Guid.Parse(workSheet.Cells[i, 12].Value.ToString()),
-                            ProviderId = Guid.Parse(workSheet.Cells[i, 13].Value.ToString()),
-                            ProductTypeId = Guid.Parse(workSheet.Cells[i, 14].Value.ToString()),
-                            UnitId = Guid.Parse(workSheet.Cells[i, 15].Value.ToString()),
-                            StatusProductId = Guid.Parse(workSheet.Cells[i, 16].Value.ToString()),
+                            Id = Guid.Parse(workSheet.Cells[i, 1].Value.ToString()),
+                            Name = workSheet.Cells[i, 2].Value.ToString(),
+                            Code = workSheet.Cells[i, 3].Value.ToString(),
+                            View = int.Parse(workSheet.Cells[i, 4].Value.ToString()),
+                            Status = int.Parse(workSheet.Cells[i, 5].Value.ToString()),
+                            CostOld = int.Parse(workSheet.Cells[i, 6].Value.ToString()),
+                            Cost = int.Parse(workSheet.Cells[i, 7].Value.ToString()),
+                            Mass = int.Parse(workSheet.Cells[i, 8].Value.ToString()),
+                            ShortDescription = workSheet.Cells[i, 9].Value.ToString(),
+                            FullDescription = workSheet.Cells[i, 10].Value.ToString(),
+                            Quantity = int.Parse(workSheet.Cells[i, 11].Value.ToString()),
+                            Sale = int.Parse(workSheet.Cells[i, 12].Value.ToString()),
+                            CategoryId = Guid.Parse(workSheet.Cells[i, 13].Value.ToString()),
+                            ProviderId = Guid.Parse(workSheet.Cells[i, 14].Value.ToString()),
+                            ProductTypeId = Guid.Parse(workSheet.Cells[i, 15].Value.ToString()),
+                            UnitId = Guid.Parse(workSheet.Cells[i, 16].Value.ToString()),
+                            StatusProductId = Guid.Parse(workSheet.Cells[i, 17].Value.ToString()),
                         });
                     }
                     _productService.InsertProductExcel(producList);
+                    ExcelWorksheet workSheetImage = package.Workbook.Worksheets["Images"];
+                    int totalRowsImages = workSheetImage.Dimension.Rows;
+                    List<Image> images = new List<Image>();
+                    for (int j = 2; j < totalRowsImages; j++)
+                    {
+                        var image = new Image()
+                        {
+                            ProductId = Guid.Parse(workSheetImage.Cells[j, 1].Value.ToString()),
+                            Path = workSheetImage.Cells[j, 2].Value.ToString(),
+                            Name = workSheetImage.Cells[j, 3].Value.ToString(),
+                        };
+                        _imagesService.InsertImageExcelt(image);
+                    }
+                    _unitOfWork.Commit();
                 }
                 return Ok(new Result() { Code = 200, Data = "Thêm sản phẩm từ file excel thành công", Error = null });
             }

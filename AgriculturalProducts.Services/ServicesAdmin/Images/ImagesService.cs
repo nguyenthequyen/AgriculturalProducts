@@ -56,7 +56,7 @@ namespace AgriculturalProducts.Services
                         char[] fileNameArray = extension[0].ToCharArray();
                         Array.Reverse(fileNameArray);
                         var name = Guid.NewGuid();
-                        fileName = name + "." + String.Join("", fileNameArray); ;
+                        fileName = name + "." + String.Join("", fileNameArray);
                         string fullPath = Path.Combine(newPath, fileName);
                         using (var stream = new FileStream(fullPath, FileMode.Create))
                         {
@@ -74,6 +74,22 @@ namespace AgriculturalProducts.Services
                 }
                 _unitOfWork.Commit();
             }
+        }
+
+        public void InsertImageExcelt(Image image)
+        {
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string newPath = Path.Combine(@"F:\Upload", image.ProductId.ToString());
+            if (!Directory.Exists(image.ProductId.ToString()))
+            {
+                Directory.CreateDirectory(newPath);
+            }
+            string newstring = image.Path.Substring(image.Path.Length - 3, 3);
+            var file = newPath + "\\" + Guid.NewGuid() + "." + newstring;
+            File.Copy(image.Path.ToString(), file);
+            image.Id = Guid.NewGuid();
+            image.Path = file;
+            _reponsitory.InsertImage(image);
         }
     }
 }

@@ -11,5 +11,6 @@ namespace AgriculturalProducts.Services
         void InsertImage(List<IFormFile> files, string productId);
         void DeleteImage(Image image);
         IEnumerable<Image> FindImageById(Guid id);
+        void InsertImageExcelt(Image image);
     }
 }
